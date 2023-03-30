@@ -23,12 +23,23 @@ class JobPosting(db.Model):
     # mentions_years_experience = db.Column(db.Boolean, nullable=False)
     # years_experience = db.Column(db.Integer, nullable=True)
 
+@dataclass
 class JobPostingSkills(db.Model):
+    id: int
+    job_posting_id: int
+    skill_id: int
+
     id = db.Column(db.Integer, primary_key=True)
     job_posting_id = db.Column(db.Integer, db.ForeignKey('job_posting.id'), nullable=False)
     skill_id = db.Column(db.Integer, db.ForeignKey('skill.id'), nullable=False)
 
+@dataclass
 class Skill(db.Model):
+    id: int
+    name: str
+    soft_skill: bool
+    hard_skill: bool
+
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
     soft_skill = db.Column(db.Boolean, nullable=True)
