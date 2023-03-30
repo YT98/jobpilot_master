@@ -2,10 +2,12 @@ import os
 from dotenv import load_dotenv
 from flask import Flask, request
 from flask_migrate import Migrate
+from flask_sqlalchemy import SQLAlchemy
 
-from models import db, JobPosting
-from routes.routes import init_routes
 from gpt.gpt import init_openai
+
+db = SQLAlchemy()
+migrate = Migrate()
 
 app = Flask(__name__)
 
@@ -17,9 +19,9 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URI')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
-migrate = Migrate(app, db)
-init_routes(app)
-init_openai()
+migrate.init_app(app, db)
 
-if __name__ == '__main__':
-    app.run(debug=True)
+from routes.job_posting_bp import job_posting_bp
+app.register_blueprint(job_posting_bp, url_prefix='/job_posting')
+
+init_openai()

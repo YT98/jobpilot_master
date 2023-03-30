@@ -1,7 +1,6 @@
-from flask_sqlalchemy import SQLAlchemy
 from dataclasses import dataclass
 
-db = SQLAlchemy()
+from app import db
 
 @dataclass
 class JobPosting(db.Model):
@@ -32,15 +31,3 @@ class JobPostingSkills(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     job_posting_id = db.Column(db.Integer, db.ForeignKey('job_posting.id'), nullable=False)
     skill_id = db.Column(db.Integer, db.ForeignKey('skill.id'), nullable=False)
-
-@dataclass
-class Skill(db.Model):
-    id: int
-    name: str
-    soft_skill: bool
-    hard_skill: bool
-
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255), nullable=False)
-    soft_skill = db.Column(db.Boolean, nullable=True)
-    hard_skill = db.Column(db.Boolean, nullable=True)
