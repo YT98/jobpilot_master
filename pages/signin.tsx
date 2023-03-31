@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { AppContext } from '../contexts/AppContext';
+import { useContext } from 'react';
 
 interface SignInState {
   email: string;
@@ -14,6 +16,8 @@ const SignIn: React.FC = () => {
         password: '',
         error: null,
     });
+	// TODO: Fix type error
+	const { appState, appDispatch } = useContext(AppContext);
 
 	// If the user is already logged in, redirect to the dashboard
     useEffect(() => {
@@ -54,11 +58,15 @@ const SignIn: React.FC = () => {
 			const data = await response.json();
 			// Store the token in session storage
 			sessionStorage.setItem('token', data.token);
+			// 
+			appDispatch({ type: 'LOGIN', payload: data.user });
+			console.log(data.user)
 			// Redirect to the dashboard
 			router.push('/dashboard');
 		} catch (error) {
 			// TODO: Fix type error
 			// If there is an error, set the error state
+			console.log(error)
 			setState({ ...state, error: error.message });
 		}
 	};

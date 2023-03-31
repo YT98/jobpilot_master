@@ -1,11 +1,12 @@
 import Link from 'next/link';
+import { AppContext } from "../contexts/AppContext";
+import { useContext } from "react";
 
-type SidebarProps = {
-    firstName: string;
-    lastName: string;
-  };
+const Sidebar = () => {
+  const { appState } = useContext(AppContext);
+  const firstName = appState.user ? appState.user.firstName : '';
+  const lastName = appState.user ? appState.user.lastName : '';
 
-const Sidebar = ({firstName, lastName}: SidebarProps) => {
   return (
     <div className="bg-slate-800 w-64 px-6 py-8 min-h-screen shadow-lg">
       <nav>
