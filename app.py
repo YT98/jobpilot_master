@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
-from flask import Flask, request
+from flask import Flask
+from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 
@@ -10,6 +11,8 @@ db = SQLAlchemy()
 migrate = Migrate()
 
 app = Flask(__name__)
+if (os.getenv('FLASK_ENV') == 'development'):
+    CORS(app)
 
 # Load environment variables from .env file
 load_dotenv()
