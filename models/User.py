@@ -5,18 +5,20 @@ from app import db
 @dataclass
 class User(db.Model):
     id: int
+    email: str
+    password: str
     first_name: str
     last_name: str
-    email: str
     phone_number: str
     linkedin_url: str
     github_url: str
     website_url: str
 
     id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(255), nullable=False)
+    password = db.Column(db.String(255), nullable=False)
     first_name = db.Column(db.String(255), nullable=True)
     last_name = db.Column(db.String(255), nullable=True)
-    email = db.Column(db.String(255), nullable=False)
     phone_number = db.Column(db.String(255), nullable=True)
     linkedin_url = db.Column(db.String(255), nullable=True)
     github_url = db.Column(db.String(255), nullable=True)

@@ -24,4 +24,7 @@ migrate.init_app(app, db)
 from routes.job_posting_bp import job_posting_bp
 app.register_blueprint(job_posting_bp, url_prefix='/job_posting')
 
+from routes.user_bp import user_bp
+app.register_blueprint(user_bp, url_prefix='/user')
+
 init_openai()
