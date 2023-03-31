@@ -5,7 +5,6 @@ from app import db
 from auth.auth import create_jwt_token
 from models.User import User
 
-
 SECRET_KEY = os.getenv('SECRET_KEY')
 user_bp = Blueprint('user_bp', __name__)
 
@@ -24,7 +23,15 @@ def login():
     # Create JWT token
     token = create_jwt_token(user)
 
-    return jsonify({'token': token})
+    return jsonify({
+        'token': token,
+        'user': {
+            'id': user.id,
+            'email': user.email,
+            'firstName': user.first_name,
+            'lastName': user.last_name
+        }
+    })
 
 @user_bp.route('/register', methods=['POST'])
 def register():
