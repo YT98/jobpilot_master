@@ -21,9 +21,13 @@
   "dependencies": {
     "@types/node": "^18.15.11",
     "@types/react": "^18.0.31",
+    "jsonwebtoken": "^8.5.1",
     "next": "^13.2.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "typescript": "^5.0.3"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.1"
   }
 }
