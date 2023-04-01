@@ -4,7 +4,6 @@ import textract
 import json
 
 from app import db
-from auth.auth import create_jwt_token
 from gpt.gpt import ask_gpt
 from gpt.prompts import EXTRACT_RESUME_INFORMATION_PROMPT
 from models.User import User, UserSkills, UserLanguages
@@ -15,40 +14,6 @@ from models.Language import Language
 
 SECRET_KEY = os.getenv('SECRET_KEY')
 user_bp = Blueprint('user_bp', __name__)
-
-@user_bp.route('/login', methods=['POST'])
-def login():
-    # Verify user credentials
-    email = request.json.get('email')
-    password = request.json.get('password')
-
-    user = User.query.filter_by(email=email).first()
-    if user is None:
-        return jsonify({'error': 'Invalid credentials'}), 401
-    if user.password != password:
-        return jsonify({'error': 'Invalid credentials'}), 401
-    
-    # Create JWT token
-    token = create_jwt_token(user)
-
-    return jsonify({
-        'token': token,
-        'user': {
-            'id': user.id,
-            'email': user.email,
-            'firstName': user.first_name,
-            'lastName': user.last_name
-        }
-    })
-
-@user_bp.route('/register', methods=['POST'])
-def register():
-    email = request.json.get('email')
-    password = request.json.get('password')
-    user = User(email=email, password=password)
-    db.session.add(user)
-    db.session.commit()
-    return jsonify({'message': 'success'})
 
 @user_bp.route('/<user_id>/personal_info', methods=['GET'])
 def personal_info(user_id):
