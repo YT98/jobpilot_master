@@ -5,11 +5,13 @@ export const appReducer = (state: AppState, action: Action): AppState => {
     case 'LOGIN':
       return {
         ...state,
+        loading: false,
         user: action.payload,
       };
     case 'LOGOUT':
       return {
         ...state,
+        loading: false,
         user: null,
       };
     default:

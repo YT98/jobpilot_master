@@ -20,6 +20,11 @@ const Sidebar = () => {
             </Link>
           </li>
           <li className="mb-4">
+            <Link className="text-white" href="/profile">
+              Profile
+            </Link>
+          </li>
+          <li className="mb-4">
             <Link className="text-white" href="/signout">
               Logout
             </Link>

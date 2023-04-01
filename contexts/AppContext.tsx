@@ -9,6 +9,7 @@ type AppContextType = {
 
 const initialState: AppState = {
   user: null,
+  loading: true
 };
 
 export const AppContext = createContext<AppContextType>({
@@ -26,13 +27,11 @@ const AppProvider = ({ children }: AppProviderProps) => {
   useEffect(() => {
     const user = localStorage.getItem('user');
     if (user) {
-      console.log('checking if user is logged in', user)
       appDispatch({ type: 'LOGIN', payload: JSON.parse(user) });
     }
   }, []);
 
   useEffect(() => {
-    console.log("user is logged in, updating local storage", appState.user)
     localStorage.setItem('user', JSON.stringify(appState.user));
   }, [appState.user]);
 
@@ -43,4 +42,4 @@ const AppProvider = ({ children }: AppProviderProps) => {
   );
 };
 
-export default  AppProvider;
+export default AppProvider;
