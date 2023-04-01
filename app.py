@@ -11,7 +11,8 @@ db = SQLAlchemy()
 migrate = Migrate()
 
 app = Flask(__name__)
-if (os.getenv('FLASK_ENV') == 'development'):
+if (os.getenv('ENV') == 'development'):
+    print(" * CORS Enabled")
     CORS(app)
 
 # Load environment variables from .env file
@@ -27,8 +28,8 @@ migrate.init_app(app, db)
 from routes.job_posting_bp import job_posting_bp
 app.register_blueprint(job_posting_bp, url_prefix='/job_posting')
 
-from routes.user_bp import user_bp
-app.register_blueprint(user_bp, url_prefix='/user')
+from routes.profile_bp import user_bp
+app.register_blueprint(user_bp, url_prefix='/profile')
 
 from routes.auth_bp import auth_bp
 app.register_blueprint(auth_bp, url_prefix='/auth')

@@ -15,7 +15,7 @@ from models.Language import Language
 SECRET_KEY = os.getenv('SECRET_KEY')
 user_bp = Blueprint('user_bp', __name__)
 
-@user_bp.route('/<user_id>/personal_info', methods=['GET'])
+@user_bp.route('/personal-information/<user_id>', methods=['GET'])
 def personal_info(user_id):
     user = User.query.filter_by(id=user_id).first()
     return jsonify({
@@ -28,7 +28,7 @@ def personal_info(user_id):
         'website': user.website_url,
     })
 
-@user_bp.route('/<user_id>/personal_info', methods=['POST'])
+@user_bp.route('/personal-information/<user_id>', methods=['POST'])
 def update_personal_info(user_id):
     user = User.query.filter_by(id=user_id).first()
     user.first_name = request.json.get('firstName')
@@ -40,7 +40,7 @@ def update_personal_info(user_id):
     db.session.commit()
     return jsonify({'message': 'success'})
 
-@user_bp.route('/<user_id>/skills', methods=['GET'])
+@user_bp.route('/skills/<user_id>', methods=['GET'])
 def get_skills(user_id):
     user_skills = UserSkills.query.filter_by(user_id=user_id).all()
     skills = []
@@ -52,7 +52,7 @@ def get_skills(user_id):
         })
     return jsonify(skills)
 
-@user_bp.route('/<user_id>/work_experience', methods=['GET'])
+@user_bp.route('/work-experience/<user_id>', methods=['GET'])
 def get_work_experience(user_id):
     work_experience = WorkExperience.query.filter_by(user_id=user_id).all()
     return jsonify([{
@@ -64,7 +64,7 @@ def get_work_experience(user_id):
         'description': experience.description
     } for experience in work_experience])
 
-@user_bp.route('/<user_id>/education', methods=['GET'])
+@user_bp.route('/education/<user_id>', methods=['GET'])
 def get_education(user_id):
     education = Education.query.filter_by(user_id=user_id).all()
     return jsonify([{
@@ -76,7 +76,7 @@ def get_education(user_id):
         'description': education.description
     } for education in education])
 
-@user_bp.route('/<user_id>/resume', methods=['POST'])
+@user_bp.route('/resume/<user_id>', methods=['POST'])
 def upload_resume(user_id):
     user = User.query.filter_by(id=user_id).first()
     
