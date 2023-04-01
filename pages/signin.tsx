@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { AppContext } from '../contexts/AppContext';
 import { useContext } from 'react';
+import { authRoutes } from '../config/routes';
 
 interface SignInState {
   email: string;
@@ -40,7 +41,7 @@ const SignIn: React.FC = () => {
 	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		try {
-			const response = await fetch('http://localhost:5000/user/login', {
+			const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL + authRoutes.signin, {
 				method: 'POST',
 				headers: {
 				'Content-Type': 'application/json',

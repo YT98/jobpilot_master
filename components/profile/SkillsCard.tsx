@@ -24,7 +24,7 @@ const SkillCard = () => {
     useEffect(() => {
         if (!appState.loading) {
             const fetchSkills = async () => {
-                const response = await fetch(`http://localhost:5000/user/${userId}/skills`);
+                const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL + '/profile/skills' + `/${userId}`);
                 const data = await response.json();
                 setState({...state, skills: data});
             }

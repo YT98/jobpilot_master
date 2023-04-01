@@ -2,6 +2,7 @@ import { AppContext } from "../../contexts/AppContext";
 import { useContext, useEffect } from "react";
 import DashboardCard from "../DashboardCard";
 import { useState } from "react";
+import { profileRoutes } from "../../config/routes";
 
 interface PersonalInformationState {
     firstName: string;
@@ -31,7 +32,7 @@ const PersonalInformationCard = () => {
     useEffect(() => {
         if (!appState.loading) {
             const fetchPersonalInformation = async () => {
-                const response = await fetch(`http://localhost:5000/user/${userId}/personal_info`);
+                const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL + profileRoutes.personalInformation + `/${userId}`);
                 const data = await response.json();
                 setState({...state, ...data});
             }
@@ -43,7 +44,7 @@ const PersonalInformationCard = () => {
         event.preventDefault();
 
         try {
-            const response = await fetch(`http://localhost:5000/user/${userId}/personal_info`, {
+            const response = await fetch(profileRoutes.personalInformation + "/" + userId, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

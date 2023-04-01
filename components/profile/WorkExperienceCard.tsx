@@ -29,7 +29,7 @@ const WorkExperienceCard = () => {
   useEffect(() => {
     if (!appState.loading) {
         const fetchWorkExperience = async () => {
-            const response = await fetch(`http://localhost:5000/user/${userId}/work_experience`);
+            const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL + '/profile/work-experience' + `/${userId}`);
             const data = await response.json();
             setState({...state, work_experience: data});
         }
