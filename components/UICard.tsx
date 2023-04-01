@@ -1,9 +1,8 @@
-
-type DashboardCardProps = {
+type UICardProps = {
     children: React.ReactNode;
 };
 
-const DashboardCard = ({children}: DashboardCardProps) => {
+const UICard = ({children}: UICardProps) => {
     return (
         <div className="bg-white shadow rounded-md p-8 m-5">
             {children}
@@ -11,4 +10,4 @@ const DashboardCard = ({children}: DashboardCardProps) => {
     );
 };
 
-export default DashboardCard;
+export default UICard;

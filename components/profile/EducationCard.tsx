@@ -1,6 +1,6 @@
 import { AppContext } from "../../contexts/AppContext";
 import { useContext, useEffect, useState } from "react";
-import DashboardCard from "../DashboardCard";
+import UICard from "../UICard";
 import { profileRoutes } from "../../config/routes";
 import protectedRequest from "../../utils/protectedRequest";
 
@@ -51,10 +51,10 @@ const EducationCard = () => {
     });
 
   return (
-    <DashboardCard>
+    <UICard>
         <p className="text-gray-600 mb-4 font-bold">Education</p>
         {educationItems}
-    </DashboardCard>
+    </UICard>
   );
 };
 

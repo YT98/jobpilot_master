@@ -1,7 +1,7 @@
 import { AppContext } from "../../contexts/AppContext";
 import { useContext, useEffect } from "react";
 import { useState } from "react";
-import DashboardCard from "../DashboardCard";
+import UICard from "../UICard";
 import protectedRequest from "../../utils/protectedRequest";
 import { profileRoutes } from "../../config/routes";
 
@@ -48,7 +48,7 @@ const SkillCard = () => {
     });
 
   return (
-    <DashboardCard>
+    <UICard>
         <div>
             <p className="text-gray-600 mb-4 font-bold">Skills</p>
             <ul className="flex"> 
@@ -59,7 +59,7 @@ const SkillCard = () => {
                 Save
             </button>
         </div>
-    </DashboardCard>
+    </UICard>
   );
 };
 

@@ -1,6 +1,6 @@
 import { AppContext } from "../../contexts/AppContext";
 import { useContext, useEffect } from "react";
-import DashboardCard from "../DashboardCard";
+import UICard from "../UICard";
 import { useState } from "react";
 import { profileRoutes } from "../../config/routes";
 import protectedRequest from "../../utils/protectedRequest";
@@ -76,7 +76,7 @@ const PersonalInformationCard = () => {
 
 
   return (
-    <DashboardCard>
+    <UICard>
             <p className="text-gray-600 mb-4 font-bold">Personal Information</p>
             <form onSubmit={handleSubmit}>
                 <div className="mb-4">
@@ -156,7 +156,7 @@ const PersonalInformationCard = () => {
                     </button>
                 </div>
             </form>
-        </DashboardCard>
+        </UICard>
   );
 };
 

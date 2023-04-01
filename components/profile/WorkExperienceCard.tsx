@@ -1,6 +1,6 @@
 import { AppContext } from "../../contexts/AppContext";
 import { useContext, useEffect, useState } from "react";
-import DashboardCard from "../DashboardCard";
+import UICard from "../UICard";
 import protectedRequest from "../../utils/protectedRequest";
 import { profileRoutes } from "../../config/routes";
 
@@ -53,10 +53,10 @@ const WorkExperienceCard = () => {
     });
 
   return (
-    <DashboardCard>
+    <UICard>
         <p className="text-gray-600 mb-4 font-bold">Work Experience</p>
         {workExperienceItems}
-    </DashboardCard>
+    </UICard>
   );
 };
 
