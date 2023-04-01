@@ -3,6 +3,7 @@ import { useContext, useEffect } from "react";
 import DashboardCard from "../DashboardCard";
 import { useState } from "react";
 import { profileRoutes } from "../../config/routes";
+import protectedRequest from "../../utils/protectedRequest";
 
 interface PersonalInformationState {
     firstName: string;
@@ -44,21 +45,15 @@ const PersonalInformationCard = () => {
         event.preventDefault();
 
         try {
-            const response = await fetch(profileRoutes.personalInformation + "/" + userId, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    firstName: state.firstName,
-                    lastName: state.lastName,
-                    email: state.email,
-                    phone_number: state.phone_number,
-                    linkedin: state.linkedin,
-                    github: state.github,
-                    website: state.website,
-                }),
-            });
+            const response = await protectedRequest(profileRoutes.personalInformation + `/${userId}`, 'POST', JSON.stringify({
+                firstName: state.firstName,
+                lastName: state.lastName,
+                email: state.email,
+                phone_number: state.phone_number,
+                linkedin: state.linkedin,
+                github: state.github,
+                website: state.website,
+            }));
             // TODO: Inform the user that the information was not updated
             // If the response is not ok, throw an error
             if (!response.ok) {
@@ -90,7 +85,7 @@ const PersonalInformationCard = () => {
                     </label>
                     <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="firstName" type="text" 
                         placeholder="First Name"
-                        value={state.firstName}
+                        value={state.firstName || ''}
                         onChange={(event) => setState({...state, firstName: event.target.value})}
                     />
                 </div>
@@ -100,7 +95,7 @@ const PersonalInformationCard = () => {
                     </label>
                     <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="lastName" type="text" 
                         placeholder="Last Name"
-                        value={state.lastName}
+                        value={state.lastName || ''}
                         onChange={(event) => setState({...state, lastName: event.target.value})}
                     />
                 </div>
@@ -110,7 +105,7 @@ const PersonalInformationCard = () => {
                     </label>
                     <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="text" 
                         placeholder="Email"
-                        value={state.email}
+                        value={state.email || ''}
                         onChange={(event) => setState({...state, email: event.target.value})}
                     />
                 </div>
@@ -120,7 +115,7 @@ const PersonalInformationCard = () => {
                     </label>
                     <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" type="text" 
                         placeholder="Phone Number"
-                        value={state.phone_number}
+                        value={state.phone_number || ''}
                         onChange={(event) => setState({...state, phone_number: event.target.value})}
                     />
                 </div>
@@ -130,7 +125,7 @@ const PersonalInformationCard = () => {
                     </label>
                     <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" type="text" 
                         placeholder="LinkedIn"
-                        value={state.linkedin}
+                        value={state.linkedin || ''}
                         onChange={(event) => setState({...state, linkedin: event.target.value})}
                     />
                 </div>
@@ -140,7 +135,7 @@ const PersonalInformationCard = () => {
                     </label>
                     <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" type="text" 
                         placeholder="Github"
-                        value={state.github}
+                        value={state.github || ''}
                         onChange={(event) => setState({...state, github: event.target.value})}
                     />
                 </div>
@@ -150,7 +145,7 @@ const PersonalInformationCard = () => {
                     </label>
                     <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" type="text" 
                         placeholder="Website"
-                        value={state.website}
+                        value={state.website || ''}
                         onChange={(event) => setState({...state, website: event.target.value})}
                     />
                 </div>

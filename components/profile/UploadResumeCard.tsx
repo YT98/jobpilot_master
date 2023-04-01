@@ -2,6 +2,8 @@ import { AppContext } from "../../contexts/AppContext";
 import { useContext, useEffect } from "react";
 import { useState } from "react";
 import DashboardCard from "../DashboardCard";
+import protectedRequest from "../../utils/protectedRequest";
+import { profileRoutes } from "../../config/routes";
 
 const UploadResumeCard = () => {
     const { appState } = useContext(AppContext);
@@ -19,17 +21,19 @@ const UploadResumeCard = () => {
         if (fileField.files == null) { return; }
 
         formData.append('resume', fileField.files[0]);
-        fetch(`http://localhost:5000/user/${userId}/resume`, {
-            method: 'POST',
-            body: formData,
-        })
-        .then(response => response.json())
-        .then(result => {
-            console.log('Success:', result);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
+        
+        const sendResume = async () => {
+            console.log(formData)
+            const response = await protectedRequest(
+                process.env.NEXT_PUBLIC_BASE_URL + profileRoutes.resume + `/${userId}`, 
+                'POST', 
+                formData,
+                'multipart/form-data'
+            );
+            const data = await response.json();
+            console.log(data);
+        }
+        sendResume();
 };
 
   return (

@@ -1,6 +1,8 @@
 import { AppContext } from "../../contexts/AppContext";
 import { useContext, useEffect, useState } from "react";
 import DashboardCard from "../DashboardCard";
+import protectedRequest from "../../utils/protectedRequest";
+import { profileRoutes } from "../../config/routes";
 
 interface WorkExperience {
     id: number;
@@ -29,7 +31,10 @@ const WorkExperienceCard = () => {
   useEffect(() => {
     if (!appState.loading) {
         const fetchWorkExperience = async () => {
-            const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL + '/profile/work-experience' + `/${userId}`);
+            const response = await protectedRequest(
+                process.env.NEXT_PUBLIC_BASE_URL + profileRoutes.workExperience + `/${userId}`,
+                'GET'
+            );
             const data = await response.json();
             setState({...state, work_experience: data});
         }

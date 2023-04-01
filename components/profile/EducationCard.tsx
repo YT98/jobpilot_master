@@ -2,6 +2,7 @@ import { AppContext } from "../../contexts/AppContext";
 import { useContext, useEffect, useState } from "react";
 import DashboardCard from "../DashboardCard";
 import { profileRoutes } from "../../config/routes";
+import protectedRequest from "../../utils/protectedRequest";
 
 interface Education {
     id: number;
@@ -28,7 +29,10 @@ const EducationCard = () => {
     useEffect(() => {
         if (!appState.loading) {
             const fetchEducation = async () => {
-                const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL + profileRoutes.education + `/${userId}`);
+                const response = await protectedRequest(
+                    process.env.NEXT_PUBLIC_BASE_URL + profileRoutes.education + `/${userId}`,
+                    'GET'
+                )
                 const data = await response.json();
                 setState({...state, education: data});
             }

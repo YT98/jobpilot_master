@@ -4,7 +4,7 @@ const authRoutes = {
 const profileRoutes = {
     personalInformation: '/profile/personal-information',
     education: '/profile/education',
-    experience: '/profile/experience',
+    workExperience: '/profile/work-experience',
     skills: '/profile/skills',
     resume: '/profile/resume',
 };

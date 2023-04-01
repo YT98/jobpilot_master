@@ -2,6 +2,8 @@ import { AppContext } from "../../contexts/AppContext";
 import { useContext, useEffect } from "react";
 import { useState } from "react";
 import DashboardCard from "../DashboardCard";
+import protectedRequest from "../../utils/protectedRequest";
+import { profileRoutes } from "../../config/routes";
 
 interface Skill {
     id: number;
@@ -24,7 +26,7 @@ const SkillCard = () => {
     useEffect(() => {
         if (!appState.loading) {
             const fetchSkills = async () => {
-                const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL + '/profile/skills' + `/${userId}`);
+                const response = await protectedRequest(process.env.NEXT_PUBLIC_BASE_URL + profileRoutes.skills + `/${userId}`, 'GET', null)
                 const data = await response.json();
                 setState({...state, skills: data});
             }
