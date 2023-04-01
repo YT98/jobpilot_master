@@ -1,52 +1,47 @@
 from flask import Blueprint, jsonify, request
+import json
 
 from app import db
 from models.JobPosting import JobPosting, JobPostingSkills
 from models.Skill import Skill
 from gpt.gpt import ask_gpt
-from gpt.prompts import COMPANY_NAME_PROMPT, JOB_TITLE_PROMPT, SKILLS_PROMPT
+from gpt.prompts import EXTRACT_JOB_POSTING_INFORMATION_PROMPT
 
 job_posting_bp = Blueprint('job_posting_bp', __name__)
 
-@job_posting_bp.route('/get_all', methods=['GET'])
-def get_all_job_postings():
-    job_postings = JobPosting.query.all()
+@job_posting_bp.route('/get-all/<user_id>', methods=['GET'])
+def get_all_job_postings(user_id):
+    job_postings = JobPosting.query.filter_by(user_id=user_id).all()
     return jsonify(job_postings)
 
-@job_posting_bp.route('/add', methods=['POST'])
-def add_job_posting():
-    data = request.get_data().decode('utf-8')
+@job_posting_bp.route('/create', methods=['POST'])
+def create_job_posting():
+    data = request.get_json()
+    user_id = data['userId']
+    description = data['description']
 
-    title = ask_gpt(data + JOB_TITLE_PROMPT, max_tokens=100, stop=["\n"])
-    company_name = ask_gpt(data + COMPANY_NAME_PROMPT, max_tokens=100, stop=["\n"])
-    skills = ask_gpt(data + SKILLS_PROMPT, max_tokens=1000).split(", ")
+    # ask to extract information
+    prompt = EXTRACT_JOB_POSTING_INFORMATION_PROMPT + description
+    print("asking gpt to extract information from job posting...")
+    # TODO: handle errors
+    response = ask_gpt(prompt, max_tokens=2000)
+    
+    job_posting_info = json.loads(response)
 
     job_posting = JobPosting(
-        title=title,
-        company_name=company_name,
-        description=data
+        title=job_posting_info['title'],
+        company_name=job_posting_info['companyName'],
+        description=description,
+        user_id=user_id
     )
+
+    # TODO: Add skills
 
     db.session.add(job_posting)
     db.session.commit()
     db.session.refresh(job_posting)
 
-    for skill_name in skills:
-        skill = Skill.query.filter_by(name=skill_name).first()
-        if skill is None:
-            skill = Skill(name=skill_name)
-            db.session.add(skill)
-            db.session.commit()
-
-        job_posting_skill = JobPostingSkills(
-            job_posting_id = job_posting.id,
-            skill_id = skill.id
-        )
-
-        db.session.add(job_posting_skill)
-
-    db.session.commit()
-    return job_posting
+    return {"message": "success"}
 
 @job_posting_bp.route('/job_posting_skills/get_by_job_posting_id/<job_posting_id>', methods=['GET'])
 def get_job_posting_skills_by_job_posting_id(job_posting_id):

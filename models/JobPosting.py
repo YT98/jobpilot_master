@@ -5,12 +5,14 @@ from app import db
 @dataclass
 class JobPosting(db.Model):
     id: int
+    user_id: int
     title: str
     description: str
     company_name: str
     date_posted: str
 
     id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     title = db.Column(db.String(255), nullable=False)
     description = db.Column(db.Text, nullable=False)
     company_name = db.Column(db.String(255), nullable=False)

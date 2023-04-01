@@ -15,6 +15,8 @@ from models.Language import Language
 SECRET_KEY = os.getenv('SECRET_KEY')
 user_bp = Blueprint('user_bp', __name__)
 
+# TODO: Add protection to all routes
+
 @user_bp.route('/personal-information/<user_id>', methods=['GET'])
 def personal_info(user_id):
     user = User.query.filter_by(id=user_id).first()

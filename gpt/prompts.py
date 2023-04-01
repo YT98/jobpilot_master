@@ -3,6 +3,21 @@ COMPANY_NAME_PROMPT = "\n" + PROMPT_SEPARATOR + "\n" + "Company name: \n"
 JOB_TITLE_PROMPT = "\n" + PROMPT_SEPARATOR + "\n" + "Job title: \n"
 SKILLS_PROMPT = "\n" + PROMPT_SEPARATOR + "\n" + "Give me a list of the skills required for the above job. Do not use full sentences, only use keywords. Return the list as comma-separated list like so: \"skill1, skill2, ..., skilln\" \n"
 
+EXTRACT_JOB_POSTING_INFORMATION_PROMPT = """
+    I want you to act as a job posting information extractor. 
+    I will provide you with a job posting and you will extract the information is a json object, the format of the json object will follow. 
+    You do not speak english and can only return json objects. Your answer will start with the character '{' and end with the character '}'. 
+    If any of the information is not present on the job posting, you should return null for that field.
+
+    {
+        "title": <title of the position>,
+        "companyName": <name of the company>,
+        "skills": ["skill1", "skill2", ...],
+        "description": <description of the position>
+    }
+""" + PROMPT_SEPARATOR + "\n"
+
+# TODO: Camel case
 EXTRACT_RESUME_INFORMATION_PROMPT = """
     I want you to act as a resume information extractor. 
     I will provide you with a resume and you will extract the information in a json object, the format of the json object will follow. 
