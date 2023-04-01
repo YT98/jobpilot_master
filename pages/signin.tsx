@@ -17,7 +17,6 @@ const SignIn: React.FC = () => {
         password: '',
         error: null,
     });
-	// TODO: Fix type error
 	const { appState, appDispatch } = useContext(AppContext);
 
 	// If the user is already logged in, redirect to the dashboard
@@ -59,16 +58,17 @@ const SignIn: React.FC = () => {
 			const data = await response.json();
 			// Store the token in session storage
 			sessionStorage.setItem('token', data.token);
-			// 
+			// Set the user in the app state
 			appDispatch({ type: 'LOGIN', payload: data.user });
-			console.log(data.user)
 			// Redirect to the dashboard
 			router.push('/dashboard');
 		} catch (error) {
-			// TODO: Fix type error
 			// If there is an error, set the error state
-			console.log(error)
-			setState({ ...state, error: error.message });
+			let errorMessage = 'Something went wrong. Please try again.';
+			if (error instanceof Error) {
+				errorMessage = error.message;
+			}
+			setState({ ...state, error: errorMessage });
 		}
 	};
 

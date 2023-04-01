@@ -69,9 +69,13 @@ const PersonalInformationCard = () => {
             const data = await response.json();
             setState({...state, ...data});
         } catch (error) {
-            // TODO: Fix type error
+            
             // TODO: Inform the user that the information was not updated
-            setState({...state, error: error.message});
+            let errorMessage = 'Something went wrong';
+            if (error instanceof Error) {
+                errorMessage = error.message;
+            }
+            setState({...state, error: errorMessage});
         }
     };
 
