@@ -39,10 +39,12 @@ class UserLanguages(db.Model):
     id: int
     user_id: int
     language_id: int
+    proficiency: str
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     language_id = db.Column(db.Integer, db.ForeignKey('language.id'), nullable=False)
+    proficiency = db.Column(db.String(255), nullable=True)
 
 @dataclass
 class UserEducation(db.Model):

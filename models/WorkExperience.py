@@ -5,6 +5,7 @@ from app import db
 @dataclass
 class WorkExperience(db.Model):
     id: int
+    user_id: int
     company_name: str
     title: str
     start_date: str
@@ -12,9 +13,10 @@ class WorkExperience(db.Model):
     description: str
 
     id = db.Column(db.Integer, primary_key=True)
-    company_name = db.Column(db.String(255), nullable=False)
-    title = db.Column(db.String(255), nullable=False)
-    start_date = db.Column(db.String(255), nullable=False)
-    end_date = db.Column(db.String(255), nullable=False)
-    description = db.Column(db.Text, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    company_name = db.Column(db.String(255), nullable=True)
+    title = db.Column(db.String(255), nullable=True)
+    start_date = db.Column(db.String(255), nullable=True)
+    end_date = db.Column(db.String(255), nullable=True)
+    description = db.Column(db.Text, nullable=True)
     
