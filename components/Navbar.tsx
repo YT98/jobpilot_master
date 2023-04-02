@@ -1,11 +1,14 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { AppContext } from "../contexts/AppContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 const Navbar = () => {
   const { appState } = useContext(AppContext);
   const firstName = appState.user ? appState.user.firstName : '';
   const lastName = appState.user ? appState.user.lastName : '';
+
+  const router = useRouter();  
 
   return (
     <div className="navbar bg-base-100 border-2 border-solid border-gray-200">
@@ -16,22 +19,22 @@ const Navbar = () => {
           </label>
           <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
             <li>
-              <Link href="/dashboard">
+              <Link href="/dashboard" className={router.pathname == "/dashboard" ? "font-bold" : ""}>
                 Dashboard
               </Link>
             </li>
             <li>
-              <Link href="/profile">
+              <Link href="/profile" className={router.pathname == "/profile" ? "font-bold" : ""}>
                 Profile
               </Link>
             </li>
             <li>
-              <Link href="/job-postings">
+              <Link href="/job-postings" className={router.pathname == "/job-postings" ? "font-bold" : ""}>
                 Job Postings
               </Link>
             </li>
             <li>
-              <Link href="/signout">
+              <Link href="/signout" className="font-bold text-red-400">
                 Logout
               </Link>
             </li>
@@ -40,7 +43,9 @@ const Navbar = () => {
       </div>
 
       <div className="navbar-center">
-        <a className="btn btn-ghost normal-case text-xl">JobPilot</a>
+        <button className="btn btn-ghost normal-case text-xl">
+          <Link href="/">JobPilot</Link>
+        </button>
       </div>  
 
       <div className="navbar-end">
