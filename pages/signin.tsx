@@ -73,10 +73,10 @@ const SignIn: React.FC = () => {
 	};
 
   return (
-	<div className="bg-sky-100 grid h-screen place-items-center">
+	<div className="bg-gray-100 grid h-full place-items-center">
 		<div className="w-full max-w-xs">
-			<form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
-				<h1 className="block text-gray-700 text-lg font-bold mb-2"> Sign In </h1>
+			<form className="bg-white border-2 border-gray-200 rounded-lg px-8 pt-6 pb-8 mb-4 prose" onSubmit={handleSubmit}>
+				<h2 className="mb-5"> Sign In </h2>
 				<div className="mb-4">
 					<label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
 						Email

@@ -6,9 +6,11 @@ interface LayoutProps {
 
 export default function Layout({ children }: LayoutProps) {
     return (
-      <div>
+      <div className="h-screen">
         <Navbar />
-        <main>{children}</main>
+        <main className="h-full">
+          {children}
+        </main>
       </div>
     )
   }
