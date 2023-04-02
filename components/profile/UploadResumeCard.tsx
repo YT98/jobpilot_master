@@ -36,27 +36,37 @@ const UploadResumeCard = () => {
 };
 
   return (
-    <UICard>
-        <div className="flex-col">
-            <p className="text-gray-600 mb-4 font-bold">Upload Resume</p>
-            <p>Manually fill in your information below or upload your resume.</p>
-            <form onSubmit={handleSubmit}>
-                <input 
-                    type="file"
-                    id="resume"
-                    name="resume"
-                    accept=".pdf"
-                    className="mt-3"
-                />
-                <button 
-                    type="submit"
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-3"
-                >
-                    Upload
-                </button>
-            </form>
+    <div className="m-5 card rounded-lg border-gray-200 bg-white border-2 p-5">
+        <div className="card-header prose p-5 pl-8">
+            <h2 className="mb-0">Automatic Fill</h2>
+            <p>To automatically fill in your profile, upload your resume or sign in with LinkedIn.</p>
         </div>
-    </UICard>
+        <div className="card-body flex flex-row align-middle">
+            <div className="flex flex-col justify-center">
+                <form onSubmit={handleSubmit} className="flex flex-col max-w-xs">
+                    <input 
+                        type="file"
+                        id="resume"
+                        name="resume"
+                        accept=".pdf"
+                        className="file-input file-input-bordered w-full max-w-xs"
+                    />
+                    <button 
+                        type="submit"
+                        className="btn btn-outline btn-sm mt-2"
+                    >
+                        Upload
+                    </button>
+                </form>
+            </div>
+            <div className="flex flex-col justify-center p-5">
+                <span className="prose"> OR </span>
+            </div>
+            <div className="flex flex-col justify-center">
+                <button className="btn btn-outline"> Sign in with LinkedIn </button>
+            </div>
+        </div>
+    </div>
   );
 };
 
