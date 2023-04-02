@@ -77,86 +77,117 @@ const PersonalInformationCard = () => {
 
   return (
     <UICard>
-            <p className="text-gray-600 mb-4 font-bold">Personal Information</p>
-            <form onSubmit={handleSubmit}>
+        <div className="card-header prose p-5">
+            <h2>Personal Information</h2>
+        </div>
+        <form onSubmit={handleSubmit} className="flex flex-wrap">
+            <div className="w-1/2 p-5">
                 <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="firstName">
-                        First Name
+                    <label className="label" htmlFor="firstName">
+                        <span className="label-text">First Name</span>
                     </label>
-                    <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="firstName" type="text" 
+                    <input 
+                        className="input input-bordered w-full" 
+                        id="firstName"
+                        type="text" 
                         placeholder="First Name"
                         value={state.firstName || ''}
                         onChange={(event) => setState({...state, firstName: event.target.value})}
                     />
                 </div>
                 <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="lastName">
-                        Last Name
+                    <label className="label" htmlFor="lastName">
+                        <span className="label-text">Last Name</span>
                     </label>
-                    <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="lastName" type="text" 
+                    <input 
+                        className="input input-bordered w-full" 
+                        id="lastName" 
+                        type="text" 
                         placeholder="Last Name"
                         value={state.lastName || ''}
                         onChange={(event) => setState({...state, lastName: event.target.value})}
                     />
                 </div>
                 <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
-                        Email
+                    <label className="label" htmlFor="email">
+                        <span className="label-text">Email</span>
                     </label>
-                    <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="text" 
+                    <input 
+                        className="input input-bordered w-full" 
+                        id="email" 
+                        type="text" 
                         placeholder="Email"
                         value={state.email || ''}
                         onChange={(event) => setState({...state, email: event.target.value})}
                     />
                 </div>
                 <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
-                        Phone Number
+                    <label className="label" htmlFor="phone-number">
+                        <span className="label-text">Phone Number</span>
                     </label>
-                    <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" type="text" 
+                    <input 
+                        className="input input-bordered w-full" 
+                        id="phone-number" 
+                        type="text" 
                         placeholder="Phone Number"
                         value={state.phone_number || ''}
                         onChange={(event) => setState({...state, phone_number: event.target.value})}
                     />
                 </div>
+            </div>
+
+            <div className="w-1/2 p-5">
                 <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
-                        LinkedIn
+                    <label className="label" htmlFor="linkedin">
+                        <span className="label-text">LinkedIn</span>
                     </label>
-                    <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" type="text" 
+                    <input 
+                        className="input input-bordered w-full" 
+                        id="password" 
+                        type="text" 
                         placeholder="LinkedIn"
                         value={state.linkedin || ''}
                         onChange={(event) => setState({...state, linkedin: event.target.value})}
                     />
                 </div>
                 <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
-                        GitHub
+                    <label className="label" htmlFor="github">
+                        <span className="label-text">Github</span>
                     </label>
-                    <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" type="text" 
+                    <input 
+                        className="input input-bordered w-full" 
+                        id="github" 
+                        type="text" 
                         placeholder="Github"
                         value={state.github || ''}
                         onChange={(event) => setState({...state, github: event.target.value})}
                     />
                 </div>
                 <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
-                        Website
+                    <label className="label" htmlFor="website">
+                        <span className="label-text">Website</span>
                     </label>
-                    <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" type="text" 
+                    <input 
+                        className="input input-bordered w-full" 
+                        id="website" 
+                        type="text" 
                         placeholder="Website"
                         value={state.website || ''}
                         onChange={(event) => setState({...state, website: event.target.value})}
                     />
                 </div>
+            </div>
 
-                <div className="flex items-center justify-between">
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-                        Save
-                    </button>
-                </div>
-            </form>
-        </UICard>
+            <div className="w-full p-5">
+                <button 
+                    className="btn btn-outline" 
+                    type="submit"
+                >
+                    Save
+                </button>
+            </div>
+        </form>
+    </UICard>
   );
 };
 
