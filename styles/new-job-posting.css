@@ -1,0 +1,95 @@
+.right {
+    @apply border-l-2 border-gray-200;
+}
+
+.create-job-posting-section {
+    @apply w-1/2 p-5 flex flex-col bg-white;
+}
+
+.create-job-posting-section.disabled {
+    @apply bg-gray-50;
+}
+
+.create-job-posting-section.disabled {
+    @apply bg-gray-50;
+}
+
+.create-job-posting-section.disabled h1 {
+    @apply text-gray-400;
+}
+
+.create-job-posting-section.disabled h3 {
+    @apply text-gray-400;
+}
+
+.create-job-posting-section.disabled p {
+    @apply text-gray-400;
+}
+
+.create-job-posting-section.disabled input {
+    @apply input-disabled;
+}
+
+.create-job-posting-section input {
+    @apply bg-gray-100
+}
+
+/* SKILL SECTION */
+
+.create-job-posting-section .placeholder-skill-input {
+    display: none;
+}
+
+.create-job-posting-section.disabled .placeholder-skill-input {
+    display: block;
+}
+
+/* MODIFY SKILLS */
+
+.create-job-posting-section .modify-skill-input-container {
+    display: block;
+    @apply input bg-gray-100 mt-2 relative;
+}
+
+.create-job-posting-section .modify-skill-input-container input {
+    @apply input bg-transparent p-0 w-full;
+}
+
+.create-job-posting-section .modify-skill-input-container button {
+    @apply absolute right-2 top-1/2 -translate-y-1/2 pl-4 pr-4;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.create-job-posting-section .modify-skill-input-container button:hover {
+    font-weight: 700;
+}
+
+.create-job-posting-section.disabled .modify-skill-input-container {
+    display: none;
+}
+
+/* ADD SKILL */
+
+.create-job-posting-section .add-skill-input-container {
+    display: block;
+    @apply input bg-gray-100 mt-2 relative;
+}
+
+.create-job-posting-section .add-skill-input-container input {
+    @apply input bg-transparent p-0 w-full;
+}
+
+.create-job-posting-section .add-skill-input-container button {
+    @apply absolute right-2 top-1/2 -translate-y-1/2 pl-4 pr-4;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.create-job-posting-section .add-skill-input-container button:hover {
+    font-weight: 700;
+}
+
+.create-job-posting-section.disabled .add-skill-input-container {
+    display: none;
+}

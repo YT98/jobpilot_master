@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import "new-job-posting.css";
+
+.btn-error:hover {
+    color: white !important;
+}

@@ -1,6 +1,7 @@
 const authRoutes = {
     signin: '/auth/login'
 };
+
 const profileRoutes = {
     personalInformation: '/profile/personal-information',
     education: '/profile/education',
@@ -9,4 +10,10 @@ const profileRoutes = {
     resume: '/profile/resume',
 };
 
-export { authRoutes, profileRoutes };
+const jobPostingRoutes = {
+    getJobPostings: '/job-postings',
+    extractJobPostingInformation: '/job-postings/fake-extract',
+    createJobPosting: '/job-postings/fake-create'
+}
+
+export { authRoutes, profileRoutes, jobPostingRoutes };

@@ -1,8 +1,8 @@
-import Sidebar from "../components/Navbar";
 import { useAuth } from "./_useAuth";
 import { AppContext } from "../contexts/AppContext";
 import { useContext, useEffect, useState } from "react";
 import JobPostingsTable from "../components/job_postings/JobPostingsTable";
+import { jobPostingRoutes } from "../config/routes";
 
 interface JobPosting {
   id: number;
@@ -31,7 +31,7 @@ const JobPostings = () => {
   useEffect(() => {
     if (!appState.loading) {
       const fetchJobPostings = async () => {
-        const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL + '/job_postings/get-all' + `/${userId}`);
+        const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL + jobPostingRoutes.getJobPostings + `/${userId}`);
         const data = await response.json();
         setState({...state, job_postings: data});
       }
