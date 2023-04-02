@@ -41,19 +41,29 @@ const EducationCard = () => {
     }, [appState.loading]);
 
     const educationItems = state.education.map((education, index) => {
-        return <div className="mt-5" key={index}>
-            <p>{education.school_name}</p>
+        return <div className="mt-5 first-of-type:mt-0" key={index}>
+            <p className="font-bold">{education.school_name}</p>
             <p>{education.degree}</p>
-            <p>{education.start_date}</p>
-            <p>{education.end_date}</p>
+            <p>{education.start_date} - {education.end_date}</p>
             <p>{education.description}</p>
         </div>
     });
 
   return (
     <UICard>
-        <p className="text-gray-600 mb-4 font-bold">Education</p>
-        {educationItems}
+        <div className="card-header prose p-5">
+            <h2>Education</h2>
+        </div>
+        <div className="p-5">
+            {educationItems}
+        </div>
+        <div className="w-full p-5">
+            <button 
+                className="btn btn-outline" 
+            >
+                Edit
+            </button>
+        </div>
     </UICard>
   );
 };

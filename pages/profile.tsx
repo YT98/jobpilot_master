@@ -1,4 +1,4 @@
-import Sidebar from "../components/Sidebar";
+import Sidebar from "../components/Navbar";
 import { useAuth } from "./_useAuth";
 import { AppContext } from "../contexts/AppContext";
 import { useContext } from "react";
@@ -15,10 +15,8 @@ const Profile = () => {
   const lastName = appState.user ? appState.user.lastName : '';
 
   return (
-    <div className="flex bg-zinc-50">
-      <Sidebar/>
-      <div className="flex-1 p-10">
-
+    <div className="flex bg-gray-100 min-h-full">
+      <div className="w-full">
 
         <UploadResumeCard />
         <PersonalInformationCard />

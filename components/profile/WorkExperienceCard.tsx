@@ -43,19 +43,29 @@ const WorkExperienceCard = () => {
     }, [appState.loading]);
 
     const workExperienceItems = state.work_experience.map((workExperience, index) => {
-        return <div className="mt-5" key={index}>
-            <p>{workExperience.company_name}</p>
+        return <div className="mt-5 first-of-type:mt-0" key={index}>
+            <p className="font-bold">{workExperience.company_name}</p>
             <p>{workExperience.title}</p>
-            <p>{workExperience.start_date}</p>
-            <p>{workExperience.end_date}</p>
+            <p>{workExperience.start_date} - {workExperience.end_date}</p>
             <p>{workExperience.description}</p>
         </div>
     });
 
   return (
     <UICard>
-        <p className="text-gray-600 mb-4 font-bold">Work Experience</p>
-        {workExperienceItems}
+        <div className="card-header prose p-5">
+            <h2>Work Experience</h2>
+        </div>
+        <div className="p-5">
+            {workExperienceItems}
+        </div>
+        <div className="w-full p-5">
+            <button 
+                className="btn btn-outline" 
+            >
+                Edit
+            </button>
+        </div>
     </UICard>
   );
 };
