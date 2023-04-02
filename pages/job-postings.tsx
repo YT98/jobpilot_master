@@ -2,9 +2,6 @@ import Sidebar from "../components/Navbar";
 import { useAuth } from "./_useAuth";
 import { AppContext } from "../contexts/AppContext";
 import { useContext, useEffect, useState } from "react";
-import Link from "next/link";
-import JobPostingCard from "../components/job_postings/JobPostingCard";
-import UICard from "../components/UICard";
 import JobPostingsTable from "../components/job_postings/JobPostingsTable";
 
 interface JobPosting {
@@ -41,10 +38,6 @@ const JobPostings = () => {
       fetchJobPostings();
     }
   }, [appState.loading]);
-
-  const JobPostingCards = state.job_postings.map((jobPosting, index) => {
-    return <JobPostingCard key={index} jobPosting={jobPosting}/>
-  });
 
   return (
     <div className="flex bg-zinc-50 min-h-full">
