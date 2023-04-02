@@ -1,10 +1,11 @@
-import Sidebar from "../components/Sidebar";
+import Sidebar from "../components/Navbar";
 import { useAuth } from "./_useAuth";
 import { AppContext } from "../contexts/AppContext";
 import { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import JobPostingCard from "../components/job_postings/JobPostingCard";
 import UICard from "../components/UICard";
+import JobPostingsTable from "../components/job_postings/JobPostingsTable";
 
 interface JobPosting {
   id: number;
@@ -46,14 +47,9 @@ const JobPostings = () => {
   });
 
   return (
-    <div className="flex bg-zinc-50">
-      <Sidebar/>
+    <div className="flex bg-zinc-50 min-h-full">
       <div className="flex flex-col w-full">
-        <UICard>
-          <p className="text-gray-600 mb-4 font-bold">Job Postings</p>
-          <Link className="bg-zinc-500 text-white px-4 py-2 rounded-md" href="/new-job-posting">Create Job Posting</Link>
-        </UICard>
-        {JobPostingCards}
+        <JobPostingsTable jobPostings={state.job_postings}/>
       </div>
       
     </div>
