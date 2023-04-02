@@ -4,8 +4,10 @@ type UICardProps = {
 
 const UICard = ({children}: UICardProps) => {
     return (
-        <div className="bg-white shadow rounded-md p-8 m-5">
+        <div className="m-5 card rounded-lg border-gray-200 bg-white border-2">
+            <div className="card-body">
             {children}
+            </div>
         </div>
     );
 };
