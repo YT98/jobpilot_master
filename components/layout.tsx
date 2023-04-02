@@ -1,4 +1,4 @@
-import Sidebar from "./Sidebar";
+import Navbar from "./Navbar";
 
 interface LayoutProps {
     children: React.ReactNode;
@@ -7,7 +7,7 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
     return (
       <div>
-        <Sidebar />
+        <Navbar />
         <main>{children}</main>
       </div>
     )
