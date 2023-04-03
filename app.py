@@ -26,7 +26,7 @@ db.init_app(app)
 migrate.init_app(app, db)
 
 from routes.job_posting_bp import job_posting_bp
-app.register_blueprint(job_posting_bp, url_prefix='/job_postings')
+app.register_blueprint(job_posting_bp, url_prefix='/job-postings')
 
 from routes.profile_bp import user_bp
 app.register_blueprint(user_bp, url_prefix='/profile')

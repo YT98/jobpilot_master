@@ -12,8 +12,12 @@ EXTRACT_JOB_POSTING_INFORMATION_PROMPT = """
     {
         "title": <title of the position>,
         "companyName": <name of the company>,
+        "location": <location of the position>,
         "skills": ["skill1", "skill2", ...],
-        "description": <description of the position>
+        "qualifications": {
+            "education": <education qualification>,
+            "experience": <experience qualification>
+        }
     }
 """ + PROMPT_SEPARATOR + "\n"
 
