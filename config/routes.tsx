@@ -11,9 +11,12 @@ const profileRoutes = {
 };
 
 const jobPostingRoutes = {
-    getJobPostings: '/job-postings',
-    extractJobPostingInformation: '/job-postings/fake-extract',
-    createJobPosting: '/job-postings/fake-create'
+    getJobPostings: '/job-postings/user',
+    getJobPosting: '/job-postings',
+    getQualificationsComparison: '/job-postings/qualification-comparison',
+    getSkillsComparison: '/job-postings/skills-comparison',
+    extractJobPostingInformation: '/job-postings/extract',
+    createJobPosting: '/job-postings/create'
 }
 
 export { authRoutes, profileRoutes, jobPostingRoutes };

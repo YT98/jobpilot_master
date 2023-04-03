@@ -1,4 +1,4 @@
-import Sidebar from "../components/Sidebar";
+import Sidebar from "../components/Navbar";
 import UICard from "../components/UICard";
 import { useAuth } from "./_useAuth";
 import { AppContext } from "../contexts/AppContext";
@@ -11,8 +11,7 @@ const Dashboard = () => {
   const lastName = appState.user ? appState.user.lastName : '';
 
   return (
-    <div className="flex bg-zinc-50">
-      <Sidebar/>
+    <div className="flex bg-zinc-50 min-h-full">
       <div className="flex-1 p-10">
         <UICard>
           <p className="text-gray-600 mb-4">Welcome Back, <span className="font-bold">{firstName}!</span></p>
