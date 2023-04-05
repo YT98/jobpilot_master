@@ -18,7 +18,7 @@ interface PersonalInformationState {
 
 const PersonalInformationCard = () => {
     const { appState } = useContext(AppContext);
-    const userId = appState.user ? appState.user.id : '';
+    const accountId = appState.account ? appState.account.id : '';
     const [state, setState] = useState<PersonalInformationState>({
         firstName: '',
         lastName: '',
@@ -33,7 +33,7 @@ const PersonalInformationCard = () => {
     useEffect(() => {
         if (!appState.loading) {
             const fetchPersonalInformation = async () => {
-                const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL + profileRoutes.personalInformation + `/${userId}`);
+                const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL + profileRoutes.personalInformation + `/${accountId}`);
                 const data = await response.json();
                 setState({...state, ...data});
             }
@@ -45,7 +45,7 @@ const PersonalInformationCard = () => {
         event.preventDefault();
 
         try {
-            const response = await protectedRequest(profileRoutes.personalInformation + `/${userId}`, 'POST', JSON.stringify({
+            const response = await protectedRequest(profileRoutes.personalInformation + `/${accountId}`, 'POST', JSON.stringify({
                 firstName: state.firstName,
                 lastName: state.lastName,
                 email: state.email,

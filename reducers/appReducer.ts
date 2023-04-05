@@ -6,13 +6,13 @@ export const appReducer = (state: AppState, action: Action): AppState => {
       return {
         ...state,
         loading: false,
-        user: action.payload,
+        account: action.payload,
       };
     case 'LOGOUT':
       return {
         ...state,
         loading: false,
-        user: null,
+        account: null,
       };
     default:
       return state;

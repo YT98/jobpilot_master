@@ -7,8 +7,8 @@ import { useContext } from "react";
 const Dashboard = () => {
   useAuth();
   const { appState } = useContext(AppContext);
-  const firstName = appState.user ? appState.user.firstName : '';
-  const lastName = appState.user ? appState.user.lastName : '';
+  const firstName = appState.account ? appState.account.firstName : '';
+  const lastName = appState.account ? appState.account.lastName : '';
 
   return (
     <div className="flex bg-zinc-50 min-h-full">

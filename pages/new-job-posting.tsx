@@ -28,7 +28,7 @@ interface JobPostingState {
 const NewJobPosting = () => {
     useAuth();
     const { appState } = useContext(AppContext);
-    const userId = appState.user ? appState.user.id : '';
+    const accountId = appState.account ? appState.account.id : '';
     const router = useRouter();
     
     const [state, setState] = useState<JobPostingState>({
@@ -56,7 +56,7 @@ const NewJobPosting = () => {
         setState({...state, jobPostingDescription: jobPostingDescription, loading: true});
         try {
             const response = await protectedRequest(process.env.NEXT_PUBLIC_BASE_URL + jobPostingRoutes.extractJobPostingInformation, 'POST', JSON.stringify({
-                userId: userId,
+                accountId: accountId,
                 description: jobPostingDescription,
             }));
             const data = await response.json();
@@ -71,7 +71,7 @@ const NewJobPosting = () => {
         setState({...state, loading: true});
         try {
             const response = await protectedRequest(process.env.NEXT_PUBLIC_BASE_URL + jobPostingRoutes.createJobPosting, 'POST', JSON.stringify({
-                userId: userId,
+                accountId: accountId,
                 jobPosting: {
                     ...state.jobPostingInformation,
                     description: state.jobPostingDescription

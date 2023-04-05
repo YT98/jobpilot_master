@@ -20,7 +20,7 @@ interface EducationState {
 
 const EducationCard = () => {
     const { appState } = useContext(AppContext);
-    const userId = appState.user ? appState.user.id : '';
+    const accountId = appState.account ? appState.account.id : '';
     const [state, setState] = useState<EducationState>({
         education: [],
         error: ''
@@ -30,7 +30,7 @@ const EducationCard = () => {
         if (!appState.loading) {
             const fetchEducation = async () => {
                 const response = await protectedRequest(
-                    process.env.NEXT_PUBLIC_BASE_URL + profileRoutes.education + `/${userId}`,
+                    process.env.NEXT_PUBLIC_BASE_URL + profileRoutes.education + `/${accountId}`,
                     'GET'
                 )
                 const data = await response.json();

@@ -22,7 +22,7 @@ interface WorkExperienceState {
 
 const WorkExperienceCard = () => {
     const { appState } = useContext(AppContext);
-    const userId = appState.user ? appState.user.id : '';
+    const accountId = appState.account ? appState.account.id : '';
     const [state, setState] = useState<WorkExperienceState>({
         work_experience: [],
         error: ''
@@ -32,7 +32,7 @@ const WorkExperienceCard = () => {
     if (!appState.loading) {
         const fetchWorkExperience = async () => {
             const response = await protectedRequest(
-                process.env.NEXT_PUBLIC_BASE_URL + profileRoutes.workExperience + `/${userId}`,
+                process.env.NEXT_PUBLIC_BASE_URL + profileRoutes.workExperience + `/${accountId}`,
                 'GET'
             );
             const data = await response.json();

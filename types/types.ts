@@ -1,16 +1,15 @@
-export interface User {
+export interface Account {
     id: number;
     firstName: string;
     lastName: string;
     email: string;
-    loading: boolean;
-  }
+}
   
 export interface AppState {
-  user: User | null;
+  account: Account | null;
   loading: boolean;
 }
 
 export type Action =
-  | { type: 'LOGIN'; payload: User }
+  | { type: 'LOGIN'; payload: Account }
   | { type: 'LOGOUT' };

@@ -1,5 +1,5 @@
 const authRoutes = {
-    signin: '/auth/login',
+    signin: '/auth/signin',
     register: '/auth/register',
 };
 
@@ -12,7 +12,7 @@ const profileRoutes = {
 };
 
 const jobPostingRoutes = {
-    getJobPostings: '/job-postings/user',
+    getJobPostings: '/job-postings/profile',
     getJobPosting: '/job-postings',
     getQualificationsComparison: '/job-postings/qualification-comparison',
     getSkillsComparison: '/job-postings/skills-comparison',

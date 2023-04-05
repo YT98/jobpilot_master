@@ -27,7 +27,7 @@ interface UserProfile {
 
 const JobPosting = () => {
     const { appState } = useContext(AppContext);
-    const userId = appState.user ? appState.user.id : '';
+    const accountId = appState.account ? appState.account.id : '';
 
     const [jobPosting, setJobPosting] = useState<JobPosting>({
         id: '',

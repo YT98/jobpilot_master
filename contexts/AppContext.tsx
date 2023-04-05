@@ -8,7 +8,7 @@ type AppContextType = {
   }
 
 const initialState: AppState = {
-  user: null,
+  account: null,
   loading: true
 };
 
@@ -26,16 +26,16 @@ const AppProvider = ({ children }: AppProviderProps) => {
 
   // When the app loads, check if the user is logged in
   useEffect(() => {
-    const user = localStorage.getItem('user');
-    if (user) {
-      appDispatch({ type: 'LOGIN', payload: JSON.parse(user) });
+    const account = localStorage.getItem('account');
+    if (account) {
+      appDispatch({ type: 'LOGIN', payload: JSON.parse(account) });
     }
   }, []);
 
   // When the user state changes, update the local storage
   useEffect(() => {
-    localStorage.setItem('user', JSON.stringify(appState.user));
-  }, [appState.user]);
+    localStorage.setItem('account', JSON.stringify(appState.account));
+  }, [appState.account]);
 
   return (
     <AppContext.Provider value={{ appState, appDispatch }}>

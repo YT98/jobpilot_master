@@ -17,7 +17,7 @@ interface SkillState {
 
 const SkillCard = () => {
   const { appState } = useContext(AppContext);
-  const userId = appState.user ? appState.user.id : '';
+  const accountId = appState.account ? appState.account.id : '';
   const [state, setState] = useState<SkillState>({
         skills: [],
         error: ''
@@ -26,7 +26,7 @@ const SkillCard = () => {
     useEffect(() => {
         if (!appState.loading) {
             const fetchSkills = async () => {
-                const response = await protectedRequest(process.env.NEXT_PUBLIC_BASE_URL + profileRoutes.skills + `/${userId}`, 'GET', null)
+                const response = await protectedRequest(process.env.NEXT_PUBLIC_BASE_URL + profileRoutes.skills + `/${accountId}`, 'GET', null)
                 const data = await response.json();
                 setState({...state, skills: data});
             }

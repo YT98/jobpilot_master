@@ -46,8 +46,8 @@ const SignIn: React.FC = () => {
 				'Content-Type': 'application/json',
 				},
 				body: JSON.stringify({
-				email: state.email,
-				password: state.password,
+					email: state.email,
+					password: state.password,
 				}),
 			});
 			// If the response is not ok, throw an error
@@ -59,9 +59,9 @@ const SignIn: React.FC = () => {
 			// Store the token in session storage
 			sessionStorage.setItem('token', data.token);
 			// Set the user in the app state
-			appDispatch({ type: 'LOGIN', payload: data.user });
+			appDispatch({ type: 'LOGIN', payload: data.account });
 			// Redirect to the dashboard
-			router.push('/dashboard');
+			router.push('/');
 		} catch (error) {
 			// If there is an error, set the error state
 			let errorMessage = 'Something went wrong. Please try again.';
