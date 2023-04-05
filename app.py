@@ -4,6 +4,7 @@ from flask import Flask
 from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
+import logging
 
 from gpt.gpt import init_openai
 
@@ -14,6 +15,11 @@ app = Flask(__name__)
 if (os.getenv('ENV') == 'development'):
     print(" * CORS Enabled")
     CORS(app)
+
+if (os.getenv('ENV') == 'development'):
+    logging.basicConfig(level=logging.DEBUG, filename='app.log')
+else:
+    logging.basicConfig(level=logging.INFO, filename='app.log')
 
 # Load environment variables from .env file
 load_dotenv()
