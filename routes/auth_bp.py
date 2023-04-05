@@ -10,28 +10,28 @@ from models.InvitationCode import InvitationCode
 SECRET_KEY = os.getenv('SECRET_KEY')
 auth_bp = Blueprint('auth_bp', __name__)
 
-@auth_bp.route('/login', methods=['POST'])
-def login():
-    # Verify profile credentials
+@auth_bp.route('/signin', methods=['POST'])
+def signin():
+    # Verify account credentials
     email = request.json.get('email')
     password = request.json.get('password')
 
-    profile = Profile.query.filter_by(email=email).first()
-    if profile is None:
+    account = Account.query.filter_by(email=email).first()
+    if account is None:
         return jsonify({'error': 'Invalid credentials'}), 401
-    if profile.password != password:
+    if account.password != password:
         return jsonify({'error': 'Invalid credentials'}), 401
     
     # Create JWT token
-    token = create_jwt_token(profile)
+    token = create_jwt_token(account)
 
     return jsonify({
         'token': token,
-        'profile': {
-            'id': profile.id,
-            'email': profile.email,
-            'firstName': profile.first_name,
-            'lastName': profile.last_name
+        'account': {
+            'id': account.id,
+            'email': account.email,
+            'firstName': account.first_name,
+            'lastName': account.last_name
         }
     })
 
