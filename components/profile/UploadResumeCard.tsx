@@ -33,7 +33,7 @@ const UploadResumeCard = () => {
             console.log(data);
         }
         sendResume();
-};
+    };
 
   return (
     <div className="m-5 card rounded-lg border-gray-200 bg-white border-2 p-5">

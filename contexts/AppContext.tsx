@@ -24,6 +24,7 @@ type AppProviderProps = {
 const AppProvider = ({ children }: AppProviderProps) => {
   const [appState, appDispatch] = useReducer(appReducer, initialState);
 
+  // When the app loads, check if the user is logged in
   useEffect(() => {
     const user = localStorage.getItem('user');
     if (user) {
@@ -31,6 +32,7 @@ const AppProvider = ({ children }: AppProviderProps) => {
     }
   }, []);
 
+  // When the user state changes, update the local storage
   useEffect(() => {
     localStorage.setItem('user', JSON.stringify(appState.user));
   }, [appState.user]);

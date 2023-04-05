@@ -8,7 +8,11 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
 
     const router = useRouter();
-    const showNavbar = router.pathname !== '/signin' && router.pathname !== '/register';
+    const showNavbar = 
+      router.pathname !== '/signin' 
+      && router.pathname !== '/register' 
+      && router.pathname !== '/complete-profile' 
+      && router.pathname !== '/complete-profile/upload-resume';
 
     return (
       <div className="h-screen">

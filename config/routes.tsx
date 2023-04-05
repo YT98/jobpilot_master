@@ -1,5 +1,6 @@
 const authRoutes = {
-    signin: '/auth/login'
+    signin: '/auth/login',
+    register: '/auth/register',
 };
 
 const profileRoutes = {
