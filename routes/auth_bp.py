@@ -4,6 +4,8 @@ from auth.auth import create_jwt_token
 
 from app import db
 from models.User import User
+from models.Account import Account
+from models.InvitationCode import InvitationCode
 
 SECRET_KEY = os.getenv('SECRET_KEY')
 auth_bp = Blueprint('auth_bp', __name__)
@@ -37,7 +39,37 @@ def login():
 def register():
     email = request.json.get('email')
     password = request.json.get('password')
-    user = User(email=email, password=password)
-    db.session.add(user)
+    first_name = request.json.get('firstName')
+    last_name = request.json.get('lastName')
+    invitation_code = request.json.get('invitationCode')
+
+    # Check if any fields are missing
+    if email is None or password is None or first_name is None or last_name is None or invitation_code is None:
+        return jsonify({'error': 'Missing fields'}), 400
+
+    # Check if email is already in use
+    account = Account.query.filter_by(email=email).first()
+    if account is not None:
+        return jsonify({'error': 'Email is already in use'}), 400
+    
+    # Check if invitation code is valid
+    invitation_code = InvitationCode.query.filter_by(code=invitation_code).first()
+    if invitation_code is None or invitation_code.used:
+        return jsonify({'error': 'Invalid invitation code'}), 400
+    
+    # Create account
+    account = Account(email=email, password=password, first_name=first_name, last_name=last_name, invitation_code_id=invitation_code.id)
+    db.session.add(account)
     db.session.commit()
-    return jsonify({'message': 'success'})
+
+    # Set invitation code as used
+    invitation_code.used = True
+    db.session.commit()
+
+    # Create JWT token
+    token = create_jwt_token(account)
+
+    return jsonify({
+        'message': 'success',
+        'token': token,
+    })
