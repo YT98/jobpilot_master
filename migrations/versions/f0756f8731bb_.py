@@ -1,8 +1,8 @@
-"""Initial migration
+"""empty message
 
-Revision ID: 385c58904a38
+Revision ID: f0756f8731bb
 Revises: 
-Create Date: 2023-04-05 17:00:53.383501
+Create Date: 2023-04-05 18:36:05.750981
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '385c58904a38'
+revision = 'f0756f8731bb'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -32,7 +32,6 @@ def upgrade():
     op.create_table('profile',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('email', sa.String(length=255), nullable=False),
-    sa.Column('password', sa.String(length=255), nullable=False),
     sa.Column('first_name', sa.String(length=255), nullable=True),
     sa.Column('last_name', sa.String(length=255), nullable=True),
     sa.Column('phone_number', sa.String(length=255), nullable=True),
@@ -55,7 +54,9 @@ def upgrade():
     sa.Column('first_name', sa.String(length=255), nullable=False),
     sa.Column('last_name', sa.String(length=255), nullable=False),
     sa.Column('invitation_code_id', sa.Integer(), nullable=False),
+    sa.Column('profile_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['invitation_code_id'], ['invitation_code.id'], ),
+    sa.ForeignKeyConstraint(['profile_id'], ['profile.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('education',

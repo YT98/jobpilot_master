@@ -6,7 +6,6 @@ from app import db
 class Profile(db.Model):
     id: int
     email: str
-    password: str
     first_name: str
     last_name: str
     phone_number: str
@@ -16,7 +15,6 @@ class Profile(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(255), nullable=False)
-    password = db.Column(db.String(255), nullable=False)
     first_name = db.Column(db.String(255), nullable=True)
     last_name = db.Column(db.String(255), nullable=True)
     phone_number = db.Column(db.String(255), nullable=True)

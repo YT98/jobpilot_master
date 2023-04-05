@@ -57,10 +57,17 @@ def register():
     if invitation_code is None or invitation_code.used:
         return jsonify({'error': 'Invalid invitation code'}), 400
     
-    # Create account
-    account = Account(email=email, password=password, first_name=first_name, last_name=last_name, invitation_code_id=invitation_code.id)
-    db.session.add(account)
+    # Create profile
+    profile = Profile(email=email, first_name=first_name, last_name=last_name)
+    db.session.add(profile)
     db.session.commit()
+    # refresh profile to get id
+    db.session.refresh(profile)
+
+
+    # Create account
+    account = Account(email=email, password=password, first_name=first_name, last_name=last_name, invitation_code_id=invitation_code.id, profile_id=profile.id)
+    db.session.add(account)
 
     # Set invitation code as used
     invitation_code.used = True
