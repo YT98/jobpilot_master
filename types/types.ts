@@ -6,11 +6,11 @@ export interface User {
     loading: boolean;
   }
   
-  export interface AppState {
-    user: User | null;
-    loading: boolean;
-  }
-  
-  export type Action =
-    | { type: 'LOGIN'; payload: User }
-    | { type: 'LOGOUT' };
+export interface AppState {
+  user: User | null;
+  loading: boolean;
+}
+
+export type Action =
+  | { type: 'LOGIN'; payload: User }
+  | { type: 'LOGOUT' };

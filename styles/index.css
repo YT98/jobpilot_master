@@ -4,6 +4,16 @@
 
 @import "new-job-posting.css";
 
+body {
+    width:100%;
+    overflow-x:hidden;
+    overflow-y:hidden;
+}
+
 .btn-error:hover {
     color: white !important;
+}
+
+.btn-primary {
+    @apply bg-blue-500 border-blue-500 hover:bg-blue-600 hover:border-blue-600;
 }
