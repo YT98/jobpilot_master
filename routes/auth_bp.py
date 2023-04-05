@@ -3,7 +3,7 @@ from flask import Blueprint, jsonify, request
 from auth.auth import create_jwt_token
 
 from app import db
-from models.User import User
+from models.Profile import Profile
 from models.Account import Account
 from models.InvitationCode import InvitationCode
 
@@ -12,26 +12,26 @@ auth_bp = Blueprint('auth_bp', __name__)
 
 @auth_bp.route('/login', methods=['POST'])
 def login():
-    # Verify user credentials
+    # Verify profile credentials
     email = request.json.get('email')
     password = request.json.get('password')
 
-    user = User.query.filter_by(email=email).first()
-    if user is None:
+    profile = Profile.query.filter_by(email=email).first()
+    if profile is None:
         return jsonify({'error': 'Invalid credentials'}), 401
-    if user.password != password:
+    if profile.password != password:
         return jsonify({'error': 'Invalid credentials'}), 401
     
     # Create JWT token
-    token = create_jwt_token(user)
+    token = create_jwt_token(profile)
 
     return jsonify({
         'token': token,
-        'user': {
-            'id': user.id,
-            'email': user.email,
-            'firstName': user.first_name,
-            'lastName': user.last_name
+        'profile': {
+            'id': profile.id,
+            'email': profile.email,
+            'firstName': profile.first_name,
+            'lastName': profile.last_name
         }
     })
 

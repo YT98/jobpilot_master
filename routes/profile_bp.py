@@ -6,57 +6,57 @@ import json
 from app import db
 from gpt.gpt import ask_gpt
 from gpt.prompts import EXTRACT_RESUME_INFORMATION_PROMPT
-from models.User import User, UserSkills, UserLanguages
+from models.Profile import Profile, ProfileSkills, ProfileLanguages
 from models.Education import Education
 from models.WorkExperience import WorkExperience
 from models.Skill import Skill
 from models.Language import Language
 
 SECRET_KEY = os.getenv('SECRET_KEY')
-user_bp = Blueprint('user_bp', __name__)
+profile_bp = Blueprint('profile_bp', __name__)
 
 # TODO: Add protection to all routes
 
-@user_bp.route('/personal-information/<user_id>', methods=['GET'])
-def personal_info(user_id):
-    user = User.query.filter_by(id=user_id).first()
+@profile_bp.route('/personal-information/<profile_id>', methods=['GET'])
+def personal_info(profile_id):
+    profile = Profile.query.filter_by(id=profile_id).first()
     return jsonify({
-        'email': user.email,
-        'firstName': user.first_name,
-        'lastName': user.last_name,
-        'phone_number': user.phone_number,
-        'linkedin': user.linkedin_url,
-        'github': user.github_url,
-        'website': user.website_url,
+        'email': profile.email,
+        'firstName': profile.first_name,
+        'lastName': profile.last_name,
+        'phone_number': profile.phone_number,
+        'linkedin': profile.linkedin_url,
+        'github': profile.github_url,
+        'website': profile.website_url,
     })
 
-@user_bp.route('/personal-information/<user_id>', methods=['POST'])
-def update_personal_info(user_id):
-    user = User.query.filter_by(id=user_id).first()
-    user.first_name = request.json.get('firstName')
-    user.last_name = request.json.get('lastName')
-    user.phone_number = request.json.get('phone_number')
-    user.linkedin_url = request.json.get('linkedin_url')
-    user.github_url = request.json.get('github_url')
-    user.website_url = request.json.get('website_url')
+@profile_bp.route('/personal-information/<profile_id>', methods=['POST'])
+def update_personal_info(profile_id):
+    profile = Profile.query.filter_by(id=profile_id).first()
+    profile.first_name = request.json.get('firstName')
+    profile.last_name = request.json.get('lastName')
+    profile.phone_number = request.json.get('phone_number')
+    profile.linkedin_url = request.json.get('linkedin_url')
+    profile.github_url = request.json.get('github_url')
+    profile.website_url = request.json.get('website_url')
     db.session.commit()
     return jsonify({'message': 'success'})
 
-@user_bp.route('/skills/<user_id>', methods=['GET'])
-def get_skills(user_id):
-    user_skills = UserSkills.query.filter_by(user_id=user_id).all()
+@profile_bp.route('/skills/<profile_id>', methods=['GET'])
+def get_skills(profile_id):
+    profile_skills = ProfileSkills.query.filter_by(profile_id=profile_id).all()
     skills = []
-    for user_skill in user_skills:
-        skill = Skill.query.filter_by(id=user_skill.skill_id).first()
+    for profile_skill in profile_skills:
+        skill = Skill.query.filter_by(id=profile_skill.skill_id).first()
         skills.append({
             'id': skill.id,
             'name': skill.name
         })
     return jsonify(skills)
 
-@user_bp.route('/work-experience/<user_id>', methods=['GET'])
-def get_work_experience(user_id):
-    work_experience = WorkExperience.query.filter_by(user_id=user_id).all()
+@profile_bp.route('/work-experience/<profile_id>', methods=['GET'])
+def get_work_experience(profile_id):
+    work_experience = WorkExperience.query.filter_by(profile_id=profile_id).all()
     return jsonify([{
         'id': experience.id,
         'company_name': experience.company_name,
@@ -66,9 +66,9 @@ def get_work_experience(user_id):
         'description': experience.description
     } for experience in work_experience])
 
-@user_bp.route('/education/<user_id>', methods=['GET'])
-def get_education(user_id):
-    education = Education.query.filter_by(user_id=user_id).all()
+@profile_bp.route('/education/<profile_id>', methods=['GET'])
+def get_education(profile_id):
+    education = Education.query.filter_by(profile_id=profile_id).all()
     return jsonify([{
         'id': education.id,
         'school_name': education.school_name,
@@ -78,9 +78,9 @@ def get_education(user_id):
         'description': education.description
     } for education in education])
 
-@user_bp.route('/resume/<user_id>', methods=['POST'])
-def upload_resume(user_id):
-    user = User.query.filter_by(id=user_id).first()
+@profile_bp.route('/resume/<profile_id>', methods=['POST'])
+def upload_resume(profile_id):
+    profile = Profile.query.filter_by(id=profile_id).first()
     
     # TODO: catch error if no resume is uploaded
     resume = request.files['resume']
@@ -101,66 +101,66 @@ def upload_resume(user_id):
     # delete resume
     os.remove('resume.pdf')
 
-    # clear user's personal information
-    user.phone_number = None
-    user.linkedin_url = None
-    user.github_url = None
-    user.website_url = None
+    # clear profile's personal information
+    profile.phone_number = None
+    profile.linkedin_url = None
+    profile.github_url = None
+    profile.website_url = None
     db.session.commit()
 
-    # update user's personal information
-    user.first_name = resume_info['personalInformation']['firstName']
-    user.last_name = resume_info['personalInformation']['lastName']
-    user.phone_number = resume_info['personalInformation']['phoneNumber']
+    # update profile's personal information
+    profile.first_name = resume_info['personalInformation']['firstName']
+    profile.last_name = resume_info['personalInformation']['lastName']
+    profile.phone_number = resume_info['personalInformation']['phoneNumber']
     if resume_info['personalInformation']['linkedIn'] != None:
-        user.linkedin_url = resume_info['personalInformation']['linkedIn']
+        profile.linkedin_url = resume_info['personalInformation']['linkedIn']
     if resume_info['personalInformation']['github'] != None:
-        user.github_url = resume_info['personalInformation']['github']
+        profile.github_url = resume_info['personalInformation']['github']
     if resume_info['personalInformation']['website'] != None:
-        user.website_url = resume_info['personalInformation']['website']
+        profile.website_url = resume_info['personalInformation']['website']
     db.session.commit()
 
-    # clear user's skills
-    user_skills = UserSkills.query.filter_by(user_id=user_id).all()
-    for user_skill in user_skills:
-        db.session.delete(user_skill)
+    # clear profile's skills
+    profile_skills = ProfileSkills.query.filter_by(profile_id=profile_id).all()
+    for profile_skill in profile_skills:
+        db.session.delete(profile_skill)
         db.session.commit()
-    # update user's skills
+    # update profile's skills
     for resume_skill in resume_info['skills']:
         skill = Skill.query.filter_by(name=resume_skill).first()
         if skill is None:
             skill = Skill(name=resume_skill)
             db.session.add(skill)
             db.session.commit()
-        user_skill = UserSkills(user_id=user_id, skill_id=skill.id)
-        db.session.add(user_skill)
+        profile_skill = ProfileSkills(profile_id=profile_id, skill_id=skill.id)
+        db.session.add(profile_skill)
         db.session.commit()
 
-    # clear user's languages
-    user_languages = UserLanguages.query.filter_by(user_id=user_id).all()
-    for user_language in user_languages:
-        db.session.delete(user_language)
+    # clear profile's languages
+    profile_languages = ProfileLanguages.query.filter_by(profile_id=profile_id).all()
+    for profile_language in profile_languages:
+        db.session.delete(profile_language)
         db.session.commit()
-    # update user's languages
+    # update profile's languages
     for resume_language in resume_info['languages']:
         language = Language.query.filter_by(name=resume_language).first()
         if language is None:
             language = Language(name=resume_language)
             db.session.add(language)
             db.session.commit()
-        user_language = UserLanguages(user_id=user_id, language_id=language.id)
-        db.session.add(user_language)
+        profile_language = ProfileLanguages(profile_id=profile_id, language_id=language.id)
+        db.session.add(profile_language)
         db.session.commit()
     
-    # clear user's education
-    educations = Education.query.filter_by(user_id=user_id).all()
+    # clear profile's education
+    educations = Education.query.filter_by(profile_id=profile_id).all()
     for education in educations:
         db.session.delete(education)
         db.session.commit()
-    # update user's education
+    # update profile's education
     for education in resume_info['education']:
         education = Education(
-            user_id=user_id,
+            profile_id=profile_id,
             school_name=education['school_name'],
             degree=education['degree'],
             start_date=education['startDate'],
@@ -170,15 +170,15 @@ def upload_resume(user_id):
         db.session.add(education)
         db.session.commit()
 
-    # clear user's experience
-    experiences = WorkExperience.query.filter_by(user_id=user_id).all()
+    # clear profile's experience
+    experiences = WorkExperience.query.filter_by(profile_id=profile_id).all()
     for experience in experiences:
         db.session.delete(experience)
         db.session.commit()           
-    # update user's experience
+    # update profile's experience
     for experience in resume_info['workExperience']:
         experience = WorkExperience(
-            user_id=user_id,
+            profile_id=profile_id,
             company_name=experience['company_name'],
             title=experience['title'],
             start_date=experience['startDate'],

@@ -17,7 +17,7 @@ if (os.getenv('ENV') == 'development'):
     CORS(app)
 
 if (os.getenv('ENV') == 'development'):
-    logging.basicConfig(level=logging.DEBUG, filename='app.log')
+    logging.basicConfig(level=logging.INFO, filename='app.log')
 else:
     logging.basicConfig(level=logging.INFO, filename='app.log')
 
@@ -34,8 +34,8 @@ migrate.init_app(app, db)
 from routes.job_posting_bp import job_posting_bp
 app.register_blueprint(job_posting_bp, url_prefix='/job-postings')
 
-from routes.profile_bp import user_bp
-app.register_blueprint(user_bp, url_prefix='/profile')
+from routes.profile_bp import profile_bp
+app.register_blueprint(profile_bp, url_prefix='/profile')
 
 from routes.auth_bp import auth_bp
 app.register_blueprint(auth_bp, url_prefix='/auth')

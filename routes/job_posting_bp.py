@@ -4,16 +4,16 @@ import time
 
 from app import db
 from models.JobPosting import JobPosting, JobPostingSkills
-from models.User import User, UserSkills
+from models.Profile import Profile, ProfileSkills
 from models.Skill import Skill
 from gpt.gpt import ask_gpt
 from gpt.prompts import EXTRACT_JOB_POSTING_INFORMATION_PROMPT
 
 job_posting_bp = Blueprint('job_posting_bp', __name__)
 
-@job_posting_bp.route('/user/<user_id>', methods=['GET'])
-def get_all_user_job_postings(user_id):
-    job_postings = JobPosting.query.filter_by(user_id=user_id).all()
+@job_posting_bp.route('/profile/<profile_id>', methods=['GET'])
+def get_all_profile_job_postings(profile_id):
+    job_postings = JobPosting.query.filter_by(profile_id=profile_id).all()
     return jsonify(job_postings)
 
 @job_posting_bp.route('/<job_posting_id>', methods=['GET'])
@@ -24,7 +24,7 @@ def get_job_posting(job_posting_id):
 @job_posting_bp.route('/extract', methods=['POST'])
 def extract_job_posting():
     data = request.get_json()
-    user_id = data['userId']
+    profile_id = data['profileId']
     description = data['description']
 
     # ask to extract information
@@ -62,7 +62,7 @@ def fake_extract_job_posting():
 @job_posting_bp.route('/create', methods=['POST'])
 def create_job_posting():
     data = request.get_json()
-    user_id = data['userId']
+    profile_id = data['profileId']
     job_posting_info = data['jobPosting']
 
     job_posting = JobPosting(
@@ -72,7 +72,7 @@ def create_job_posting():
         description=job_posting_info['description'],
         education_qualification=job_posting_info['qualifications']['education'],
         experience_qualification=job_posting_info['qualifications']['experience'],
-        user_id=user_id
+        profile_id=profile_id
     )
 
     db.session.add(job_posting)
@@ -118,52 +118,52 @@ def get_qualification_comparison(job_posting_id):
 
     return jsonify({
         "jobPostingEducationQualification": "Bachelor's degree in Computer Science or related field",
-        "userHighestEducation": "Bachelor's degree in Computer Science or related field",
-        "isUserEducationQualified": True,
+        "profileHighestEducation": "Bachelor's degree in Computer Science or related field",
+        "isProfileEducationQualified": True,
         "jobPostingExperienceQualification": "3+ years of experience in software development",
-        "userYearsExperience": 3,
-        "isUserExperienceQualified": True
+        "profileYearsExperience": 3,
+        "isProfileExperienceQualified": True
     })
 
 @job_posting_bp.route('/skills-comparison/<job_posting_id>', methods=['GET'])
 def get_skills_comparison(job_posting_id):
     job_posting = JobPosting.query.filter_by(id=job_posting_id).first()
     job_posting_skills = JobPostingSkills.query.filter_by(job_posting_id=job_posting_id).all()
-    user_skills = UserSkills.query.filter_by(user_id=job_posting.user_id).all()
+    profile_skills = ProfileSkills.query.filter_by(profile_id=job_posting.profile_id).all()
 
     all_job_posting_skills = []
-    job_posting_skills_posessed_by_user = []
-    job_posting_skills_not_posessed_by_user = []
+    job_posting_skills_posessed_by_profile = []
+    job_posting_skills_not_posessed_by_profile = []
 
     for job_posting_skill in job_posting_skills:
         print(job_posting_skill.skill_id)
         skill = Skill.query.filter_by(id=job_posting_skill.skill_id).first()
         all_job_posting_skills.append(skill.name)
         posessed = False
-        for user_skill in user_skills:
-            if user_skill.skill_id == skill.id:
+        for profile_skill in profile_skills:
+            if profile_skill.skill_id == skill.id:
                 posessed = True
         if posessed:
-            job_posting_skills_posessed_by_user.append(skill.name)
+            job_posting_skills_posessed_by_profile.append(skill.name)
         else:
-            job_posting_skills_not_posessed_by_user.append(skill.name)
+            job_posting_skills_not_posessed_by_profile.append(skill.name)
 
     print(all_job_posting_skills)
-    print(job_posting_skills_posessed_by_user)
-    print(job_posting_skills_not_posessed_by_user)
+    print(job_posting_skills_posessed_by_profile)
+    print(job_posting_skills_not_posessed_by_profile)
 
 
     return jsonify({
         'message': 'success',
         "jobPostingSkills": all_job_posting_skills,
-        "jobPostingSkillsPosessedByUser": job_posting_skills_posessed_by_user,
-        "jobPostingSkillsNotPosessedByUser": job_posting_skills_not_posessed_by_user,
+        "jobPostingSkillsPosessedByProfile": job_posting_skills_posessed_by_profile,
+        "jobPostingSkillsNotPosessedByProfile": job_posting_skills_not_posessed_by_profile,
     })
 
 @job_posting_bp.route('/fake-skills-comparison/<job_posting_id>', methods=['GET'])
 def fake_get_skills_comparison(job_posting_id):
     return jsonify({
         "jobPostingSkills": ["Python", "Node", "React", "Express", "MongoDB", "SQL"],
-        "jobPostingSkillsPosessedByUser": ["Python", "Node", "React", "MongoDB", "SQL"],
-        "jobPostingSkillsNotPosessedByUser": ["Express"],
+        "jobPostingSkillsPosessedByProfile": ["Python", "Node", "React", "MongoDB", "SQL"],
+        "jobPostingSkillsNotPosessedByProfile": ["Express"],
     })

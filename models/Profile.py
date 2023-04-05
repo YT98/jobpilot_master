@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from app import db
 
 @dataclass
-class User(db.Model):
+class Profile(db.Model):
     id: int
     email: str
     password: str
@@ -25,43 +25,23 @@ class User(db.Model):
     website_url = db.Column(db.String(255), nullable=True)
 
 @dataclass
-class UserSkills(db.Model):
+class ProfileSkills(db.Model):
     id: int
-    user_id: int
+    profile_id: int
     skill_id: int
 
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    profile_id = db.Column(db.Integer, db.ForeignKey('profile.id'), nullable=False)
     skill_id = db.Column(db.Integer, db.ForeignKey('skill.id'), nullable=False)
 
 @dataclass
-class UserLanguages(db.Model):
+class ProfileLanguages(db.Model):
     id: int
-    user_id: int
+    profile_id: int
     language_id: int
     proficiency: str
 
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    profile_id = db.Column(db.Integer, db.ForeignKey('profile.id'), nullable=False)
     language_id = db.Column(db.Integer, db.ForeignKey('language.id'), nullable=False)
     proficiency = db.Column(db.String(255), nullable=True)
-
-@dataclass
-class UserEducation(db.Model):
-    id: int
-    user_id: int
-    education_id: int
-
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    education_id = db.Column(db.Integer, db.ForeignKey('education.id'), nullable=False)
-
-@dataclass
-class UserWorkExperience(db.Model):
-    id: int
-    user_id: int
-    work_experience_id: int
-
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    work_experience_id = db.Column(db.Integer, db.ForeignKey('work_experience.id'), nullable=False)
