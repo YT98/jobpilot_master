@@ -2,6 +2,7 @@ from dataclasses import dataclass
 
 from app import db
 
+
 @dataclass
 class Profile(db.Model):
     id: int
@@ -16,6 +17,7 @@ class Profile(db.Model):
     last_name = db.Column(db.String(255), nullable=True)
     phone_number = db.Column(db.String(255), nullable=True)
 
+
 @dataclass
 class ProfileSkills(db.Model):
     id: int
@@ -25,6 +27,7 @@ class ProfileSkills(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     profile_id = db.Column(db.Integer, db.ForeignKey('profile.id'), nullable=False)
     skill_id = db.Column(db.Integer, db.ForeignKey('skill.id'), nullable=False)
+
 
 @dataclass
 class ProfileLanguages(db.Model):
@@ -37,6 +40,7 @@ class ProfileLanguages(db.Model):
     profile_id = db.Column(db.Integer, db.ForeignKey('profile.id'), nullable=False)
     language_id = db.Column(db.Integer, db.ForeignKey('language.id'), nullable=False)
     proficiency = db.Column(db.String(255), nullable=True)
+
 
 @dataclass
 class ProfileLinks(db.Model):

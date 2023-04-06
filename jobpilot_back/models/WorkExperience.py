@@ -2,6 +2,7 @@ from dataclasses import dataclass
 
 from app import db
 
+
 @dataclass
 class WorkExperience(db.Model):
     id: int
@@ -30,4 +31,3 @@ class WorkExperienceSkill(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     work_experience_id = db.Column(db.Integer, db.ForeignKey('work_experience.id'), nullable=False)
     skill_id = db.Column(db.Integer, db.ForeignKey('skill.id'), nullable=False)
-    

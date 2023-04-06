@@ -2,6 +2,7 @@ from dataclasses import dataclass
 
 from app import db
 
+
 @dataclass
 class Account(db.Model):
     id: int

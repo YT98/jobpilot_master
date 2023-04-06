@@ -2,6 +2,7 @@ from dataclasses import dataclass
 
 from app import db
 
+
 @dataclass
 class Language(db.Model):
     id: int

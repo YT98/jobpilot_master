@@ -1,5 +1,6 @@
 from json import JSONDecoder
 
+
 def extract_json_objects(text, decoder=JSONDecoder()):
     """Find JSON objects in text, and yield the decoded JSON data
 
@@ -18,6 +19,7 @@ def extract_json_objects(text, decoder=JSONDecoder()):
             pos = match + index
         except ValueError:
             pos = match + 1
+
 
 def extract_json_object(text, decoder=JSONDecoder()):
     """Find the first JSON object in text, and return the decoded JSON data
