@@ -3,21 +3,7 @@ import { AppContext } from "../../contexts/AppContext";
 import { useRouter } from "next/router";
 import protectedRequest from "../../utils/protectedRequest";
 import { jobPostingRoutes } from "../../config/routes";
-import QualificationsComparison from "../../components/job_postings/QualificationsComparison";
-import SkillsComparison from "../../components/job_postings/SkillsComparison";
-
-interface JobPosting {
-    id: string;
-    company_name: string
-    title: string;
-    description: string;
-    location: string;
-    skills: string[];
-    qualifications: {
-        education: string;
-        experience: string;
-    }
-}
+import JobPosting from "../../types/JobPosting";
 
 interface UserProfile {
     highestEducation: string;
@@ -25,21 +11,21 @@ interface UserProfile {
     yearsExperience: number;
 }
 
-const JobPosting = () => {
+const JobPostingPage = () => {
+    const router = useRouter();
+    const job_posting_id = router.query.id;
     const { appState } = useContext(AppContext);
     const accountId = appState.account ? appState.account.id : '';
 
     const [jobPosting, setJobPosting] = useState<JobPosting>({
         id: '',
-        company_name: '',
-        title: '',
+        companyName: '',
+        jobTitle: '',
         description: '',
         location: '',
-        skills: ["Python", "React", "Node", "Express", "MongoDB", "SQL"],
-        qualifications: {
-            education: "",
-            experience: ""
-        }
+        skills: [],
+        educationQualifications: [],
+        experienceQualifications: [],
     });
 
     const [userProfile, setUserProfile] = useState<UserProfile>({
@@ -48,20 +34,13 @@ const JobPosting = () => {
         yearsExperience: 0
     });
 
-    const router = useRouter();
-    const { id } = router.query;
-
     const getJobPosting = async () => {
         try {
-            const response = await protectedRequest(process.env.NEXT_PUBLIC_BASE_URL + jobPostingRoutes.getJobPosting + `/${id}`, 'GET');
+            const response = await protectedRequest(process.env.NEXT_PUBLIC_BASE_URL + jobPostingRoutes.getJobPosting + `/${job_posting_id}`, 'GET');
             const jobPostingData = await response.json();
             setJobPosting({
-                ...jobPostingData, 
-                skills: jobPosting.skills,
-                qualifications: {
-                    education: jobPostingData.education_qualification,
-                    experience: jobPostingData.experience_qualification
-                }
+                ...jobPosting,
+                ...jobPostingData.jobPosting
             });
         } catch (error) {
             console.log(error);
@@ -69,8 +48,10 @@ const JobPosting = () => {
     }
 
     useEffect(() => {
-        getJobPosting();
-    }, [id]);
+        if (job_posting_id) {
+            getJobPosting();
+        }
+    }, [job_posting_id]);
 
     return (
         <div className="p-10">
@@ -78,9 +59,9 @@ const JobPosting = () => {
 
                 <div className="prose p-5 flex flex-row align-middle">
                     <div>
-                        <h1 className="m-0">{jobPosting.title}</h1>
+                        <h1 className="m-0">{jobPosting.jobTitle}</h1>
                         <div>
-                            <h3 className="m-0 inline">{jobPosting.company_name}</h3>
+                            <h3 className="m-0 inline">{jobPosting.companyName}</h3>
                             <h3 className="inline ml-3 font-normal text-gray-500">{jobPosting.location}</h3>
                         </div>
                         <p className="m-0"> Status: You have not yet applied to this position. </p>
@@ -102,8 +83,7 @@ const JobPosting = () => {
             </div>
 
             <div className="w-full flex flex-row">
-                <SkillsComparison jobPostingId={jobPosting.id} />
-                <QualificationsComparison jobPostingId={jobPosting.id} />
+                
             </div>
 
             
@@ -120,4 +100,4 @@ const JobPosting = () => {
     )
 }
 
-export default JobPosting;
+export default JobPostingPage;

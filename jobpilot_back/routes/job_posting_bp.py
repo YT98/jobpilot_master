@@ -21,7 +21,20 @@ def get_all_profile_job_postings(profile_id):
 @job_posting_bp.route('/<job_posting_id>', methods=['GET'])
 def get_job_posting(job_posting_id):
     job_posting = JobPosting.query.filter_by(id=job_posting_id).first()
-    return jsonify(job_posting)
+    job_posting_skills = JobPostingSkills.query.filter_by(job_posting_id=job_posting_id).all()
+    job_posting_skills_names = [Skill.query.filter_by(id=job_posting_skill.skill_id).first().name for job_posting_skill in job_posting_skills]
+    return jsonify({
+        "message": "success",
+        "jobPosting": {
+            "jobTitle": job_posting.title,
+            "companyName": job_posting.company_name,
+            "location": job_posting.location,
+            "description": job_posting.description,
+            "educationQualification": job_posting.education_qualification,
+            "experienceQualification": job_posting.experience_qualification,
+            "skills": job_posting_skills_names
+        }
+    })
 
 @job_posting_bp.route('/extract', methods=['POST'])
 def extract_job_posting():

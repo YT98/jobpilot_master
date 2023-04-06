@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
-import { AppContext } from "../contexts/AppContext";
-import { useAuth } from "./_useAuth";
-import { jobPostingRoutes } from "../config/routes";
-import protectedRequest from "../utils/protectedRequest";
+import { AppContext } from "../../contexts/AppContext";
+import { useAuth } from "../_useAuth";
+import { jobPostingRoutes } from "../../config/routes";
+import protectedRequest from "../../utils/protectedRequest";
 import { useRouter } from "next/router";
 
 // TODO: Add loading overlay
@@ -28,7 +28,7 @@ interface JobPostingState {
 const NewJobPosting = () => {
     useAuth();
     const { appState } = useContext(AppContext);
-    const accountId = appState.account ? appState.account.id : '';
+    const profileId = appState.account ? appState.account.profileId : '';
     const router = useRouter();
     
     const [state, setState] = useState<JobPostingState>({
@@ -56,7 +56,6 @@ const NewJobPosting = () => {
         setState({...state, jobPostingDescription: jobPostingDescription, loading: true});
         try {
             const response = await protectedRequest(process.env.NEXT_PUBLIC_BASE_URL + jobPostingRoutes.extractJobPostingInformation, 'POST', JSON.stringify({
-                accountId: accountId,
                 description: jobPostingDescription,
             }));
             const data = await response.json();
@@ -71,7 +70,7 @@ const NewJobPosting = () => {
         setState({...state, loading: true});
         try {
             const response = await protectedRequest(process.env.NEXT_PUBLIC_BASE_URL + jobPostingRoutes.createJobPosting, 'POST', JSON.stringify({
-                accountId: accountId,
+                profileId: profileId,
                 jobPosting: {
                     ...state.jobPostingInformation,
                     description: state.jobPostingDescription

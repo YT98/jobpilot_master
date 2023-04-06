@@ -55,7 +55,7 @@ const JobPostingsTable = ({ jobPostings }: JobPostingsTableProps) => {
                             <th>Title</th>
                             <th>Status</th>
                             <th>
-                                <Link className="btn btn-sm" href="/new-job-posting">
+                                <Link className="btn btn-sm" href="/job-postings/new">
                                     New
                                 </Link>
                             </th>
