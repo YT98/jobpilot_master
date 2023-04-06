@@ -1,4 +1,9 @@
-async function protectedRequest(url: string, method: string, body: any = null, contentType: string = 'application/json') {
+async function protectedRequest(
+    url: string, 
+    method: string, 
+    body: string | undefined | FormData = undefined,
+    contentType = 'application/json'
+) {
     // TODO: Handle the case where the token is not present
     // TODO: Handle errors
 

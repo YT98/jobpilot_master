@@ -1,4 +1,3 @@
-import { useState } from "react";
 import SkillsOrLanguages from "../SkillsOrLanguages";
 
 interface CompleteProfileSkillsAndLanguagesStepProps {

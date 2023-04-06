@@ -1,11 +1,7 @@
-import { AppContext } from '../../contexts/AppContext';
-import { useContext } from 'react';
 import { useRouter } from 'next/router';
 
 const CompleteProfileUploadResume = () => {
     const router = useRouter();
-    // const { appState } = useContext(AppContext);
-    // const userId = appState.user ? appState.user.id : '';
 
     return (
         <div className="flex justify-center">

@@ -17,7 +17,7 @@ const SignIn: React.FC = () => {
         password: '',
         error: null,
     });
-	const { appState, appDispatch } = useContext(AppContext);
+	const { appDispatch } = useContext(AppContext);
 
 	// If the user is already logged in, redirect to the dashboard
     useEffect(() => {

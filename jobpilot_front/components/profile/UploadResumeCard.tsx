@@ -1,12 +1,11 @@
 import { AppContext } from "../../contexts/AppContext";
-import { useContext, useEffect } from "react";
-import UICard from "../UICard";
+import { useContext } from "react";
 import protectedRequest from "../../utils/protectedRequest";
 import { profileRoutes } from "../../config/routes";
 
 const UploadResumeCard = () => {
     const { appState } = useContext(AppContext);
-    const userId = appState.user ? appState.user.id : '';
+    const accountId = appState.account ? appState.account.id : '';
     
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -24,7 +23,7 @@ const UploadResumeCard = () => {
         const sendResume = async () => {
             console.log(formData)
             const response = await protectedRequest(
-                process.env.NEXT_PUBLIC_BASE_URL + profileRoutes.resume + `/${userId}`, 
+                process.env.NEXT_PUBLIC_BASE_URL + profileRoutes.resume + `/${accountId}`, 
                 'POST', 
                 formData,
                 'multipart/form-data'

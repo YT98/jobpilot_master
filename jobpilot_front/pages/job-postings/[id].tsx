@@ -1,21 +1,12 @@
-import { useContext, useEffect, useState } from "react";
-import { AppContext } from "../../contexts/AppContext";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import protectedRequest from "../../utils/protectedRequest";
 import { jobPostingRoutes } from "../../config/routes";
 import JobPosting from "../../types/JobPosting";
 
-interface UserProfile {
-    highestEducation: string;
-    skills: string[];
-    yearsExperience: number;
-}
-
 const JobPostingPage = () => {
     const router = useRouter();
     const job_posting_id = router.query.id;
-    const { appState } = useContext(AppContext);
-    const accountId = appState.account ? appState.account.id : '';
 
     const [jobPosting, setJobPosting] = useState<JobPosting>({
         id: '',
@@ -26,12 +17,6 @@ const JobPostingPage = () => {
         skills: [],
         educationQualifications: [],
         experienceQualifications: [],
-    });
-
-    const [userProfile, setUserProfile] = useState<UserProfile>({
-        skills: [],
-        highestEducation: "",
-        yearsExperience: 0
     });
 
     const getJobPosting = async () => {

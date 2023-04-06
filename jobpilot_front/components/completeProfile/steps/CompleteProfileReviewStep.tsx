@@ -24,7 +24,7 @@ const CompleteProfileReviewStep = ({personalInformation, workExperiences, educat
 
     const workExperienceElements = workExperiences.map((workExperience, index) => {
 
-        let skillElements = workExperience.skills.map((skill, index) => {
+        const skillElements = workExperience.skills.map((skill, index) => {
             return (
                 <div key={index}>
                     <p className="mr-5 mb-0 p-2 pr-5 pl-5 border border-gray-300 rounded-full"> {skill} </p>

@@ -14,7 +14,9 @@ const initialState: AppState = {
 
 export const AppContext = createContext<AppContextType>({
   appState: initialState,
-  appDispatch: () => {},
+  appDispatch: () => {
+    return;
+  },
 });
 
 type AppProviderProps = {

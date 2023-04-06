@@ -13,7 +13,7 @@ import { profileRoutes } from '../config/routes';
 
 // TODO: If user uploaded resume, populate state with resume data
 const CompleteProfile = () => {
-    const { appState, appDispatch } = useContext(AppContext);
+    const { appState } = useContext(AppContext);
     const profileId = appState.account ? appState.account.profileId : "";
 
     const [currentStep, setCurrentStep] = useState(1);
@@ -85,7 +85,7 @@ const CompleteProfile = () => {
         try {
             console.log(userProfile.workExperiences)
             const submitProfile = async () => {
-                const response = await protectedRequest(process.env.NEXT_PUBLIC_BASE_URL + profileRoutes.profile + `/${profileId}`, 'POST',
+                await protectedRequest(process.env.NEXT_PUBLIC_BASE_URL + profileRoutes.profile + `/${profileId}`, 'POST',
                     JSON.stringify({
                         firstName: userProfile.firstName,
                         lastName: userProfile.lastName,
@@ -98,7 +98,8 @@ const CompleteProfile = () => {
                         languages: userProfile.languages
                     })
                 );
-                const data = await response.json();
+                // TODO: Handle response
+                // const data = await response.json();
             }
             submitProfile();
         } catch (error) {
@@ -112,8 +113,7 @@ const CompleteProfile = () => {
 
             <div className="relative h-screen overflow-x-hidden mt-[74px]">
                 <CompleteProfileStepContainer handleChangeStep={handleChangeStep} current_step={currentStep} element_step={1}>
-                    <CompleteProfilePersonalInformationStep 
-                        handleChangeStep={handleChangeStep}
+                    <CompleteProfilePersonalInformationStep
                         personalInformation={{
                             firstName: userProfile.firstName,
                             lastName: userProfile.lastName,
