@@ -1,11 +1,9 @@
 from app import db
-from models.Profile import Profile, ProfileLinks
+from models.Profile import Profile, ProfileLink
 from models.WorkExperience import WorkExperience, WorkExperienceSkill
 from models.Skill import Skill
 from models.Education import Education
-# TODO: Rename ProfileSkills to ProfileSkill
-# TODO: Rename ProfileLanguages to ProfileLanguage
-from models.Profile import ProfileSkills, ProfileLanguages
+from models.Profile import ProfileSkill, ProfileLanguage
 from models.Language import Language
 
 
@@ -21,11 +19,11 @@ def update_profile_personal_information(
 
 def update_profile_links(profile_id, links):
     # TODO: Instead of deleting all links and adding new ones, only update the ones that have changed
-    current_links = ProfileLinks.query.filter_by(profile_id=profile_id).all()
+    current_links = ProfileLink.query.filter_by(profile_id=profile_id).all()
     for link in current_links:
         db.session.delete(link)
     for link in links:
-        new_link = ProfileLinks(
+        new_link = ProfileLink(
             profile_id=profile_id,
             type=link.get('type'),
             url=link.get('url')
@@ -99,7 +97,7 @@ def update_profile_education(profile_id, educations):
 
 
 def update_profile_skills(profile_id, skills):
-    current_profile_skills = ProfileSkills.query.filter_by(profile_id=profile_id).all()
+    current_profile_skills = ProfileSkill.query.filter_by(profile_id=profile_id).all()
     for skill in current_profile_skills:
         db.session.delete(skill)
         db.session.commit()
@@ -112,7 +110,7 @@ def update_profile_skills(profile_id, skills):
             db.session.add(skill)
             db.session.commit()
             db.session.refresh(skill)
-        new_profile_skill = ProfileSkills(
+        new_profile_skill = ProfileSkill(
             profile_id=profile_id,
             skill_id=skill.id
         )
@@ -122,7 +120,7 @@ def update_profile_skills(profile_id, skills):
 
 
 def update_profile_languages(profile_id, languages):
-    current_profile_languages = ProfileLanguages.query.filter_by(profile_id=profile_id).all()
+    current_profile_languages = ProfileLanguage.query.filter_by(profile_id=profile_id).all()
     for language in current_profile_languages:
         db.session.delete(language)
         db.session.commit()
@@ -134,7 +132,7 @@ def update_profile_languages(profile_id, languages):
             db.session.add(language)
             db.session.commit()
             db.session.refresh(language)
-        new_profile_language = ProfileLanguages(
+        new_profile_language = ProfileLanguage(
             profile_id=profile_id,
             language_id=language.id
         )

@@ -20,7 +20,7 @@ class Profile(db.Model, Interface):
 
 
 @dataclass
-class ProfileSkills(db.Model, Interface):
+class ProfileSkill(db.Model, Interface):
     id: int
     profile_id: int
     skill_id: int
@@ -31,7 +31,7 @@ class ProfileSkills(db.Model, Interface):
 
 
 @dataclass
-class ProfileLanguages(db.Model, Interface):
+class ProfileLanguage(db.Model, Interface):
     id: int
     profile_id: int
     language_id: int
@@ -44,7 +44,7 @@ class ProfileLanguages(db.Model, Interface):
 
 
 @dataclass
-class ProfileLinks(db.Model, Interface):
+class ProfileLink(db.Model, Interface):
     id: int
     profile_id: int
     type: str

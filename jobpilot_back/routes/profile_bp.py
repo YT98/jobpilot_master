@@ -6,7 +6,7 @@ import json
 from app import db
 from gpt.gpt import ask_gpt
 from gpt.prompts import EXTRACT_RESUME_INFORMATION_PROMPT
-from models.Profile import Profile, ProfileSkills, ProfileLanguages, ProfileLinks
+from models.Profile import Profile, ProfileSkill, ProfileLanguage, ProfileLink
 from models.Education import Education
 from models.WorkExperience import WorkExperience, WorkExperienceSkill
 from models.Skill import Skill
@@ -21,16 +21,16 @@ profile_bp = Blueprint('profile_bp', __name__)
 @profile_bp.route('/<profile_id>', methods=['GET'])
 def get_profile(profile_id):
     profile = Profile.query.filter_by(id=profile_id).first()
-    profile_links = ProfileLinks.query.filter_by(profile_id=profile_id).all()
+    profile_links = ProfileLink.query.filter_by(profile_id=profile_id).all()
     educations = Education.query.filter_by(profile_id=profile_id).all()
 
-    profile_languages = ProfileLanguages.query.filter_by(profile_id=profile_id).all()
+    profile_languages = ProfileLanguage.query.filter_by(profile_id=profile_id).all()
     language_names = []
     for profile_language in profile_languages:
         language = Language.query.filter_by(id=profile_language.language_id).first()
         language_names.append(language.name)
 
-    profile_skills = ProfileSkills.query.filter_by(profile_id=profile_id).all()
+    profile_skills = ProfileSkill.query.filter_by(profile_id=profile_id).all()
     skill_names = []
     for profile_skill in profile_skills:
         skill = Skill.query.filter_by(id=profile_skill.skill_id).first()
@@ -105,7 +105,7 @@ def update_profile(profile_id):
 @profile_bp.route('/personal-information/<profile_id>', methods=['GET'])
 def personal_info(profile_id):
     profile = Profile.query.filter_by(id=profile_id).first()
-    profile_links = ProfileLinks.query.filter_by(profile_id=profile_id).all()
+    profile_links = ProfileLink.query.filter_by(profile_id=profile_id).all()
     return jsonify({
         'email': profile.email,
         'firstName': profile.first_name,
@@ -122,13 +122,13 @@ def update_personal_info(profile_id):
     profile.last_name = request.json.get('lastName')
     profile.phone_number = request.json.get('phone_number')
     profile.email = request.json.get('email')
-    current_links = ProfileLinks.query.filter_by(profile_id=profile_id).all()
+    current_links = ProfileLink.query.filter_by(profile_id=profile_id).all()
     for link in current_links:
         db.session.delete(link)
 
     request_links = request.json.get('links')
     for link in request_links:
-        new_link = ProfileLinks(
+        new_link = ProfileLink(
             profile_id=profile_id,
             type=link.get('type'),
             url=link.get('url')
@@ -141,7 +141,7 @@ def update_personal_info(profile_id):
 
 @profile_bp.route('/skills/<profile_id>', methods=['GET'])
 def get_skills(profile_id):
-    profile_skills = ProfileSkills.query.filter_by(profile_id=profile_id).all()
+    profile_skills = ProfileSkill.query.filter_by(profile_id=profile_id).all()
     skills = []
     for profile_skill in profile_skills:
         skill = Skill.query.filter_by(id=profile_skill.skill_id).first()
