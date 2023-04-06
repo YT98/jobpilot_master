@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { WorkExperience } from "../../../types/UserProfile";
 import WorkExperienceCard from "../WorkExperienceCard";
 

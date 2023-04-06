@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
 import { authRoutes } from '../config/routes';
-import { AppContext } from '../contexts/AppContext';
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 
 interface RegisterState {
     firstName: string;
@@ -24,8 +23,6 @@ const Register = () => {
         error: null,
     });
 
-    const { appState, appDispatch } = useContext(AppContext);
-
     const handleRegister = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         try {
@@ -47,7 +44,8 @@ const Register = () => {
                 const errorData = await response.json();
                 throw new Error(errorData.error);
             }
-            const data = await response.json();
+            // TODO: Handle data
+            // const data = await response.json();
             // Store the token in session storage
             // sessionStorage.setItem('token', data.token);
             // Store the user in the app context

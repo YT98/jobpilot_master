@@ -3,10 +3,9 @@ import { PersonalInformation } from "../../../types/UserProfile";
 interface CompleteProfilePersonalInformationStepProps {
     personalInformation: PersonalInformation;
     setPersonalInformation: (personalInformation: PersonalInformation) => void;
-    handleChangeStep: (step: number) => void;
 }
 
-const CompleteProfilePersonalInformationStep = ({personalInformation, setPersonalInformation, handleChangeStep}: CompleteProfilePersonalInformationStepProps) => {
+const CompleteProfilePersonalInformationStep = ({personalInformation, setPersonalInformation }: CompleteProfilePersonalInformationStepProps) => {
 
     const handleAddSocialMediaLink = () => {
         personalInformation.links.push({

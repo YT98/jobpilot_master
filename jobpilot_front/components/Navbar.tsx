@@ -1,13 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { AppContext } from "../contexts/AppContext";
-import { useContext, useState } from "react";
 
 const Navbar = () => {
-  const { appState } = useContext(AppContext);
-  const firstName = appState.user ? appState.user.firstName : '';
-  const lastName = appState.user ? appState.user.lastName : '';
-
   const router = useRouter();  
 
   return (

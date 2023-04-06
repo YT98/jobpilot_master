@@ -13,7 +13,7 @@ interface JobPostingsTableProps {
 const JobPostingsTable = ({ jobPostings }: JobPostingsTableProps) => {
 
     const JobPostingRows = jobPostings.map((jobPosting, index) => {
-        return <tr>
+        return <tr key={index}>
             <th>
                 <label>
                     <input type="checkbox" className="checkbox" />

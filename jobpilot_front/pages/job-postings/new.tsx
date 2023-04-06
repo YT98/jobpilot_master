@@ -49,10 +49,10 @@ const NewJobPosting = () => {
         error: ''
     });
 
-    const handleSubmitJobDescription = async (e: any) => {
+    const handleSubmitJobDescription = async (e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault();
-        let jobPostingDescriptionElement = document.getElementById('job-posting-description') as HTMLInputElement;
-        let jobPostingDescription = jobPostingDescriptionElement.value as string;
+        const jobPostingDescriptionElement = document.getElementById('job-posting-description') as HTMLInputElement;
+        const jobPostingDescription = jobPostingDescriptionElement.value as string;
         setState({...state, jobPostingDescription: jobPostingDescription, loading: true});
         try {
             const response = await protectedRequest(process.env.NEXT_PUBLIC_BASE_URL + jobPostingRoutes.extractJobPostingInformation, 'POST', JSON.stringify({
@@ -65,7 +65,7 @@ const NewJobPosting = () => {
         }
     };
 
-    const handleSubmitJobInformation = async (e: any) => {
+    const handleSubmitJobInformation = async (e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault();
         setState({...state, loading: true});
         try {
@@ -85,22 +85,22 @@ const NewJobPosting = () => {
 
 
     const handleRemoveSkill = (index: number) => {
-        let skills = state.jobPostingInformation.skills;
+        const skills = state.jobPostingInformation.skills;
         skills.splice(index, 1);
         setState({...state, jobPostingInformation: {...state.jobPostingInformation, skills: skills}});
     };
 
-    const handleAddSkill = (e: any) => {
+    const handleAddSkill = (e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault();
-        let skillInput = document.getElementById('add-skill-input') as HTMLInputElement;
-        let skill = skillInput.value as string;
-        let skills = state.jobPostingInformation.skills;
+        const skillInput = document.getElementById('add-skill-input') as HTMLInputElement;
+        const skill = skillInput.value as string;
+        const skills = state.jobPostingInformation.skills;
         skills.push(skill);
         setState({...state, jobPostingInformation: {...state.jobPostingInformation, skills: skills}});
         skillInput.value = '';
     };
 
-    const handleCancel = (e: any) => {
+    const handleCancel = (e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault();
         router.push('/job-postings');
     };

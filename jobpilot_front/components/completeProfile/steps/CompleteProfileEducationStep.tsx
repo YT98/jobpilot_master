@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Education } from "../../../types/UserProfile";
 import EducationCard from "../EducationCard";
 
