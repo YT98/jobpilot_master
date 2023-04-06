@@ -1,7 +1,9 @@
 from flask import Blueprint, jsonify, request
+from json import JSONDecoder
 import json
 import time
 
+from utils.extract_json import extract_json_object
 from app import db
 from models.JobPosting import JobPosting, JobPostingSkills
 from models.Profile import Profile, ProfileSkills
@@ -24,16 +26,23 @@ def get_job_posting(job_posting_id):
 @job_posting_bp.route('/extract', methods=['POST'])
 def extract_job_posting():
     data = request.get_json()
-    profile_id = data['profileId']
     description = data['description']
 
     # ask to extract information
-    prompt = EXTRACT_JOB_POSTING_INFORMATION_PROMPT + description
+    prompt = EXTRACT_JOB_POSTING_INFORMATION_PROMPT + description + "\n"
     print("asking gpt to extract information from job posting...")
     # TODO: handle errors
     response = ask_gpt(prompt, max_tokens=2000)
-    
-    job_posting_info = json.loads(response)
+
+    # Extract json objects from response in case open ai returns incorrect json
+    try:
+        job_posting_info = extract_json_object(response)
+    except ValueError:
+        # TODO: logging
+        return {
+            "message": "error",
+            "error": "Open AI returned invalid json"
+        }
 
     return {
         "message": "success",
