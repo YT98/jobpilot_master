@@ -112,3 +112,4 @@ dist
 __pycache__
 app.log
 .DS_Store
+.python-version
