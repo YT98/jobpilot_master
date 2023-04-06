@@ -1,11 +1,13 @@
 export interface UserProfile {
-    personalInformation: PersonalInformation;
+    firstName: string;
+    lastName: string;
+    email: string;
+    phoneNumber: string;
+    links: { type: string; url: string}[];
     workExperiences: WorkExperience[];
     educations: Education[];
-    skillsAndLanguages: {
-        skills: string[];
-        languages: string[];
-    }
+    skills: string[];
+    languages: string[];
 }
 
 export interface PersonalInformation {
@@ -13,7 +15,7 @@ export interface PersonalInformation {
     lastName: string;
     email: string;
     phoneNumber: string;
-    socialMediaLinks: { type: string; url: string}[];
+    links: { type: string; url: string}[];
 }
 
 export interface Education {

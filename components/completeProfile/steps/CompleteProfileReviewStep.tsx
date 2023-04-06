@@ -11,12 +11,12 @@ interface CompleteProfileReviewStepProps {
 
 const CompleteProfileReviewStep = ({personalInformation, workExperiences, educations, skills, languages}: CompleteProfileReviewStepProps) => {
 
-    const socialMediaLinksElements = personalInformation.socialMediaLinks.map((socialMediaLink, index) => {
+    const linksElements = personalInformation.links.map((link, index) => {
         return (
             <div key={index}>
                 <p className="mr-5 mb-0 p-3 pr-5 pl-5 border border-gray-300 rounded-full"> 
-                    <span className="font-semibold">{socialMediaLink.type}: </span> 
-                    {socialMediaLink.url ? socialMediaLink.url : <span className="text-red-700 font-normal">URL is required</span>} 
+                    <span className="font-semibold">{link.type}: </span> 
+                    {link.url ? link.url : <span className="text-red-700 font-normal">URL is required</span>} 
                 </p>
             </div>
         )
@@ -118,7 +118,7 @@ const CompleteProfileReviewStep = ({personalInformation, workExperiences, educat
                 {personalInformation.email ? <span className="font-semibold">Phone Number: </span> : <span className="text-red-700 font-normal">Phone Number is required</span>}
                 {personalInformation.phoneNumber} 
             </p>
-            {socialMediaLinksElements}
+            {linksElements}
 
 
             <h3> Work Experiences </h3>

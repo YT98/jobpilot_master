@@ -9,7 +9,7 @@ interface CompleteProfilePersonalInformationStepProps {
 const CompleteProfilePersonalInformationStep = ({personalInformation, setPersonalInformation, handleChangeStep}: CompleteProfilePersonalInformationStepProps) => {
 
     const handleAddSocialMediaLink = () => {
-        personalInformation.socialMediaLinks.push({
+        personalInformation.links.push({
             type: "LinkedIn",
             url: ""
         });
@@ -21,20 +21,20 @@ const CompleteProfilePersonalInformationStep = ({personalInformation, setPersona
     }
 
     const handleRemoveSocialMediaLink = (index: number) => {
-        personalInformation.socialMediaLinks.splice(index, 1);
+        personalInformation.links.splice(index, 1);
         setPersonalInformation({
             ...personalInformation
         })
     }
 
-    const socialMediaLinks = personalInformation.socialMediaLinks.map((link, index) => {
+    const socialMediaLinks = personalInformation.links.map((link, index) => {
         return (
             <div key={index} className="flex flex-row rounded-lg border border-gray-300 mt-3 first-of-type:mt-0">
                 <select 
                     className="input flex-grow"
-                    value={personalInformation.socialMediaLinks[index].type}
+                    value={personalInformation.links[index].type}
                     onChange={(e) => {
-                        personalInformation.socialMediaLinks[index].type = e.target.value;
+                        personalInformation.links[index].type = e.target.value;
                         setPersonalInformation({
                             ...personalInformation
                         })
@@ -49,9 +49,9 @@ const CompleteProfilePersonalInformationStep = ({personalInformation, setPersona
                 </select>
                 <input 
                     type="text" placeholder="URL" className="input flex-grow ml-2 rounded-none border-0 border-l border-gray-300 bg-transparent"
-                    value={personalInformation.socialMediaLinks[index].url}
+                    value={personalInformation.links[index].url}
                     onChange={(e) => {
-                        personalInformation.socialMediaLinks[index].url = e.target.value;
+                        personalInformation.links[index].url = e.target.value;
                         setPersonalInformation({
                             ...personalInformation
                         })

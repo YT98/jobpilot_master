@@ -3,6 +3,7 @@ export interface Account {
     firstName: string;
     lastName: string;
     email: string;
+    profileId: number;
 }
   
 export interface AppState {

@@ -5,10 +5,9 @@ import WorkExperienceCard from "../WorkExperienceCard";
 interface CompleteProfileWorkExperienceStepProps {
     workExperiences: WorkExperience[];
     setWorkExperiences: (workExperiences: WorkExperience[]) => void;
-    handleChangeStep: (step: number) => void;
 }
 
-const CompleteProfileWorkExperienceStep = ({workExperiences, setWorkExperiences, handleChangeStep}: CompleteProfileWorkExperienceStepProps) => {
+const CompleteProfileWorkExperienceStep = ({workExperiences, setWorkExperiences}: CompleteProfileWorkExperienceStepProps) => {
 
     const addWorkExperience = () => {
         workExperiences.push({
