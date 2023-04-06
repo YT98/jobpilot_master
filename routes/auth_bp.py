@@ -31,7 +31,8 @@ def signin():
             'id': account.id,
             'email': account.email,
             'firstName': account.first_name,
-            'lastName': account.last_name
+            'lastName': account.last_name,
+            'profileId': account.profile_id,
         }
     })
 
