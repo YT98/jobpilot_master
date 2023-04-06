@@ -1,8 +1,10 @@
 import os
 import openai
 
+
 def init_openai():
     openai.api_key = os.getenv("OPENAI_API_KEY")
+
 
 def ask_gpt(prompt, max_tokens=1000, stop=None):
     response = openai.Completion.create(
@@ -13,4 +15,3 @@ def ask_gpt(prompt, max_tokens=1000, stop=None):
         stop=stop
     )
     return response.choices[0].text
-    

@@ -31,13 +31,13 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 migrate.init_app(app, db)
 
-from routes.job_posting_bp import job_posting_bp
+from routes.job_posting_bp import job_posting_bp # noqa E402
 app.register_blueprint(job_posting_bp, url_prefix='/job-postings')
 
-from routes.profile_bp import profile_bp
+from routes.profile_bp import profile_bp # noqa E402
 app.register_blueprint(profile_bp, url_prefix='/profile')
 
-from routes.auth_bp import auth_bp
+from routes.auth_bp import auth_bp # noqa E402
 app.register_blueprint(auth_bp, url_prefix='/auth')
 
 init_openai()

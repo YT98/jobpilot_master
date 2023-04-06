@@ -2,6 +2,7 @@ from dataclasses import dataclass
 
 from app import db
 
+
 @dataclass
 class JobPosting(db.Model):
     id: int
@@ -23,6 +24,7 @@ class JobPosting(db.Model):
     date_posted = db.Column(db.TIMESTAMP, server_default=db.func.current_timestamp(), nullable=False)
     experience_qualification = db.Column(db.Text, nullable=True)
     education_qualification = db.Column(db.Text, nullable=True)
+
 
 @dataclass
 class JobPostingSkills(db.Model):
