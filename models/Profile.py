@@ -9,18 +9,12 @@ class Profile(db.Model):
     first_name: str
     last_name: str
     phone_number: str
-    linkedin_url: str
-    github_url: str
-    website_url: str
 
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(255), nullable=False)
     first_name = db.Column(db.String(255), nullable=True)
     last_name = db.Column(db.String(255), nullable=True)
     phone_number = db.Column(db.String(255), nullable=True)
-    linkedin_url = db.Column(db.String(255), nullable=True)
-    github_url = db.Column(db.String(255), nullable=True)
-    website_url = db.Column(db.String(255), nullable=True)
 
 @dataclass
 class ProfileSkills(db.Model):
@@ -43,3 +37,15 @@ class ProfileLanguages(db.Model):
     profile_id = db.Column(db.Integer, db.ForeignKey('profile.id'), nullable=False)
     language_id = db.Column(db.Integer, db.ForeignKey('language.id'), nullable=False)
     proficiency = db.Column(db.String(255), nullable=True)
+
+@dataclass
+class ProfileLinks(db.Model):
+    id: int
+    profile_id: int
+    type: str
+    url: str
+
+    id = db.Column(db.Integer, primary_key=True)
+    profile_id = db.Column(db.Integer, db.ForeignKey('profile.id'), nullable=False)
+    type = db.Column(db.String(255), nullable=False)
+    url = db.Column(db.String(255), nullable=False)
