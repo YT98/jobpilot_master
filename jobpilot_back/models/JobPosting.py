@@ -28,7 +28,7 @@ class JobPosting(db.Model, Interface):
 
 
 @dataclass
-class JobPostingSkills(db.Model, Interface):
+class JobPostingSkill(db.Model, Interface):
     id: int
     job_posting_id: int
     skill_id: int

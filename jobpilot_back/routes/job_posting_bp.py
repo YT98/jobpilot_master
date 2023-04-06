@@ -3,8 +3,8 @@ import time
 
 from utils.extract_json import extract_json_object
 from app import db
-from models.JobPosting import JobPosting, JobPostingSkills
-from models.Profile import ProfileSkills
+from models.JobPosting import JobPosting, JobPostingSkill
+from models.Profile import ProfileSkill
 from models.Skill import Skill
 from gpt.gpt import ask_gpt
 from gpt.prompts import EXTRACT_JOB_POSTING_INFORMATION_PROMPT
@@ -21,7 +21,7 @@ def get_all_profile_job_postings(profile_id):
 @job_posting_bp.route('/<job_posting_id>', methods=['GET'])
 def get_job_posting(job_posting_id):
     job_posting = JobPosting.query.filter_by(id=job_posting_id).first()
-    job_posting_skills = JobPostingSkills.query.filter_by(job_posting_id=job_posting_id).all()
+    job_posting_skills = JobPostingSkill.query.filter_by(job_posting_id=job_posting_id).all()
     job_posting_skills_names = [
         Skill.query.filter_by(id=job_posting_skill.skill_id).first().name for job_posting_skill in job_posting_skills
     ]
@@ -114,7 +114,7 @@ def create_job_posting():
             db.session.add(skill)
             db.session.commit()
             db.session.refresh(skill)
-        job_posting_skill = JobPostingSkills(job_posting_id=job_posting.id, skill_id=skill.id)
+        job_posting_skill = JobPostingSkill(job_posting_id=job_posting.id, skill_id=skill.id)
         db.session.add(job_posting_skill)
 
     db.session.commit()
@@ -138,7 +138,7 @@ def fake_create_job_posting():
 
 @job_posting_bp.route('/job_posting_skills/get_by_job_posting_id/<job_posting_id>', methods=['GET'])
 def get_job_posting_skills_by_job_posting_id(job_posting_id):
-    job_posting_skills = JobPostingSkills.query.filter_by(job_posting_id=job_posting_id).all()
+    job_posting_skills = JobPostingSkill.query.filter_by(job_posting_id=job_posting_id).all()
     return jsonify(job_posting_skills)
 
 
@@ -158,8 +158,8 @@ def get_qualification_comparison(job_posting_id):
 @job_posting_bp.route('/skills-comparison/<job_posting_id>', methods=['GET'])
 def get_skills_comparison(job_posting_id):
     job_posting = JobPosting.query.filter_by(id=job_posting_id).first()
-    job_posting_skills = JobPostingSkills.query.filter_by(job_posting_id=job_posting_id).all()
-    profile_skills = ProfileSkills.query.filter_by(profile_id=job_posting.profile_id).all()
+    job_posting_skills = JobPostingSkill.query.filter_by(job_posting_id=job_posting_id).all()
+    profile_skills = ProfileSkill.query.filter_by(profile_id=job_posting.profile_id).all()
 
     all_job_posting_skills = []
     job_posting_skills_posessed_by_profile = []
