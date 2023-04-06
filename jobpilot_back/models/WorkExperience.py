@@ -1,10 +1,11 @@
 from dataclasses import dataclass
+from py_ts_interfaces import Interface
 
 from app import db
 
 
 @dataclass
-class WorkExperience(db.Model):
+class WorkExperience(db.Model, Interface):
     id: int
     profile_id: int
     company_name: str
@@ -23,7 +24,7 @@ class WorkExperience(db.Model):
 
 
 @dataclass
-class WorkExperienceSkill(db.Model):
+class WorkExperienceSkill(db.Model, Interface):
     id: int
     work_experience_id: int
     skill_id: int

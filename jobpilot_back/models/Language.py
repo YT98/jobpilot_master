@@ -1,10 +1,11 @@
 from dataclasses import dataclass
+from py_ts_interfaces import Interface
 
 from app import db
 
 
 @dataclass
-class Language(db.Model):
+class Language(db.Model, Interface):
     id: int
     name: str
 

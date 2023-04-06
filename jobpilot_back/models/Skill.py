@@ -1,10 +1,11 @@
 from dataclasses import dataclass
+from py_ts_interfaces import Interface
 
 from app import db
 
 
 @dataclass
-class Skill(db.Model):
+class Skill(db.Model, Interface):
     id: int
     name: str
     soft_skill: bool

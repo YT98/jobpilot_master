@@ -1,10 +1,11 @@
 from dataclasses import dataclass
+from py_ts_interfaces import Interface
 
 from app import db
 
 
 @dataclass
-class InvitationCode(db.Model):
+class InvitationCode(db.Model, Interface):
     id: int
     code: str
     used: bool

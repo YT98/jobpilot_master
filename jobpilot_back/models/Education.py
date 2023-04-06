@@ -1,10 +1,11 @@
 from dataclasses import dataclass
+from py_ts_interfaces import Interface
 
 from app import db
 
 
 @dataclass
-class Education(db.Model):
+class Education(db.Model, Interface):
     id: int
     profile_id: int
     school_name: str
