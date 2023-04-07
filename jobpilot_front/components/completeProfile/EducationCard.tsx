@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Education } from "../../types/dbModelsExtended";
 import Tooltip from "./Tooltip";
 
@@ -7,16 +6,7 @@ interface EducationCardProps {
     removeEducation: () => void;
 }
 
-interface EducationCardState {
-    currentlyAttending: boolean;
-    education: Education;
-}
-
 const EducationCard = ({education, removeEducation}: EducationCardProps) => {
-    const [state, setState] = useState<EducationCardState>({
-        education: education,
-        currentlyAttending: false
-    })
 
     return (
         <div className="p-5 rounded-lg border-2 border-gray-200 mt-5">
@@ -34,7 +24,7 @@ const EducationCard = ({education, removeEducation}: EducationCardProps) => {
                 </label>
                 <input 
                     className="input input-bordered" type="text" placeholder="Institution Name"
-                    value={education.schoolName}
+                    defaultValue={education.schoolName}
                     onChange={(e) => {education.schoolName = e.target.value}}
                 />
 
@@ -43,7 +33,7 @@ const EducationCard = ({education, removeEducation}: EducationCardProps) => {
                 </label>
                 <input 
                     className="input input-bordered" type="text" placeholder="Location"
-                    value={education.location}
+                    defaultValue={education.location}
                     onChange={(e) => {education.location = e.target.value}}
                 />
 
@@ -53,7 +43,7 @@ const EducationCard = ({education, removeEducation}: EducationCardProps) => {
                 <div className="border border-gray-300 rounded-lg p-2">
                     <select
                         className="w-full"
-                        value={education.degree}
+                        defaultValue={education.degree}
                         onChange={(e) => {education.degree = e.target.value}}
                     >
                         <option value="Associate's">Associate's</option>
@@ -68,7 +58,7 @@ const EducationCard = ({education, removeEducation}: EducationCardProps) => {
                 </label>
                 <input 
                     className="input input-bordered" type="text" placeholder="Major or Area of Study"
-                    value={education.majorOrAreaOfStudy}
+                    defaultValue={education.majorOrAreaOfStudy}
                     onChange={(e) => {education.majorOrAreaOfStudy = e.target.value}}    
                 />
 
@@ -84,23 +74,20 @@ const EducationCard = ({education, removeEducation}: EducationCardProps) => {
                         />
                     </div>
                     <div>
-                        <label className={state.currentlyAttending ? "label mt-3 opacity-70" : "label mt-3"}>
+                        <label className={education.currentlyAttending ? "label mt-3 opacity-70" : "label mt-3"}>
                             <span className="label-text">End Date *</span>
                         </label>
                         <input
                             type="month" 
-                            className={state.currentlyAttending ? "input input-bordered input-disabled opacity-70" : "input input-bordered"}
-                            disabled={state.currentlyAttending}
+                            className={education.currentlyAttending ? "input input-bordered input-disabled opacity-70" : "input input-bordered"}
+                            disabled={education.currentlyAttending}
                             onChange={(e) => {education.endDate = e.target.value}}
                         />
                         <div className="form-control flex flex-row">
                             <label className="label cursor-pointer mt-1">
                                 <input 
                                     type="checkbox" className="checkbox checkbox-sm"
-                                    onChange={(e) => {
-                                        education.currentlyAttending = e.target.checked
-                                        setState({...state, currentlyAttending: e.target.checked})
-                                    }}
+                                    onChange={(e) => { education.currentlyAttending = e.target.checked }}
                                 />
                                 <span className="label-text ml-2">I am currently attending this school </span>
                             </label>

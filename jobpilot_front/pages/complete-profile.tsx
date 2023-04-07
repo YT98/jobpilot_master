@@ -83,7 +83,6 @@ const CompleteProfile = () => {
                 const fetchWorkExperiences = async () => {
                     const response = await protectedRequest(process.env.NEXT_PUBLIC_BASE_URL + profileRoutes.workExperiences + `/${profileId}`, 'GET');
                     const data = await response.json();
-                    console.log(data)
                     if (data.workExperiences.length > 0) {
                         setWorkExperiences(data.workExperiences);
                     }
@@ -129,6 +128,58 @@ const CompleteProfile = () => {
     const handleSubmit = () => {
         try {
             const submitProfile = async () => {
+                // Validate profile
+                if (profile.firstName === "" || profile.lastName === "" || profile.email === "" || profile.phoneNumber === "") {
+                    alert("Please fill out all required personal information fields");
+                    return;
+                }
+                // Validate profile links
+                for (let i = 0; i < profileLinks.length; i++) {
+                    if (profileLinks[i].type === "" || profileLinks[i].url === "") {
+                        alert("Please fill out all required profile link fields");
+                        return;
+                    }
+                }
+                // Validate work experiences
+                if (workExperiences.length === 0) {
+                    alert("Please add at least one work experience");
+                    return;
+                }
+                for (let i = 0; i < workExperiences.length; i++) {
+                    if (!workExperiences[i].title || !workExperiences[i].companyName 
+                    || !workExperiences[i].location || !workExperiences[i].startDate 
+                    || (workExperiences[i].currentlyWorking ? false : !workExperiences[i].endDate)
+                ) {   
+                        alert("Please fill out all required work experience fields");
+                        return;
+                    }
+                }
+                // Validate educations
+                if (educations.length === 0) {
+                    alert("Please add at least one education");
+                    return;
+                }
+                for (let i = 0; i < educations.length; i++) {
+                    if (
+                        !educations[i].schoolName || !educations[i].degree || !educations[i].majorOrAreaOfStudy 
+                        || !educations[i].location || !educations[i].startDate
+                        || (educations[i].currentlyAttending ? false : !educations[i].endDate)
+                    ) {
+                        alert("Please fill out all required education fields");
+                        return;
+                    }
+                }
+                // Validate skills
+                if (skills.length === 0) {
+                    alert("Please add at least one skill");
+                    return;
+                }
+                // Validate languages
+                if (languages.length === 0) {
+                    alert("Please add at least one language");
+                    return;
+                }
+
 
                 await protectedRequest(process.env.NEXT_PUBLIC_BASE_URL + profileRoutes.profile + `/${profileId}`, 'POST',
                     JSON.stringify({
