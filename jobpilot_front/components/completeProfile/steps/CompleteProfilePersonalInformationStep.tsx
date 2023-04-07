@@ -1,4 +1,4 @@
-import { Profile, ProfileLink } from "../../../types/dbModels";
+import { Profile, ProfileLink } from "../../../types/dbModelsExtended";
 
 interface CompleteProfilePersonalInformationStepProps {
     profile: Profile;

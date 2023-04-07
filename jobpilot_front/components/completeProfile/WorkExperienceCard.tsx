@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { WorkExperienceWithSkills } from "../../types/dbModels";
+import { WorkExperienceWithSkills } from "../../types/dbModelsExtended";
 import SkillsOrLanguages from "./SkillsOrLanguages";
 import Tooltip from "./Tooltip";
 

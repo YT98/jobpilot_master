@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Education } from "../../types/dbModels";
+import { Education } from "../../types/dbModelsExtended";
 import Tooltip from "./Tooltip";
 
 interface EducationCardProps {
