@@ -1,22 +1,22 @@
-import { PersonalInformation } from "../../../types/UserProfile";
-import { WorkExperience, Education } from "../../../types/UserProfile";
+import { Profile, ProfileLink, WorkExperienceWithSkills, Education } from "../../../types/dbModels";
 
 interface CompleteProfileReviewStepProps {
-    personalInformation: PersonalInformation;
-    workExperiences: WorkExperience[];
+    profile: Profile;
+    profileLinks: ProfileLink[];
+    workExperiences: WorkExperienceWithSkills[];
     educations: Education[];
     skills: string[];
     languages: string[];
 }
 
-const CompleteProfileReviewStep = ({personalInformation, workExperiences, educations, skills, languages}: CompleteProfileReviewStepProps) => {
+const CompleteProfileReviewStep = ({profile, profileLinks, workExperiences, educations, skills, languages}: CompleteProfileReviewStepProps) => {
 
-    const linksElements = personalInformation.links.map((link, index) => {
+    const linksElements = profileLinks.map((profileLink, index) => {
         return (
             <div key={index}>
                 <p className="mr-5 mb-0 p-3 pr-5 pl-5 border border-gray-300 rounded-full"> 
-                    <span className="font-semibold">{link.type}: </span> 
-                    {link.url ? link.url : <span className="text-red-700 font-normal">URL is required</span>} 
+                    <span className="font-semibold">{profileLink.type}: </span> 
+                    {profileLink.url ? profileLink.url : <span className="text-red-700 font-normal">URL is required</span>} 
                 </p>
             </div>
         )
@@ -34,7 +34,7 @@ const CompleteProfileReviewStep = ({personalInformation, workExperiences, educat
 
         return (
             <div key={index} className="mt-3 p-5 border rounded-lg border-gray-300">
-                <h3 className="mb-0 mt-0 font-bold">{workExperience.jobTitle ? workExperience.jobTitle : <span className="text-red-700 font-normal">Job Title is required</span>} </h3>
+                <h3 className="mb-0 mt-0 font-bold">{workExperience.title ? workExperience.title : <span className="text-red-700 font-normal">Job Title is required</span>} </h3>
                 <p className="mb-0 mt-0 font-bold">{workExperience.companyName ? workExperience.companyName : <span className="text-red-700 font-normal">Company name is required</span>} </p>
                 <p className="mb-0 mt-0 text-gray-500"> {workExperience.startDate ? workExperience.startDate : <span className="text-red-700 font-normal">Start date is required</span>} - {workExperience.currentlyWorking ? "Present" : workExperience.endDate ? workExperience.endDate : <span className="text-red-700 font-normal">End date is required</span>} </p>
                 <p className="mb-0 mt-0 text-gray-500">{workExperience.location} </p>
@@ -58,10 +58,10 @@ const CompleteProfileReviewStep = ({personalInformation, workExperiences, educat
         return (
             <div key={index} className="mt-3 p-5 border rounded-lg border-gray-300">
                 <h3 className="mb-0 mt-0 font-bold">
-                    {education.institutionName ? education.institutionName : <span className="text-red-700 font-normal">Institution name is required</span>}
+                    {education.schoolName ? education.schoolName : <span className="text-red-700 font-normal">Institution name is required</span>}
                 </h3>
                 <p className="mb-0 mt-0 font-bold">
-                    {education.degreeType ? education.degreeType : <span className="text-red-700 font-normal">Degree type is required</span>} in {education.majorOrAreaOfStudy ? education.majorOrAreaOfStudy : <span className="text-red-700 font-normal">Major or area of study is required</span>} 
+                    {education.degree ? education.degree : <span className="text-red-700 font-normal">Degree type is required</span>} in {education.majorOrAreaOfStudy ? education.majorOrAreaOfStudy : <span className="text-red-700 font-normal">Major or area of study is required</span>} 
                 </p>
                 <p className="mb-0 mt-0 text-gray-500"> 
                     {education.startDate ? education.startDate : <span className="text-red-700 font-normal">Start date is required</span>} - {education.currentlyAttending ? "Present" : education.endDate ? education.endDate : <span className="text-red-700 font-normal">End date is required</span>}
@@ -101,22 +101,22 @@ const CompleteProfileReviewStep = ({personalInformation, workExperiences, educat
             <div className="flex flex-row">
                 
                 <p className="mr-5 mb-0 p-3 pr-5 pl-5 border border-gray-300 rounded-full"> 
-                    {personalInformation.firstName ? <span className="font-semibold">First Name: </span> : <span className="text-red-700 font-normal">First name is required</span>}
-                    {personalInformation.firstName}
+                    {profile.firstName ? <span className="font-semibold">First Name: </span> : <span className="text-red-700 font-normal">First name is required</span>}
+                    {profile.firstName}
                 </p>
 
                 <p className="mr-5 mb-0 p-3 pr-5 pl-5 border border-gray-300 rounded-full"> 
-                    {personalInformation.lastName ? <span className="font-semibold">Last Name: </span> : <span className="text-red-700 font-normal">Last name is required</span>}
-                    {personalInformation.lastName}
+                    {profile.lastName ? <span className="font-semibold">Last Name: </span> : <span className="text-red-700 font-normal">Last name is required</span>}
+                    {profile.lastName}
                 </p>
             </div>
             <p className="mr-5 mb-0 p-3 pr-5 pl-5 border border-gray-300 rounded-full"> 
-                {personalInformation.email ? <span className="font-semibold">Email: </span> : <span className="text-red-700 font-normal">Email is required</span>}
-                {personalInformation.email}
+                {profile.email ? <span className="font-semibold">Email: </span> : <span className="text-red-700 font-normal">Email is required</span>}
+                {profile.email}
             </p>
             <p className="mr-5 mb-0 p-3 pr-5 pl-5 border border-gray-300 rounded-full">
-                {personalInformation.email ? <span className="font-semibold">Phone Number: </span> : <span className="text-red-700 font-normal">Phone Number is required</span>}
-                {personalInformation.phoneNumber} 
+                {profile.email ? <span className="font-semibold">Phone Number: </span> : <span className="text-red-700 font-normal">Phone Number is required</span>}
+                {profile.phoneNumber} 
             </p>
             {linksElements}
 

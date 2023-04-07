@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Education } from "../../types/UserProfile";
+import { Education } from "../../types/dbModels";
 import Tooltip from "./Tooltip";
 
 interface EducationCardProps {
@@ -34,7 +34,8 @@ const EducationCard = ({education, removeEducation}: EducationCardProps) => {
                 </label>
                 <input 
                     className="input input-bordered" type="text" placeholder="Institution Name"
-                    onChange={(e) => {education.institutionName = e.target.value}}
+                    value={education.schoolName}
+                    onChange={(e) => {education.schoolName = e.target.value}}
                 />
 
                 <label className="label mt-3">
@@ -42,6 +43,7 @@ const EducationCard = ({education, removeEducation}: EducationCardProps) => {
                 </label>
                 <input 
                     className="input input-bordered" type="text" placeholder="Location"
+                    value={education.location}
                     onChange={(e) => {education.location = e.target.value}}
                 />
 
@@ -51,7 +53,8 @@ const EducationCard = ({education, removeEducation}: EducationCardProps) => {
                 <div className="border border-gray-300 rounded-lg p-2">
                     <select
                         className="w-full"
-                        onChange={(e) => {education.degreeType = e.target.value}}
+                        value={education.degree}
+                        onChange={(e) => {education.degree = e.target.value}}
                     >
                         <option value="Associate's">Associate's</option>
                         <option value="Bachelor's">Bachelor's</option>
@@ -65,6 +68,7 @@ const EducationCard = ({education, removeEducation}: EducationCardProps) => {
                 </label>
                 <input 
                     className="input input-bordered" type="text" placeholder="Major or Area of Study"
+                    value={education.majorOrAreaOfStudy}
                     onChange={(e) => {education.majorOrAreaOfStudy = e.target.value}}    
                 />
 
