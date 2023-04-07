@@ -1,26 +1,46 @@
 // Generated using py-ts-export interfaces.
 // See https://github.com/cs-cordero/py-ts-export interfaces
 
-export interface Profile {
-    id: number;
-    email: string;
-    firstName: string;
-    lastName: string;
-    phoneNumber: string;
-}
-
-export interface ProfileLanguage {
+export interface JobPosting {
     id: number;
     profileId: number;
-    languageId: number;
-    proficiency: string;
+    title: string;
+    location: string;
+    description: string;
+    companyName: string;
+    datePosted: string;
+    experienceQualification: string;
+    educationQualification: string;
 }
 
-export interface ProfileLink {
+export interface JobPostingSkill {
+    id: number;
+    jobPostingId: number;
+    skillId: number;
+}
+
+export interface Education {
     id: number;
     profileId: number;
-    type: string;
-    url: string;
+    schoolName: string;
+    location: string;
+    degree: string;
+    majorOrAreaOfStudy: string;
+    currentlyAttending: boolean;
+    startDate: string;
+    endDate: string;
+    description: string;
+}
+
+export interface Language {
+    id: number;
+    name: string;
+}
+
+export interface InvitationCode {
+    id: number;
+    code: string;
+    used: boolean;
 }
 
 export interface Account {
@@ -31,31 +51,6 @@ export interface Account {
     lastName: string;
     invitationCodeId: string;
     profileId: number;
-}
-
-export interface Language {
-    id: number;
-    name: string;
-}
-
-export interface Education {
-    id: number;
-    profileId: number;
-    schoolName: string;
-    degree: string;
-    majorOrAreaOfStudy: string;
-    location: string;
-    currentlyAttending: boolean;
-    startDate: string;
-    endDate: string;
-    description: string;
-}
-
-export interface Skill {
-    id: number;
-    name: string;
-    softSkill: boolean;
-    hardSkill: boolean;
 }
 
 export interface WorkExperience {
@@ -76,26 +71,35 @@ export interface WorkExperienceSkill {
     skillId: number;
 }
 
-export interface JobPosting {
+export interface Profile {
     id: number;
-    profileId: number;
-    title: string;
-    location: string;
-    description: string;
-    companyName: string;
-    datePosted: string;
-    experienceQualification: string;
-    educationQualification: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+    phoneNumber: string;
 }
 
-export interface JobPostingSkill {
+export interface ProfileSkill {
     id: number;
-    jobPostingId: number;
+    profileId: number;
     skillId: number;
 }
 
-export interface InvitationCode {
+export interface ProfileLanguage {
     id: number;
-    code: string;
-    used: boolean;
+    profileId: number;
+    languageId: number;
+    proficiency: string;
+}
+
+export interface ProfileLink {
+    id: number;
+    profileId: number;
+    type: string;
+    url: string;
+}
+
+export interface Skill {
+    id: number;
+    name: string;
 }
