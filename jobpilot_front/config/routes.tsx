@@ -5,11 +5,14 @@ const authRoutes = {
 
 const profileRoutes = {
     profile: '/profile',
-    personalInformation: '/profile/personal-information',
     education: '/profile/education',
     workExperience: '/profile/work-experience',
     skills: '/profile/skills',
+    languages: '/profile/languages',
     resume: '/profile/resume',
+    profileLinks: '/profile/links',
+    workExperiences: '/profile/work-experiences',
+    educations: '/profile/educations',
 };
 
 const jobPostingRoutes = {

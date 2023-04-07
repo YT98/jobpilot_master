@@ -1,24 +1,20 @@
 import { useState } from "react";
-import { WorkExperience } from "../../types/UserProfile";
+import { WorkExperienceWithSkills } from "../../types/dbModels";
 import SkillsOrLanguages from "./SkillsOrLanguages";
 import Tooltip from "./Tooltip";
 
 interface WorkExperienceCardProps {
-    workExperience: WorkExperience;
+    workExperience: WorkExperienceWithSkills;
     removeWorkExperience: () => void;
 }
 
 interface WorkExperienceCardState {
-    isAddingSkill: boolean;
-    skillBeingCurrentlyAdded: string;
-    workExperience: WorkExperience;
+    workExperience: WorkExperienceWithSkills;
     currentlyWorking: boolean;
 }
 
 const WorkExperienceCard = ({workExperience, removeWorkExperience}: WorkExperienceCardProps) => {
     const [state, setState] = useState<WorkExperienceCardState>({
-        isAddingSkill: false,
-        skillBeingCurrentlyAdded: "",
         workExperience: workExperience,
         currentlyWorking: false
     })
@@ -39,6 +35,7 @@ const WorkExperienceCard = ({workExperience, removeWorkExperience}: WorkExperien
                 </label>
                 <input 
                     className="input input-bordered" type="text" placeholder="Company Name"
+                    value={workExperience.companyName}
                     onChange={(e) => {workExperience.companyName = e.target.value}}
                 />
 
@@ -47,6 +44,7 @@ const WorkExperienceCard = ({workExperience, removeWorkExperience}: WorkExperien
                 </label>
                 <input 
                     className="input input-bordered" type="text" placeholder="Location"
+                    value={workExperience.location}
                     onChange={(e) => {workExperience.location = e.target.value}}
                 />
 
@@ -55,7 +53,8 @@ const WorkExperienceCard = ({workExperience, removeWorkExperience}: WorkExperien
                 </label>
                 <input 
                     className="input input-bordered" type="text" placeholder="Job Title" 
-                    onChange={(e) => {workExperience.jobTitle = e.target.value}}    
+                    value={workExperience.title}
+                    onChange={(e) => {workExperience.title = e.target.value}}    
                 />
 
                 <div className="flex flex-row">
@@ -66,6 +65,7 @@ const WorkExperienceCard = ({workExperience, removeWorkExperience}: WorkExperien
                         <input
                             type="month" 
                             className="input input-bordered mr-3" 
+                            value={workExperience.startDate}
                             onChange={(e) => {workExperience.startDate = e.target.value}}
                         />
                     </div>
@@ -77,12 +77,14 @@ const WorkExperienceCard = ({workExperience, removeWorkExperience}: WorkExperien
                             type="month" 
                             className={state.currentlyWorking ? "input input-bordered input-disabled opacity-70" : "input input-bordered"}
                             disabled={state.currentlyWorking}
+                            value={workExperience.currentlyWorking ? "" : workExperience.endDate}
                             onChange={(e) => {workExperience.endDate = e.target.value}}
                         />
                         <div className="form-control">
                         <label className="label cursor-pointer mt-1">
                             <input 
                                 type="checkbox" className="checkbox checkbox-sm"
+                                checked={workExperience.currentlyWorking}
                                 onChange={(e) => {
                                     workExperience.currentlyWorking = e.target.checked
                                     setState({...state, currentlyWorking: e.target.checked})
@@ -102,6 +104,7 @@ const WorkExperienceCard = ({workExperience, removeWorkExperience}: WorkExperien
                 </label>
                 <textarea 
                     className="textarea textarea-bordered" placeholder="Description"
+                    value={workExperience.description}
                     onChange={(e) => {workExperience.description = e.target.value}}
                 ></textarea>
 

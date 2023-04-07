@@ -43,7 +43,7 @@ const SkillsOrLanguages = ({ skillsOrLanguages, setSkillsOrLanguages, buttonText
 
     return (
         <div className="flex flex-row flex-wrap">
-            {skillsOrLanguagesList}
+            {skillsOrLanguages ? skillsOrLanguagesList : null}
             <div className={state.isAdding ? "border border-gray-700 rounded-full pl-2 pr-2 ml-2 mr-2" : "hidden"}>
                 <input
                     className="inline-block h-10 bg-transparent pl-2"

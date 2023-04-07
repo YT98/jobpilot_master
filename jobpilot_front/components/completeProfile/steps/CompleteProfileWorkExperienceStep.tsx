@@ -1,9 +1,9 @@
-import { WorkExperience } from "../../../types/UserProfile";
+import { WorkExperienceWithSkills } from "../../../types/dbModels";
 import WorkExperienceCard from "../WorkExperienceCard";
 
 interface CompleteProfileWorkExperienceStepProps {
-    workExperiences: WorkExperience[];
-    setWorkExperiences: (workExperiences: WorkExperience[]) => void;
+    workExperiences: WorkExperienceWithSkills[];
+    setWorkExperiences: (workExperiences: WorkExperienceWithSkills[]) => void;
 }
 
 const CompleteProfileWorkExperienceStep = ({workExperiences, setWorkExperiences}: CompleteProfileWorkExperienceStepProps) => {
@@ -11,13 +11,13 @@ const CompleteProfileWorkExperienceStep = ({workExperiences, setWorkExperiences}
     const addWorkExperience = () => {
         workExperiences.push({
             companyName: "",
-                location: "",
-                jobTitle: "",
-                startDate: "",
-                endDate: "",
-                currentlyWorking: false,
-                description: "",
-                skills: []
+            location: "",
+            title: "",
+            startDate: "",
+            endDate: "",
+            currentlyWorking: false,
+            description: "",
+            skills: []
         })
         setWorkExperiences([ ...workExperiences ])
     }
