@@ -35,7 +35,7 @@ const WorkExperienceCard = ({workExperience, removeWorkExperience}: WorkExperien
                 </label>
                 <input 
                     className="input input-bordered" type="text" placeholder="Company Name"
-                    value={workExperience.companyName}
+                    defaultValue={workExperience.companyName}
                     onChange={(e) => {workExperience.companyName = e.target.value}}
                 />
 
@@ -44,7 +44,7 @@ const WorkExperienceCard = ({workExperience, removeWorkExperience}: WorkExperien
                 </label>
                 <input 
                     className="input input-bordered" type="text" placeholder="Location"
-                    value={workExperience.location}
+                    defaultValue={workExperience.location}
                     onChange={(e) => {workExperience.location = e.target.value}}
                 />
 
@@ -53,7 +53,7 @@ const WorkExperienceCard = ({workExperience, removeWorkExperience}: WorkExperien
                 </label>
                 <input 
                     className="input input-bordered" type="text" placeholder="Job Title" 
-                    value={workExperience.title}
+                    defaultValue={workExperience.title}
                     onChange={(e) => {workExperience.title = e.target.value}}    
                 />
 
@@ -65,19 +65,19 @@ const WorkExperienceCard = ({workExperience, removeWorkExperience}: WorkExperien
                         <input
                             type="month" 
                             className="input input-bordered mr-3" 
-                            value={workExperience.startDate}
+                            defaultValue={workExperience.startDate}
                             onChange={(e) => {workExperience.startDate = e.target.value}}
                         />
                     </div>
                     <div>
-                        <label className={state.currentlyWorking ? "label mt-3 opacity-70" : "label mt-3"}>
+                        <label className={workExperience.currentlyWorking ? "label mt-3 opacity-70" : "label mt-3"}>
                             <span className="label-text">End Date *</span>
                         </label>
                         <input
                             type="month" 
-                            className={state.currentlyWorking ? "input input-bordered input-disabled opacity-70" : "input input-bordered"}
-                            disabled={state.currentlyWorking}
-                            value={workExperience.currentlyWorking ? "" : workExperience.endDate}
+                            className={workExperience.currentlyWorking ? "input input-bordered input-disabled opacity-70" : "input input-bordered"}
+                            disabled={workExperience.currentlyWorking}
+                            defaultValue={workExperience.currentlyWorking ? "" : workExperience.endDate}
                             onChange={(e) => {workExperience.endDate = e.target.value}}
                         />
                         <div className="form-control">
@@ -87,7 +87,6 @@ const WorkExperienceCard = ({workExperience, removeWorkExperience}: WorkExperien
                                 checked={workExperience.currentlyWorking}
                                 onChange={(e) => {
                                     workExperience.currentlyWorking = e.target.checked
-                                    setState({...state, currentlyWorking: e.target.checked})
                                 }}
                             />
                             <span className="label-text ml-2">I am currently working in this role</span> 
@@ -104,7 +103,7 @@ const WorkExperienceCard = ({workExperience, removeWorkExperience}: WorkExperien
                 </label>
                 <textarea 
                     className="textarea textarea-bordered" placeholder="Description"
-                    value={workExperience.description}
+                    defaultValue={workExperience.description}
                     onChange={(e) => {workExperience.description = e.target.value}}
                 ></textarea>
 

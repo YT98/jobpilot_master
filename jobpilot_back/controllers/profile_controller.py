@@ -1,3 +1,4 @@
+from datetime import datetime
 from app import db
 from models.Profile import Profile, ProfileLink
 from models.WorkExperience import WorkExperience, WorkExperienceSkill
@@ -48,10 +49,12 @@ def update_profile_work_experience(profile_id, work_experiences):
         new_work_experience = WorkExperience(
             profile_id=profile_id,
             company_name=work_experience.get('companyName'),
-            # TODO Rename title to jobTitle or the other way around
-            title=work_experience.get('jobTitle'),
-            start_date=work_experience.get('startDate'),
-            end_date=work_experience.get('endDate'),
+            title=work_experience.get('title'),
+            location=work_experience.get('location'),
+            currently_working=work_experience.get('currentlyWorking'),
+            start_date=datetime.strptime(work_experience.get('startDate'), '%Y-%m'),
+            end_date=datetime.strptime(work_experience.get('endDate'), '%Y-%m')
+            if not work_experience.get('currentlyWorking') else None,
             description=work_experience.get('description'),
         )
         db.session.add(new_work_experience)
@@ -87,8 +90,8 @@ def update_profile_education(profile_id, educations):
             location=education.get('location'),
             major_or_area_of_study=education.get('majorOrAreaOfStudy'),
             currently_attending=education.get('currentlyAttending'),
-            start_date=education.get('startDate'),
-            end_date=education.get('endDate'),
+            start_date=datetime.strptime(education.get('startDate'), '%Y-%m'),
+            end_date=datetime.strptime(education.get('endDate'), '%Y-%m') if not education.get('currentlyAttending') else None,
             description=education.get('description'),
         )
         db.session.add(new_education)
@@ -163,10 +166,11 @@ def get_work_experiences_with_skills(profile_id):
             'id': work_experience.id,
             'company_name': work_experience.company_name,
             'title': work_experience.title,
-            'start_date': work_experience.start_date,
+            'start_date': datetime.strftime(work_experience.start_date, "%Y-%m"),
             'location': work_experience.location,
             'currently_working': work_experience.currently_working,
-            'end_date': work_experience.end_date,
+            'end_date': datetime.strftime(work_experience.end_date, "%Y-%m")
+            if not work_experience.currently_working else None,
             'description': work_experience.description,
             'skills': get_work_experience_skills(work_experience.id)
         })

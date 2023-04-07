@@ -1,3 +1,4 @@
+from datetime import datetime
 import os
 from flask import Blueprint, jsonify, request
 import textract
@@ -89,8 +90,8 @@ def get_educations(profile_id):
             'degree': education.degree,
             'majorOrAreaOfStudy': education.major_or_area_of_study,
             'currentlyAttending': education.currently_attending,
-            'startDate': education.start_date,
-            'endDate': education.end_date,
+            'startDate': datetime.strftime(education.start_date, '%Y-%m'),
+            'endDate': datetime.strftime(education.end_date, '%Y-%m') if not education.currently_attending else None,
             'description': education.description
         })
     return jsonify({
