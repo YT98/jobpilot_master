@@ -1,13 +1,16 @@
 from dataclasses import dataclass
+from py_ts_interfaces import Interface
 
 from app import db
 
 
 @dataclass
-class WorkExperience(db.Model):
+class WorkExperience(db.Model, Interface):
     id: int
     profile_id: int
     company_name: str
+    location: str
+    currently_working: bool
     title: str
     start_date: str
     end_date: str
@@ -16,6 +19,8 @@ class WorkExperience(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     profile_id = db.Column(db.Integer, db.ForeignKey('profile.id'), nullable=False)
     company_name = db.Column(db.String(255), nullable=True)
+    location = db.Column(db.String(255), nullable=True)
+    currently_working = db.Column(db.Boolean, nullable=True)
     title = db.Column(db.String(255), nullable=True)
     start_date = db.Column(db.String(255), nullable=True)
     end_date = db.Column(db.String(255), nullable=True)
@@ -23,7 +28,7 @@ class WorkExperience(db.Model):
 
 
 @dataclass
-class WorkExperienceSkill(db.Model):
+class WorkExperienceSkill(db.Model, Interface):
     id: int
     work_experience_id: int
     skill_id: int

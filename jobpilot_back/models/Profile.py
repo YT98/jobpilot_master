@@ -1,10 +1,11 @@
 from dataclasses import dataclass
+from py_ts_interfaces import Interface
 
 from app import db
 
 
 @dataclass
-class Profile(db.Model):
+class Profile(db.Model, Interface):
     id: int
     email: str
     first_name: str
@@ -19,7 +20,7 @@ class Profile(db.Model):
 
 
 @dataclass
-class ProfileSkills(db.Model):
+class ProfileSkill(db.Model, Interface):
     id: int
     profile_id: int
     skill_id: int
@@ -30,7 +31,7 @@ class ProfileSkills(db.Model):
 
 
 @dataclass
-class ProfileLanguages(db.Model):
+class ProfileLanguage(db.Model, Interface):
     id: int
     profile_id: int
     language_id: int
@@ -43,7 +44,7 @@ class ProfileLanguages(db.Model):
 
 
 @dataclass
-class ProfileLinks(db.Model):
+class ProfileLink(db.Model, Interface):
     id: int
     profile_id: int
     type: str

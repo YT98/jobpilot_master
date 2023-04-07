@@ -7,7 +7,7 @@ import CompleteProfileWorkExperienceStep from '../components/completeProfile/ste
 import CompleteProfileEducationStep from '../components/completeProfile/steps/CompleteProfileEducationStep';
 import CompleteProfileSkillsAndLanguagesStep from '../components/completeProfile/steps/CompleteProfileSkillsAndLanguagesStep';
 import CompleteProfileReviewStep from '../components/completeProfile/steps/CompleteProfileReviewStep';
-import { UserProfile, PersonalInformation, WorkExperience, Education } from '../types/UserProfile';
+import { Education, Profile, ProfileLink, WorkExperienceWithSkills } from '../types/dbModelsExtended';
 import protectedRequest from '../utils/protectedRequest';
 import { profileRoutes } from '../config/routes';
 
@@ -15,62 +15,107 @@ import { profileRoutes } from '../config/routes';
 const CompleteProfile = () => {
     const { appState } = useContext(AppContext);
     const profileId = appState.account ? appState.account.profileId : "";
-
     const [currentStep, setCurrentStep] = useState(1);
-    const [userProfile, setUserProfile] = useState<UserProfile>({
+
+    const [profile, setProfile] = useState<Profile>({
         firstName: "",
         lastName: "",
         email: "",
-        phoneNumber: "",
-        links: [ { type: "LinkedIn", url: "" } ],
-        workExperiences: [
-            {
-                companyName: "",
-                jobTitle: "",
-                location: "",
-                startDate: "",
-                endDate: "",
-                currentlyWorking: false,
-                description: "",
-                skills: []
-            }
-        ],
-        educations: [
-            {
-                institutionName: "",
-                location: "",
-                degreeType: "",
-                majorOrAreaOfStudy: "",
-                startDate: "",
-                endDate: "",
-                currentlyAttending: false,
-                description: ""
-            }
-        ],
-        skills: [],
-        languages: []
+        phoneNumber: ""
     });
+
+    const [profileLinks, setProfileLinks] = useState<ProfileLink[]>([
+        { type: "LinkedIn", url: "" }
+    ]);
+
+    const [workExperiences, setWorkExperiences] = useState<WorkExperienceWithSkills[]>([
+        {
+            title: "",
+            companyName: "",
+            location: "",
+            startDate: "",
+            endDate: "",
+            currentlyWorking: false,
+            description: "",
+            skills: []
+        }
+    ]);
+    
+    const [educations, setEducations] = useState<Education[]>([
+        {
+            schoolName: "",
+            degree: "",
+            majorOrAreaOfStudy: "",
+            location: "",
+            startDate: "",
+            endDate: "",
+            currentlyAttending: false,
+            description: ""
+        }
+    ]);
+
+
+    const [skills, setSkills] = useState<string[]>([]);
+    const [languages, setLanguages] = useState<string[]>([]);
 
     useEffect(() => {
         try {
             if (!appState.loading) {
-                const fetchPersonalInformation = async () => {
+                const fetchProfile = async () => {
                     const response = await protectedRequest(process.env.NEXT_PUBLIC_BASE_URL + profileRoutes.profile + `/${profileId}`, 'GET');
                     const data = await response.json();
-                    setUserProfile({
+                    setProfile({
                         firstName: data.firstName,
                         lastName: data.lastName,
                         email: data.email,
-                        phoneNumber: data.phoneNumber,
-                        links: data.links,
-                        workExperiences: data.workExperiences,
-                        educations: data.educations,
-                        skills: data.skills,
-                        languages: data.languages
+                        phoneNumber: data.phoneNumber
                     });
-                    console.log(data)
                 }
-                fetchPersonalInformation();
+                fetchProfile();
+
+                const fetchProfileLinks = async () => {
+                    const response = await protectedRequest(process.env.NEXT_PUBLIC_BASE_URL + profileRoutes.profileLinks + `/${profileId}`, 'GET');
+                    const data = await response.json();
+                    setProfileLinks(data.links);
+                }
+                fetchProfileLinks();
+
+                const fetchWorkExperiences = async () => {
+                    const response = await protectedRequest(process.env.NEXT_PUBLIC_BASE_URL + profileRoutes.workExperiences + `/${profileId}`, 'GET');
+                    const data = await response.json();
+                    console.log(data)
+                    if (data.workExperiences.length > 0) {
+                        setWorkExperiences(data.workExperiences);
+                    }
+                }
+                fetchWorkExperiences();
+
+                const fetchEducations = async () => {
+                    const response = await protectedRequest(process.env.NEXT_PUBLIC_BASE_URL + profileRoutes.educations + `/${profileId}`, 'GET');
+                    const data = await response.json();
+                    if (data.educations.length > 0) {
+                        setEducations(data.educations);
+                    }
+                }
+                fetchEducations();
+
+                const fetchSkills = async () => {
+                    const response = await protectedRequest(process.env.NEXT_PUBLIC_BASE_URL + profileRoutes.skills + `/${profileId}`, 'GET');
+                    const data = await response.json();
+                    if (data.skills.length > 0) {
+                        setSkills(data.skills);
+                    }
+                }
+                fetchSkills();
+
+                const fetchLanguages = async () => {
+                    const response = await protectedRequest(process.env.NEXT_PUBLIC_BASE_URL + profileRoutes.languages + `/${profileId}`, 'GET');
+                    const data = await response.json();
+                    if (data.languages.length > 0) {
+                        setLanguages(data.languages);
+                    }
+                }
+                fetchLanguages();
             }
         } catch (error) {
             console.log(error);
@@ -83,19 +128,16 @@ const CompleteProfile = () => {
 
     const handleSubmit = () => {
         try {
-            console.log(userProfile.workExperiences)
             const submitProfile = async () => {
+
                 await protectedRequest(process.env.NEXT_PUBLIC_BASE_URL + profileRoutes.profile + `/${profileId}`, 'POST',
                     JSON.stringify({
-                        firstName: userProfile.firstName,
-                        lastName: userProfile.lastName,
-                        email: userProfile.email,
-                        phoneNumber: userProfile.phoneNumber,
-                        links: userProfile.links,
-                        workExperiences: userProfile.workExperiences,
-                        educations: userProfile.educations,
-                        skills: userProfile.skills,
-                        languages: userProfile.languages
+                        ...profile,
+                        profileLinks: profileLinks,
+                        workExperiences: workExperiences,
+                        educations: educations,
+                        skills: skills,
+                        languages: languages
                     })
                 );
                 // TODO: Handle response
@@ -114,49 +156,51 @@ const CompleteProfile = () => {
             <div className="relative h-screen overflow-x-hidden mt-[74px]">
                 <CompleteProfileStepContainer handleChangeStep={handleChangeStep} current_step={currentStep} element_step={1}>
                     <CompleteProfilePersonalInformationStep
-                        personalInformation={{
-                            firstName: userProfile.firstName,
-                            lastName: userProfile.lastName,
-                            email: userProfile.email,
-                            phoneNumber: userProfile.phoneNumber,
-                            links: userProfile.links
+                        profile={{
+                            firstName: profile.firstName,
+                            lastName: profile.lastName,
+                            email: profile.email,
+                            phoneNumber: profile.phoneNumber
                         }}
-                        setPersonalInformation={ (personalInformation: PersonalInformation) => {
-                            setUserProfile({...userProfile,
-                                firstName: personalInformation.firstName,
-                                lastName: personalInformation.lastName,
-                                email: personalInformation.email,
-                                phoneNumber: personalInformation.phoneNumber,
-                                links: personalInformation.links
+                        profileLinks = {profileLinks}
+                        setProfile={ (profile: Profile) => {
+                            setProfile({...profile,
+                                firstName: profile.firstName,
+                                lastName: profile.lastName,
+                                email: profile.email,
+                                phoneNumber: profile.phoneNumber
                             })
+                        }}
+                        setProfileLinks={ (profileLinks: ProfileLink[]) => {
+                            setProfileLinks(profileLinks)
                         }}
                     />
                 </CompleteProfileStepContainer>
                 <CompleteProfileStepContainer handleChangeStep={handleChangeStep} current_step={currentStep} element_step={2}>
                     <CompleteProfileWorkExperienceStep 
-                        workExperiences={userProfile.workExperiences} 
-                        setWorkExperiences={ (workExperiences: WorkExperience[]) => {
-                            setUserProfile({...userProfile, workExperiences: workExperiences})
+                        workExperiences={workExperiences} 
+                        setWorkExperiences={ (workExperiences: WorkExperienceWithSkills[]) => {
+                            setWorkExperiences([...workExperiences])
                         }}
                     />
                 </CompleteProfileStepContainer>
                 <CompleteProfileStepContainer handleChangeStep={handleChangeStep} current_step={currentStep} element_step={3}>
                     <CompleteProfileEducationStep 
-                        educations={userProfile.educations} 
+                        educations={educations} 
                         setEducations={ (educations: Education[]) => {
-                            setUserProfile({...userProfile, educations: educations})
+                            setEducations([...educations])
                         }}
                     />
                 </CompleteProfileStepContainer>
                 <CompleteProfileStepContainer handleChangeStep={handleChangeStep} current_step={currentStep} element_step={4}>
                     <CompleteProfileSkillsAndLanguagesStep 
-                        skills={userProfile.skills}
-                        languages={userProfile.languages}
+                        skills={skills}
+                        languages={languages}
                         setSkills={ (skills: string[]) => {
-                            setUserProfile({...userProfile, skills: skills})    
+                            setSkills([...skills])
                         }}
                         setLanguages={ (languages: string[]) => {
-                            setUserProfile({...userProfile, languages: languages})
+                            setLanguages([...languages])
                         }}
                     />
                 </CompleteProfileStepContainer>
@@ -165,17 +209,12 @@ const CompleteProfile = () => {
                     handleSubmit={handleSubmit}
                 >
                     <CompleteProfileReviewStep
-                        personalInformation={{
-                            firstName: userProfile.firstName,
-                            lastName: userProfile.lastName,
-                            email: userProfile.email,
-                            phoneNumber: userProfile.phoneNumber,
-                            links: userProfile.links
-                        }}
-                        workExperiences={userProfile.workExperiences}
-                        educations={userProfile.educations}
-                        skills={userProfile.skills}
-                        languages={userProfile.languages}
+                        profile={profile}
+                        profileLinks={profileLinks}
+                        workExperiences={workExperiences}
+                        educations={educations}
+                        skills={skills}
+                        languages={languages}
                     />
                 </CompleteProfileStepContainer>
             </div>

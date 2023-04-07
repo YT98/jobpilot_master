@@ -1,4 +1,4 @@
-import { Education } from "../../../types/UserProfile";
+import { Education } from "../../../types/dbModelsExtended";
 import EducationCard from "../EducationCard";
 
 interface CompleteProfileEducationStepProps {
@@ -10,14 +10,14 @@ const CompleteProfileEducationStep = ({educations, setEducations}: CompleteProfi
 
     const addEducation = () => {
         educations.push({
-            degreeType: "",
-                majorOrAreaOfStudy: "",
-                institutionName: "",
-                location: "",
-                startDate: "",
-                endDate: "",
-                currentlyAttending: false,
-                description: ""
+            degree: "",
+            majorOrAreaOfStudy: "",
+            schoolName: "",
+            location: "",
+            startDate: "",
+            endDate: "",
+            currentlyAttending: false,
+            description: ""
         })
 
         setEducations([ ...educations ])

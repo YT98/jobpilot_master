@@ -15,10 +15,8 @@ app = Flask(__name__)
 if (os.getenv('ENV') == 'development'):
     print(" * CORS Enabled")
     CORS(app)
-
-if (os.getenv('ENV') == 'development'):
-    logging.basicConfig(level=logging.INFO, filename='app.log')
 else:
+    print(" * CORS Disabled")
     logging.basicConfig(level=logging.INFO, filename='app.log')
 
 # Load environment variables from .env file

@@ -1,10 +1,11 @@
 from dataclasses import dataclass
+from py_ts_interfaces import Interface
 
 from app import db
 
 
 @dataclass
-class Account(db.Model):
+class Account(db.Model, Interface):
     id: int
     email: str
     password: str

@@ -1,41 +1,37 @@
-import { PersonalInformation } from "../../../types/UserProfile";
+import { Profile, ProfileLink } from "../../../types/dbModelsExtended";
 
 interface CompleteProfilePersonalInformationStepProps {
-    personalInformation: PersonalInformation;
-    setPersonalInformation: (personalInformation: PersonalInformation) => void;
+    profile: Profile;
+    setProfile: (profile: Profile) => void;
+    profileLinks: ProfileLink[];
+    setProfileLinks: (profileLinks: ProfileLink[]) => void;
 }
 
-const CompleteProfilePersonalInformationStep = ({personalInformation, setPersonalInformation }: CompleteProfilePersonalInformationStepProps) => {
+const CompleteProfilePersonalInformationStep = ({profile, setProfile, profileLinks, setProfileLinks }: CompleteProfilePersonalInformationStepProps) => {
 
     const handleAddSocialMediaLink = () => {
-        personalInformation.links.push({
+        profileLinks.push({
             type: "LinkedIn",
             url: ""
         });
-
-        setPersonalInformation({
-            ...personalInformation
-        })
-        
+        setProfileLinks([...profileLinks]);
     }
 
     const handleRemoveSocialMediaLink = (index: number) => {
-        personalInformation.links.splice(index, 1);
-        setPersonalInformation({
-            ...personalInformation
-        })
+        profileLinks.splice(index, 1);
+        setProfileLinks([...profileLinks]);
     }
 
-    const socialMediaLinks = personalInformation.links.map((link, index) => {
+    const socialMediaLinks = profileLinks.map((profileLink, index) => {
         return (
             <div key={index} className="flex flex-row rounded-lg border border-gray-300 mt-3 first-of-type:mt-0">
                 <select 
                     className="input flex-grow"
-                    value={personalInformation.links[index].type}
+                    value={profileLink.type}
                     onChange={(e) => {
-                        personalInformation.links[index].type = e.target.value;
-                        setPersonalInformation({
-                            ...personalInformation
+                        profileLink.type = e.target.value;
+                        setProfileLinks({
+                            ...profileLinks
                         })
                     }}
                 >
@@ -48,12 +44,10 @@ const CompleteProfilePersonalInformationStep = ({personalInformation, setPersona
                 </select>
                 <input 
                     type="text" placeholder="URL" className="input flex-grow ml-2 rounded-none border-0 border-l border-gray-300 bg-transparent"
-                    value={personalInformation.links[index].url}
+                    value={profileLink.url}
                     onChange={(e) => {
-                        personalInformation.links[index].url = e.target.value;
-                        setPersonalInformation({
-                            ...personalInformation
-                        })
+                        profileLink.url = e.target.value;
+                        setProfileLinks([...profileLinks])
                     }}
                 />
                 <div className="flex flex-col justify-center">
@@ -84,8 +78,8 @@ const CompleteProfilePersonalInformationStep = ({personalInformation, setPersona
                         </label>
                         <input 
                             type="text" placeholder="First Name" className="input input-bordered mr-3" 
-                            value={personalInformation.firstName}
-                            onChange={(e) => {setPersonalInformation({...personalInformation, firstName: e.target.value})}}    
+                            value={profile.firstName}
+                            onChange={(e) => {setProfile({...profile, firstName: e.target.value})}}    
                         />
                     </div>
                     <div className="flex flex-col flex-grow">
@@ -94,8 +88,8 @@ const CompleteProfilePersonalInformationStep = ({personalInformation, setPersona
                         </label>
                         <input 
                             type="text" placeholder="Last Name" className="input input-bordered" 
-                            value={personalInformation.lastName}
-                            onChange={(e) => {setPersonalInformation({...personalInformation, lastName: e.target.value})}}
+                            value={profile.lastName}
+                            onChange={(e) => {setProfile({...profile, lastName: e.target.value})}}
                         />
                     </div>
                 </div>
@@ -105,8 +99,8 @@ const CompleteProfilePersonalInformationStep = ({personalInformation, setPersona
                     </label>
                     <input 
                         type="email" placeholder="Email" className="input input-bordered" 
-                        value={personalInformation.email}
-                        onChange={(e) => {setPersonalInformation({...personalInformation, email: e.target.value})}}    
+                        value={profile.email}
+                        onChange={(e) => {setProfile({...profile, email: e.target.value})}}    
                     />
 
                     <label className="label mt-3">
@@ -114,8 +108,8 @@ const CompleteProfilePersonalInformationStep = ({personalInformation, setPersona
                     </label>
                     <input 
                         type="tel" placeholder="Phone Number" className="input input-bordered" 
-                        value={personalInformation.phoneNumber}
-                        onChange={(e) => {setPersonalInformation({...personalInformation, phoneNumber: e.target.value})}}
+                        value={profile.phoneNumber}
+                        onChange={(e) => {setProfile({...profile, phoneNumber: e.target.value})}}
                     />
 
                 </div>
