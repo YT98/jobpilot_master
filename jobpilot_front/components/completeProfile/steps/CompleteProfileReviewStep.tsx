@@ -1,4 +1,4 @@
-import { Profile, ProfileLink, WorkExperienceWithSkills, Education } from "../../../types/dbModels";
+import { Profile, ProfileLink, Education, WorkExperienceWithSkills } from "../../../types/dbModelsExtended";
 
 interface CompleteProfileReviewStepProps {
     profile: Profile;

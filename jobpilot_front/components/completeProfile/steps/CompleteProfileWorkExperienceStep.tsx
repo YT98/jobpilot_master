@@ -1,4 +1,4 @@
-import { WorkExperienceWithSkills } from "../../../types/dbModels";
+import { WorkExperienceWithSkills } from "../../../types/dbModelsExtended";
 import WorkExperienceCard from "../WorkExperienceCard";
 
 interface CompleteProfileWorkExperienceStepProps {

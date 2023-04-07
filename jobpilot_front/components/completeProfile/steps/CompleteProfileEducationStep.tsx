@@ -1,4 +1,4 @@
-import { Education } from "../../../types/dbModels";
+import { Education } from "../../../types/dbModelsExtended";
 import EducationCard from "../EducationCard";
 
 interface CompleteProfileEducationStepProps {

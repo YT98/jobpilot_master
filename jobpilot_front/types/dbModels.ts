@@ -2,7 +2,7 @@
 // See https://github.com/cs-cordero/py-ts-export interfaces
 
 export interface Profile {
-    id?: number;
+    id: number;
     email: string;
     firstName: string;
     lastName: string;
@@ -17,8 +17,8 @@ export interface ProfileLanguage {
 }
 
 export interface ProfileLink {
-    id?: number;
-    profileId?: number;
+    id: number;
+    profileId: number;
     type: string;
     url: string;
 }
@@ -39,8 +39,8 @@ export interface Language {
 }
 
 export interface Education {
-    id?: number;
-    profileId?: number;
+    id: number;
+    profileId: number;
     schoolName: string;
     degree: string;
     majorOrAreaOfStudy: string;
@@ -59,8 +59,8 @@ export interface Skill {
 }
 
 export interface WorkExperience {
-    id?: number;
-    profileId?: number;
+    id: number;
+    profileId: number;
     companyName: string;
     location: string;
     currentlyWorking: boolean;
@@ -68,10 +68,6 @@ export interface WorkExperience {
     startDate: string;
     endDate: string;
     description: string;
-}
-
-export interface WorkExperienceWithSkills extends WorkExperience {
-    skills: string[];
 }
 
 export interface WorkExperienceSkill {

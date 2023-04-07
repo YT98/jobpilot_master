@@ -7,7 +7,7 @@ import CompleteProfileWorkExperienceStep from '../components/completeProfile/ste
 import CompleteProfileEducationStep from '../components/completeProfile/steps/CompleteProfileEducationStep';
 import CompleteProfileSkillsAndLanguagesStep from '../components/completeProfile/steps/CompleteProfileSkillsAndLanguagesStep';
 import CompleteProfileReviewStep from '../components/completeProfile/steps/CompleteProfileReviewStep';
-import { Education, Profile, ProfileLink, WorkExperienceWithSkills } from '../types/dbModels';
+import { Education, Profile, ProfileLink, WorkExperienceWithSkills } from '../types/dbModelsExtended';
 import protectedRequest from '../utils/protectedRequest';
 import { profileRoutes } from '../config/routes';
 
