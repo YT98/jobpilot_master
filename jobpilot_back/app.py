@@ -29,6 +29,9 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 migrate.init_app(app, db)
 
+from routes.resume_bp import resume_bp # noqa E402
+app.register_blueprint(resume_bp, url_prefix='/resumes')
+
 from routes.job_posting_bp import job_posting_bp # noqa E402
 app.register_blueprint(job_posting_bp, url_prefix='/job-postings')
 
