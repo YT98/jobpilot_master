@@ -4,8 +4,16 @@ from models.Resume import Resume, ResumeContactInformation, ResumeContactInforma
     ResumeCertification, ResumeSummary, ResumeInvolvement
 from models.Skill import Skill
 from models.Language import Language
+from app import db
 
 # TODO: Write tests for this
+
+
+def create_resume(account_id, resume_name, job_title):
+    resume = Resume(account_id=account_id, resume_name=resume_name, job_title=job_title)
+    db.session.add(resume)
+    db.session.commit()
+    return resume.id
 
 
 def get_account_resumes(account_id):
@@ -93,3 +101,21 @@ def get_resume_summary(resume_id):
         return None
     resume_summary_camel_case = return_model_properties_camelcase(resume_summary)
     return resume_summary_camel_case
+
+
+def get_complete_resume(resume_id):
+    resume = get_resume(resume_id)
+    if resume is None:
+        return None
+    return {
+        'resume': resume,
+        'contact': get_resume_contact_information(resume_id),
+        'work_experiences': get_resume_work_experiences(resume_id),
+        'projects': get_resume_projects(resume_id),
+        'educations': get_resume_educations(resume_id),
+        'skills': get_resume_skills(resume_id),
+        'languages': get_resume_languages(resume_id),
+        'involvements': get_resume_involvements(resume_id),
+        'certifications': get_resume_certifications(resume_id),
+        'summary': get_resume_summary(resume_id)
+    }

@@ -76,7 +76,7 @@ class ResumeWorkExperience(db.Model, Interface):
 @dataclass
 class ResumeProject(db.Model, Interface):
     id: int
-    resume_work_experience_id: int
+    resume_id: int
     title: str
     organization: str
     start_date: str
@@ -85,7 +85,7 @@ class ResumeProject(db.Model, Interface):
     description: str
 
     id = db.Column(db.Integer, primary_key=True)
-    resume_work_experience_id = db.Column(db.Integer, db.ForeignKey('resume_work_experience.id'), nullable=False)
+    resume_id = db.Column(db.Integer, db.ForeignKey('resume.id'), nullable=False)
     title = db.Column(db.String(255), nullable=False)
     organization = db.Column(db.String(255), nullable=True)
     start_date = db.Column(db.String(255), nullable=False)

@@ -3,6 +3,7 @@ import {
     ProfileLink as DbProfileLink,
     Education as DbEducation,
     WorkExperience as DbWorkExperience,
+    Resume as DbResume,
 } from './dbModels';
 
 export type WorkExperience = Omit<DbWorkExperience, "id"| "profileId">;

@@ -24,4 +24,11 @@ const jobPostingRoutes = {
     createJobPosting: '/job-postings/create'
 }
 
-export { authRoutes, profileRoutes, jobPostingRoutes };
+const resumeRoutes = {
+    getCompleteResume: '/resumes/complete',
+    getAllResumes: '/resumes/all',
+    getResume: '/resumes',
+    createResume: '/resumes/create',
+}
+
+export { authRoutes, profileRoutes, jobPostingRoutes, resumeRoutes };

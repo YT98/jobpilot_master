@@ -1,8 +1,19 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 import controllers.resume_controller as resume_controller
 
 
 resume_bp = Blueprint('resume_bp', __name__)
+
+
+@resume_bp.route('/create', methods=['POST'])
+def create_resume():
+    account_id = request.json.get('accountId')
+    resume_name = request.json.get('resumeName')
+    job_title = request.json.get('jobTitle')
+    return jsonify({
+        'message': 'success',
+        'resumeId': resume_controller.create_resume(account_id, resume_name, job_title)
+    })
 
 
 @resume_bp.route('/all/<account_id>', methods=['GET'])
@@ -102,3 +113,17 @@ def get_resume_summary(resume_id):
         'message': 'success',
         'resumeSummary': resume_controller.get_resume_summary(resume_id)
     })
+
+
+@resume_bp.route('/complete/<resume_id>', methods=['GET'])
+def get_complete_resume(resume_id):
+    complete_resume = resume_controller.get_complete_resume(resume_id)
+    if complete_resume is None:
+        return jsonify({
+            'message': 'error',
+            'resumeComplete': None
+        }), 404
+    return jsonify({
+        'message': 'success',
+        'resumeComplete': resume_controller.get_complete_resume(resume_id)
+    }), 200
