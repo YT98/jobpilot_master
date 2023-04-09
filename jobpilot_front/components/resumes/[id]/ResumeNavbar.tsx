@@ -1,9 +1,9 @@
 import Link from "next/link";
 
 interface ResumeNavbarProps {
-    resumeId: string | null;
-    resumeName: string | null;
-    currentPage: string | null;
+    resumeId: string | undefined;
+    resumeName: string | undefined;
+    currentPage: string;
 }
 
 const ResumeNavbar = ({resumeId, resumeName, currentPage}: ResumeNavbarProps) => {
@@ -21,8 +21,10 @@ const ResumeNavbar = ({resumeId, resumeName, currentPage}: ResumeNavbarProps) =>
         return (
             <Link
                 key={index}
+                id={"resume-navbar-" + page}
                 href={linkPath}
                 className={classNames}
+                scroll={false}
             >
                 {pageName}
             </Link>
@@ -30,8 +32,9 @@ const ResumeNavbar = ({resumeId, resumeName, currentPage}: ResumeNavbarProps) =>
     })
 
     return (
-        <div className="flex flex-row p-5 flex-wrap">
+        <div className="flex flex-row p-5 flex-wrap" id="resume-navbar">
             <Link
+                id="resume-navbar-resume-name"
                 href={ resumeId ? `/resumes/${resumeId}` : "#" }
                 className={currentPage === "[id]" ? activeResumeNameClasses : resumeNameClasses}
                 scroll={false}
