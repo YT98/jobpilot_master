@@ -16,7 +16,7 @@ const profileRoutes = {
 };
 
 const jobPostingRoutes = {
-    getJobPostings: '/job-postings/profile',
+    getAllJobPostings: '/job-postings/all',
     getJobPosting: '/job-postings',
     getQualificationsComparison: '/job-postings/qualification-comparison',
     getSkillsComparison: '/job-postings/skills-comparison',
@@ -25,6 +25,7 @@ const jobPostingRoutes = {
 }
 
 const resumeRoutes = {
+    updateResume: '/resumes/update',
     getCompleteResume: '/resumes/complete',
     getAllResumes: '/resumes/all',
     getResume: '/resumes',

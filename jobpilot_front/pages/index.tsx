@@ -31,7 +31,7 @@ const JobPostings = () => {
   useEffect(() => {
     if (!appState.loading) {
       const fetchJobPostings = async () => {
-        const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL + jobPostingRoutes.getJobPostings + `/${userId}`);
+        const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL + jobPostingRoutes.getAllJobPostings + `/${userId}`);
         const data = await response.json();
         setState({...state, job_postings: data});
       }

@@ -7,7 +7,7 @@ from app import db
 @dataclass
 class JobPosting(db.Model, Interface):
     id: int
-    profile_id: int
+    account_id: int
     title: str
     location: str
     description: str
@@ -17,7 +17,7 @@ class JobPosting(db.Model, Interface):
     education_qualification: str
 
     id = db.Column(db.Integer, primary_key=True)
-    profile_id = db.Column(db.Integer, db.ForeignKey('profile.id'), nullable=False)
+    account_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False)
     title = db.Column(db.String(255), nullable=False)
     location = db.Column(db.String(255), nullable=True)
     description = db.Column(db.Text, nullable=False)

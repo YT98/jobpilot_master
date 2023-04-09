@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 import time
 
+import controllers.job_posting_controller as job_posting_controller
 from utils.extract_json import extract_json_object
 from app import db
 from models.JobPosting import JobPosting, JobPostingSkill
@@ -12,9 +13,9 @@ from gpt.prompts import EXTRACT_JOB_POSTING_INFORMATION_PROMPT
 job_posting_bp = Blueprint('job_posting_bp', __name__)
 
 
-@job_posting_bp.route('/profile/<profile_id>', methods=['GET'])
-def get_all_profile_job_postings(profile_id):
-    job_postings = JobPosting.query.filter_by(profile_id=profile_id).all()
+@job_posting_bp.route('/all/<account_id>', methods=['GET'])
+def get_all_profile_job_postings(account_id):
+    job_postings = job_posting_controller.get_all_job_postings(account_id)
     return jsonify(job_postings)
 
 
@@ -88,9 +89,8 @@ def fake_extract_job_posting():
 
 @job_posting_bp.route('/create', methods=['POST'])
 def create_job_posting():
-    data = request.get_json()
-    profile_id = data['profileId']
-    job_posting_info = data['jobPosting']
+    account_id = request.get_json().get('accountId')
+    job_posting_info = request.get_json().get('jobPosting')
 
     job_posting = JobPosting(
         title=job_posting_info['title'],
@@ -99,7 +99,7 @@ def create_job_posting():
         description=job_posting_info['description'],
         education_qualification=job_posting_info['qualifications']['education'],
         experience_qualification=job_posting_info['qualifications']['experience'],
-        profile_id=profile_id
+        account_id=account_id
     )
 
     db.session.add(job_posting)
