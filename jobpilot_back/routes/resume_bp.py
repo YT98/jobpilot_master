@@ -34,6 +34,18 @@ def get_resume(resume_id):
     })
 
 
+@resume_bp.route('/update/<resume_id>', methods=['POST'])
+def update_resume(resume_id):
+    resume_name = request.json.get('resumeName')
+    job_title = request.json.get('jobTitle')
+    job_posting_id = request.json.get('jobPostingId')
+    print(job_posting_id)
+    return jsonify({
+        'message': 'success',
+        'resume': resume_controller.update_resume(resume_id, resume_name, job_title, job_posting_id)
+    })
+
+
 @resume_bp.route('/contact-information/<resume_id>', methods=['GET'])
 def get_resume_contact_information(resume_id):
     resume_controller.get_resume_contact_information(resume_id)

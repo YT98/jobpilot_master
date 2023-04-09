@@ -30,6 +30,19 @@ def get_resume(resume_id):
     return resume_camel_case
 
 
+def update_resume(resume_id, resume_name, job_title, job_posting_id):
+    resume = Resume.query.filter_by(id=resume_id).first()
+    if resume is None:
+        return None
+    resume.resume_name = resume_name
+    resume.job_title = job_title
+    resume.job_posting_id = job_posting_id
+    db.session.commit()
+    db.session.refresh(resume)
+    resume_camel_case = return_model_properties_camelcase(resume)
+    return resume_camel_case
+
+
 def get_resume_contact_information(resume_id):
     resume_contact_information = ResumeContactInformation.query.filter_by(resume_id=resume_id).first()
     if resume_contact_information is None:

@@ -34,6 +34,7 @@ const ResumeNavbar = ({resumeId, resumeName, currentPage}: ResumeNavbarProps) =>
             <Link
                 href={ resumeId ? `/resumes/${resumeId}` : "#" }
                 className={currentPage === "[id]" ? activeResumeNameClasses : resumeNameClasses}
+                scroll={false}
             >
                 {resumeName ? 
                     resumeName.length > 14 ? resumeName.substring(0, 14) + "..." : resumeName 
