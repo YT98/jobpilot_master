@@ -31,16 +31,7 @@ const ResumePageContainer = ({children}: ResumePageContainerProps) => {
                 resumeDispatch({
                     type: "SET_COMPLETE_RESUME",
                     payload: {
-                        resume: data.resumeComplete.resume,
-                        contact: data.resumeComplete.contact,
-                        experiences: data.resumeComplete.experiences,
-                        projects: data.resumeComplete.projects,
-                        educations: data.resumeComplete.educations,
-                        certifications: data.resumeComplete.certifications,
-                        involvements: data.resumeComplete.involvements,
-                        skills: data.resumeComplete.skills,
-                        languages: data.resumeComplete.languages,
-                        summary: data.resumeComplete.summary
+                        ...data.resumeComplete
                     }
                 });
             }
@@ -49,14 +40,14 @@ const ResumePageContainer = ({children}: ResumePageContainerProps) => {
     }, [resumeId]);
     
     return (
-        <div>
+        <div id="resume-page-container">
             <div className="max-w-[1280px] m-auto">
                 { resumeState.resume ? 
                     <ResumeNavbar 
                         resumeId={resumeState.resume.id.toString()} 
                         resumeName={resumeState.resume.resumeName} 
                         currentPage={router.pathname.split("/").slice(-1)[0]}
-                    /> : < ResumeNavbar resumeId={null} resumeName={null} currentPage={router.pathname.split("/").slice(-1)[0]} /> }
+                    /> : < ResumeNavbar resumeId={undefined} resumeName={undefined} currentPage={router.pathname.split("/").slice(-1)[0]} /> }
                 <div className="p-5">
                     {children}
                 </div>

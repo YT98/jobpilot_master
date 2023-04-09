@@ -1,0 +1,33 @@
+{
+    "resume": {
+        "id": 1,
+        "accountId": 0,
+        "resumeName": "Resume Name",
+        "jobTitle": "Job Title",
+        "jobPostingId": 0
+    },
+    "contact": {
+        "id": 0,
+        "resumeId": 1,
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "email": "test@test.com",
+        "phoneNumber": "123-456-7890",
+        "city": "Montréal",
+        "region": "QC",
+        "country": "CA"
+    },
+    "experiences": [],
+    "projects": [],
+    "educations": [],
+    "certifications": [],
+    "involvements": [],
+    "skills": [],
+    "languages": [],
+    "summary": {
+        "id": 0,
+        "resumeId": 1,
+        "summary": "Summary"
+    },
+    "loading": false
+}
