@@ -17,7 +17,10 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true
+    "incremental": true,
+    "types": [
+      "next", "node", "cypress", "cypress-react-selector"
+    ]
   },
   "exclude": [
     "node_modules"

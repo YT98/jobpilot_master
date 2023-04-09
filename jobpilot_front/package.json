@@ -7,7 +7,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint --max-warnings=0 ."
+    "lint": "eslint --max-warnings=0 .",
+    "cypress open": "cypress open",
+    "cypress": "cypress run --component"
   },
   "repository": {
     "type": "git",
@@ -36,7 +38,9 @@
     "@types/jsonwebtoken": "^9.0.1",
     "@typescript-eslint/eslint-plugin": "^5.57.1",
     "@typescript-eslint/parser": "^5.57.1",
+    "cypress": "^12.9.0",
+    "cypress-react-selector": "^3.0.0",
     "eslint": "^8.37.0",
-    "typescript": "^5.0.3"
+    "typescript": "4.4"
   }
 }
