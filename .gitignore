@@ -113,3 +113,7 @@ __pycache__
 app.log
 .DS_Store
 .python-version
+
+# Cypress
+*/cypress/screenshots
+*/cypress/videos
