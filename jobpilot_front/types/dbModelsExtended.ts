@@ -1,4 +1,4 @@
-import { 
+import {
     Profile as DbProfile,
     ProfileLink as DbProfileLink,
     Education as DbEducation,
@@ -17,3 +17,7 @@ export type Profile = Omit<DbProfile, "id">;
 export type ProfileLink = Omit<DbProfileLink, "id" | "profileId">;
 
 export type Education = Omit<DbEducation, "id" | "profileId">;
+
+export interface Resume extends Omit<DbResume, "jobPostingId"> {
+    jobPostingId?: number;
+}

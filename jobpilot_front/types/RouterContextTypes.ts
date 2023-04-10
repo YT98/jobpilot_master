@@ -1,4 +1,5 @@
-import { Resume, ResumeCertification, ResumeContactInformation, ResumeEducation, ResumeInvolvement, ResumeLanguage, ResumeProject, ResumeSkill, ResumeSummary, ResumeWorkExperience } from "./dbModels";
+import { ResumeCertification, ResumeContactInformation, ResumeEducation, ResumeInvolvement, ResumeLanguage, ResumeProject, ResumeSkill, ResumeSummary, ResumeWorkExperience } from "./dbModels";
+import { Resume } from "./dbModelsExtended";
 
 export interface ResumeState {
     resume: Resume | null;
