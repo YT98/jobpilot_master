@@ -4,6 +4,7 @@ import {
     Education as DbEducation,
     WorkExperience as DbWorkExperience,
     Resume as DbResume,
+    ResumeContactInformationLink as DbResumeContactInformationLink,
 } from './dbModels';
 
 export type WorkExperience = Omit<DbWorkExperience, "id"| "profileId">;
@@ -21,3 +22,5 @@ export type Education = Omit<DbEducation, "id" | "profileId">;
 export interface Resume extends Omit<DbResume, "jobPostingId"> {
     jobPostingId?: number;
 }
+
+export type ResumeContactInformationLink = Omit<DbResumeContactInformationLink, "id" | "resumeContactInformationId">;

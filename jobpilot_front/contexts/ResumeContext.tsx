@@ -10,6 +10,7 @@ type ResumeContextType = {
 const initialState: ResumeState = {
     resume: null,
     contact: null,
+    contactLinks: [],
     experiences: null,
     projects: null,
     educations: null,

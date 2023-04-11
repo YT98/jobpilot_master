@@ -99,7 +99,7 @@ export interface ResumeContactInformation {
     country: string;
 }
 
-export interface ResumeContactInformationLinks {
+export interface ResumeContactInformationLink {
     id: number;
     resumeContactInformationId: number;
     type: string;

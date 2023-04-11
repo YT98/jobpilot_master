@@ -1,9 +1,10 @@
-import { ResumeCertification, ResumeContactInformation, ResumeEducation, ResumeInvolvement, ResumeLanguage, ResumeProject, ResumeSkill, ResumeSummary, ResumeWorkExperience } from "./dbModels";
+import { ResumeCertification, ResumeContactInformation, ResumeContactInformationLink, ResumeEducation, ResumeInvolvement, ResumeLanguage, ResumeProject, ResumeSkill, ResumeSummary, ResumeWorkExperience } from "./dbModels";
 import { Resume } from "./dbModelsExtended";
 
 export interface ResumeState {
     resume: Resume | null;
     contact: ResumeContactInformation | null;
+    contactLinks: ResumeContactInformationLink[];
     experiences: ResumeWorkExperience[] | null;
     projects: ResumeProject[] | null;
     educations: ResumeEducation[] | null;
@@ -20,6 +21,7 @@ export type ResumeAction =
     | { type: 'SET_COMPLETE_RESUME'; payload: Omit<ResumeState, "loading"> }
     | { type: 'SET_RESUME'; payload: Resume }
     | { type: 'SET_CONTACT'; payload: ResumeContactInformation }
+    | { type: 'SET_CONTACT_LINKS'; payload: ResumeContactInformationLink[] }
     | { type: 'SET_EXPERIENCES'; payload: ResumeWorkExperience[] }
     | { type: 'SET_PROJECTS'; payload: ResumeProject[] }
     | { type: 'SET_EDUCATIONS'; payload: ResumeEducation[] }

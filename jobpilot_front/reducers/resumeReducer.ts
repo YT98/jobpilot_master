@@ -7,6 +7,7 @@ export const resumeReducer = (state: ResumeState, action: ResumeAction): ResumeS
             ...state,
             resume: null,
             contact: null,
+            contactLinks: [],
             experiences: null,
             projects: null,
             educations: null,
@@ -21,6 +22,7 @@ export const resumeReducer = (state: ResumeState, action: ResumeAction): ResumeS
         return {
             resume: action.payload.resume,
             contact: action.payload.contact,
+            contactLinks: action.payload.contactLinks,
             experiences: action.payload.experiences,
             projects: action.payload.projects,
             educations: action.payload.educations,

@@ -17,6 +17,20 @@
         "region": "QC",
         "country": "CA"
     },
+    "contactLinks": [
+        {
+            "id": 0,
+            "resumeContactInformationId": 0,
+            "type": "LinkedIn",
+            "url": "https://www.linkedin.com/in/username/"
+        },
+        {
+            "id": 0,
+            "resumeContactInformationId": 0,
+            "type": "Github",
+            "url": "https://www.github.com/"
+        }
+    ],
     "experiences": [],
     "projects": [],
     "educations": [],

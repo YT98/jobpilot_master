@@ -20,7 +20,7 @@ const ResumePageContainer = ({children}: ResumePageContainerProps) => {
             const fetchResume = async () => {
                 const response = await protectedRequest(process.env.NEXT_PUBLIC_BASE_URL + resumeRoutes.getCompleteResume + `/${resumeId}`, 'GET');
                 const data = await response.json();
-                // TODO: Handle 404
+                console.log(data)
                 if (response.status === 404) {
                     router.push("/404");
                     return;
@@ -38,14 +38,14 @@ const ResumePageContainer = ({children}: ResumePageContainerProps) => {
             fetchResume();
         }
     }, [resumeId]);
-    
+
     return (
         <div id="resume-page-container">
             <div className="max-w-[1280px] m-auto">
-                { resumeState.resume ? 
-                    <ResumeNavbar 
-                        resumeId={resumeState.resume.id.toString()} 
-                        resumeName={resumeState.resume.resumeName} 
+                { resumeState.resume ?
+                    <ResumeNavbar
+                        resumeId={resumeState.resume.id.toString()}
+                        resumeName={resumeState.resume.resumeName}
                         currentPage={router.pathname.split("/").slice(-1)[0]}
                     /> : < ResumeNavbar resumeId={undefined} resumeName={undefined} currentPage={router.pathname.split("/").slice(-1)[0]} /> }
                 <div className="p-5">

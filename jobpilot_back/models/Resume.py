@@ -38,7 +38,7 @@ class ResumeContactInformation(db.Model, Interface):
 
 
 @dataclass
-class ResumeContactInformationLinks(db.Model, Interface):
+class ResumeContactInformationLink(db.Model, Interface):
     id: int
     resume_contact_information_id: int
     type: str

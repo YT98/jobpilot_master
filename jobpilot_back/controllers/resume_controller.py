@@ -1,5 +1,5 @@
 from utils.return_model_camelcase import return_model_properties_camelcase
-from models.Resume import Resume, ResumeContactInformation, ResumeContactInformationLinks, \
+from models.Resume import Resume, ResumeContactInformation, ResumeContactInformationLink, \
     ResumeWorkExperience, ResumeProject, ResumeEducation, ResumeSkill, ResumeLanguage, \
     ResumeCertification, ResumeSummary, ResumeInvolvement
 from models.Skill import Skill
@@ -43,13 +43,61 @@ def update_resume(resume_id, resume_name, job_title, job_posting_id):
     return resume_camel_case
 
 
+def update_resume_contact_information(resume_id, email, phone_number, city, region, country):
+    resume_contact_information = ResumeContactInformation.query.filter_by(resume_id=resume_id).first()
+    resume_contact_information.email = email
+    resume_contact_information.phone_number = phone_number
+    resume_contact_information.city = city
+    resume_contact_information.region = region
+    resume_contact_information.country = country
+    db.session.commit()
+    db.session.refresh(resume_contact_information)
+
+    resume_contact_information_camel_case = return_model_properties_camelcase(resume_contact_information)
+    return resume_contact_information_camel_case
+
+
+def update_resume_contact_links(resume_contact_information_id, links):
+    resume_contact_information = ResumeContactInformation.query.filter_by(id=resume_contact_information_id).first()
+    resume_contact_information_links = ResumeContactInformationLink.query.filter_by(
+        resume_contact_information_id=resume_contact_information.id).all()
+    for link in resume_contact_information_links:
+        db.session.delete(link)
+    db.session.commit()
+    for link in links:
+        resume_contact_information_link = ResumeContactInformationLink(
+            resume_contact_information_id=resume_contact_information.id,
+            type=link['type'],
+            url=link['url']
+        )
+        db.session.add(resume_contact_information_link)
+        db.session.commit()
+
+    resume_contact_information_links = ResumeContactInformationLink.query.filter_by(
+        resume_contact_information_id=resume_contact_information.id).all()
+    print(resume_contact_information_links)
+
+    resume_contact_information_links_camel_case = [
+        return_model_properties_camelcase(link) for link in resume_contact_information_links]
+    return resume_contact_information_links_camel_case
+
+
+def get_resume_contact_information_links(resume_id):
+    resume_contact_information = ResumeContactInformation.query.filter_by(resume_id=resume_id).first()
+    resume_contact_information_links = ResumeContactInformationLink.query.filter_by(
+        resume_contact_information_id=resume_contact_information.id).all()
+    resume_contact_information_links_camel_case = [
+        return_model_properties_camelcase(link) for link in resume_contact_information_links]
+    return resume_contact_information_links_camel_case
+
+
 def get_resume_contact_information(resume_id):
     resume_contact_information = ResumeContactInformation.query.filter_by(resume_id=resume_id).first()
     if resume_contact_information is None:
         return None
     resume_contact_information_camel_case = return_model_properties_camelcase(resume_contact_information)
 
-    resume_contact_information_links = ResumeContactInformationLinks.query.filter_by(
+    resume_contact_information_links = ResumeContactInformationLink.query.filter_by(
         resume_contact_information_id=resume_contact_information.id).all()
     resume_contact_information_links_camel_case = [
         return_model_properties_camelcase(link) for link in resume_contact_information_links]
@@ -123,6 +171,7 @@ def get_complete_resume(resume_id):
     return {
         'resume': resume,
         'contact': get_resume_contact_information(resume_id),
+        'contactLinks': get_resume_contact_information_links(resume_id),
         'work_experiences': get_resume_work_experiences(resume_id),
         'projects': get_resume_projects(resume_id),
         'educations': get_resume_educations(resume_id),

@@ -25,11 +25,13 @@ const jobPostingRoutes = {
 }
 
 const resumeRoutes = {
-    updateResume: '/resumes/update',
-    getCompleteResume: '/resumes/complete',
     getAllResumes: '/resumes/all',
     getResume: '/resumes',
     createResume: '/resumes/create',
+    getCompleteResume: '/resumes/complete',
+    updateResume: '/resumes/resume',
+    updateContactInformation: '/resumes/contact',
+    updateContactLinks: '/resumes/contact-links',
 }
 
 export { authRoutes, profileRoutes, jobPostingRoutes, resumeRoutes };
